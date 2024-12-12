@@ -1,6 +1,6 @@
-@props(['img' => 'https://picsum.photos/seed/picsum/200/300', 'title', 'rating', 'price', 'previousPrice'])
+@props(['slug', 'img' => 'https://picsum.photos/seed/picsum/200/300', 'title', 'rating', 'price', 'previousPrice'])
 <div class="transition-all duration-300 ease-in-out group hover:-translate-y-5">
-    <a href="/product">
+    <a href="{{ $slug }}">
         <img src="{{ $img }}"
             alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
             class="aspect-square w-full rounded-lg transition-all ease-in-out bg-gray-200 object-cover group-hover:opacity-85 xl:aspect-[7/8]">

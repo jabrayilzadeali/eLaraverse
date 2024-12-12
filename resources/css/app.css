@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Optional additional Swiper styling */
+.swiper {
+    @apply relative;
+}
+
+.swiper-slide {
+    @apply flex justify-center items-center;
+}

@@ -7,14 +7,26 @@ const mobileMenuLinks = document.querySelector('[data-mobile-menu-links]')
 const userOptionBtn = document.querySelector('[data-user-option-btn]')
 const userOptionList = document.querySelector('[data-user-option-list]')
 
-console.log(mobileMenuClosed, mobileMenuOpen)
+const checkout = document.querySelector('[data-checkout]')
+const cartBtn = document.querySelector('[data-cart-button]')
+const cartCloseBtn = document.querySelector('[data-cart-close-btn]')
 
-mobileMenuToggleBtn.addEventListener('click', () => {
+cartCloseBtn.addEventListener('click', () => {
+  console.log('hi')
+  checkout.classList.toggle('hidden')
+})
+
+cartBtn.addEventListener('click', () => {
+  checkout.classList.toggle('hidden')
+  
+})
+
+mobileMenuToggleBtn?.addEventListener('click', () => {
   mobileMenuOpen.classList.toggle('hidden')
   mobileMenuClosed.classList.toggle('hidden')
   mobileMenuLinks.classList.toggle('hidden')
 })
 
-userOptionBtn.addEventListener('click', () => {
+userOptionBtn?.addEventListener('click', () => {
   userOptionList.classList.toggle('hidden')
 })

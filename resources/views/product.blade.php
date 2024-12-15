@@ -4,7 +4,7 @@
             <img src="https://picsum.photos/seed/picsum/500/300" alt="">
         </div>
         <div class="grid flex-col grid-cols-3 grid-rows-[repeat(3, auto)] gap-2 md:flex md:grid-cols-1 md:grid-rows-auto grid-rows-auto">
-            <p class="text-zinc-200 auto-cols-min">Brand Name</p>
+            <p class="text-zinc-800 dark:text-zinc-200 auto-cols-min">Brand Name</p>
             <h2 class="col-span-3 row-start-2 font-semibold text-white md:grid-cols-auto md:grid-rows-auto md:font-bold md:text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo atque debitis, dolore molestias saepe eius unde eaque quas illum tempora obcaecati nostrum placeat facilis iste culpa laudantium corporis delectus libero.</h2>
             <x-stars class="col-start-2 row-start-1 md:grid-cols-auto md:grid-rows-auto"></x-stars>
             <div class="flex items-center col-span-2 grid-rows-3 gap-3">

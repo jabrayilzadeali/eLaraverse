@@ -13,7 +13,8 @@
                 <p class="text-sm md:text-base text-zinc-300">Overall Pick</p>
             </div>
         </div>
-        <div class="flex flex-col justify-between gap-3 pt-3 mt-3 border-t border-gray-700 md:col-start-2">
+        <form action="/cart/add" method="POST" class="flex flex-col justify-between gap-3 pt-3 mt-3 border-t border-gray-700 md:col-start-2">
+            @csrf
             <div class="">
                 <input value="1" class="rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" type="number">
                 <button class="px-3 py-2 font-bold border-0 rounded-md dark:bg-slate-50 dark:text-black">Add to Cart</button>
@@ -36,6 +37,6 @@
                     <button class="bg-green-500 rounded-sm size-6"></button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </x-layout>

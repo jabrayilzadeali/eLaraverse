@@ -1,5 +1,8 @@
 {{-- * * _ * * --}}
 @props(['rating' => 2.8])
+@php
+    $rating = +$rating
+@endphp
 <div {{ $attributes->merge(['class' => 'flex items-end text-orange-500']) }}>
     @for ($i = 0; $i < intval($rating); $i++)
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">

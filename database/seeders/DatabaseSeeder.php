@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cart;
 use Database\Seeders\ProductSeeder;
 
 use App\Models\User;
@@ -16,11 +17,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'username' => 'Test User',
             'email' => 'test@example.com',
             'password' => '12345678',
         ]);
+
+        Cart::factory(2)->create(['user_id' => $user->id]);
         $this->call([
             ProductSeeder::class
         ]);

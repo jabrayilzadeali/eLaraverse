@@ -17,6 +17,7 @@ Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
 
 Route::get('/cart', [CartController::class, 'index']);
+Route::get('/api/cart/index', [CartController::class, 'index']);
 
 Route::post('/logout', [SessionController::class, 'destroy']);
 

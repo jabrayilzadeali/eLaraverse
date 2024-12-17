@@ -1,5 +1,5 @@
 @props(['id', 'img', 'title', 'price', 'quantity'])
-<li data-cart-id class="flex py-6">
+<li data-cart-id="{{ $id }}" class="flex py-6">
     <div
         class="overflow-hidden border border-gray-200 rounded-md size-24 shrink-0">
         <img src="{{ $img }}"

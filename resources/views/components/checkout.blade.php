@@ -55,7 +55,7 @@
                         <div class="px-4 py-6 border-t border-gray-200 sm:px-6">
                             <div class="flex justify-between text-base font-medium text-gray-900">
                                 <p>Subtotal</p>
-                                <p>$262.00</p>
+                                <p>$<span data-total-price>262.00</span></p>
                             </div>
                             <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                             <div class="mt-6">
@@ -78,3 +78,13 @@
         </div>
     </div>
 </div>
+
+{{-- <script>
+    console.log('wow')
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'carts_array') {
+            carts_array = localstorage.getItem('carts_array')
+            console.log(carts_array)
+        }
+    })
+</script> --}}

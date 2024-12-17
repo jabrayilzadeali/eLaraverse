@@ -13,7 +13,7 @@
             <p class="text-base line-through">${{ $previousPrice }}</p>
         </div>
         <div >
-            <button data-add-to-cart data-id="{{ $id }}" data-img="{{ $img }}" data-title="{{ $title }}" data-price="{{ $price }}" class="px-3 py-2 text-black bg-white rounded-md disabled:bg-slate-300">Add To Cart</button>
+            <button data-add-to-cart data-id="{{ $id }}" data-img="{{ $img }}" data-title="{{ $title }}" data-price="{{ $price }}" data-quantity="1" class="px-3 py-2 text-black bg-white rounded-md disabled:bg-slate-300">Add To Cart</button>
             <button data-remove-from-cart data-id="{{ $id }}" data-img="{{ $img }}" data-title="{{ $title }}" data-price="{{ $price }}" class="hidden px-3 py-2 text-black bg-white rounded-md disabled:bg-slate-300">Remove From Cart</button>
         </div>
     </div>

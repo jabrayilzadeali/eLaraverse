@@ -14,23 +14,14 @@
     <div class="fixed inset-0 overflow-hidden">
         <div class="absolute inset-0 overflow-hidden">
             <div class="fixed inset-y-0 right-0 flex max-w-full pl-10 pointer-events-none">
-                <!--
-            Slide-over panel, show/hide based on slide-over state.
-  
-            Entering: "transform transition ease-in-out duration-500 sm:duration-700"
-              From: "translate-x-full"
-              To: "translate-x-0"
-            Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
-              From: "translate-x-0"
-              To: "translate-x-full"
-          -->
                 <div class="w-screen max-w-md pointer-events-auto">
-                    <div class="flex flex-col h-full overflow-y-scroll bg-white shadow-xl">
+                    <div class="flex flex-col h-full overflow-y-scroll bg-white shadow-xl dark:bg-zinc-800">
                         <div class="flex-1 px-4 py-6 overflow-y-auto sm:px-6">
                             <div class="flex items-start justify-between">
-                                <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+                                <h2 class="text-lg font-medium text-gray-900 dark:text-zinc-200" id="slide-over-title">Shopping cart</h2>
                                 <div class="flex items-center ml-3 h-7">
-                                    <button data-cart-close-btn type="button" class="relative p-2 -m-2 text-gray-400 hover:text-gray-500">
+                                    <button data-cart-close-btn type="button"
+                                        class="relative p-2 -m-2 text-gray-400 hover:text-gray-500">
                                         <span class="absolute -inset-0.5"></span>
                                         <span class="sr-only">Close panel</span>
                                         <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -52,17 +43,17 @@
                             </div>
                         </div>
 
-                        <div class="px-4 py-6 border-t border-gray-200 sm:px-6">
+                        <div class="px-4 py-6 border-t border-gray-200 dark:border-gray-900 sm:px-6">
                             <div class="flex justify-between text-base font-medium text-gray-900">
-                                <p>Subtotal</p>
-                                <p>$<span data-total-price>262.00</span></p>
+                                <p class="dark:text-gray-300">Subtotal</p>
+                                <p>$<span data-total-price class="dark:text-gray-200">262.00</span></p>
                             </div>
-                            <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                            <p class="mt-0.5 text-sm text-gray-500 dark:text-gray-400">Shipping and taxes calculated at checkout.</p>
                             <div class="mt-6">
                                 <a href="#"
                                     class="flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700">Checkout</a>
                             </div>
-                            <div class="flex justify-center mt-6 text-sm text-center text-gray-500">
+                            <div class="flex justify-center mt-6 text-sm text-center text-gray-500 dark:text-gray-400">
                                 <p>
                                     or
                                     <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">

@@ -25,4 +25,4 @@ Route::post('/logout', [SessionController::class, 'destroy']);
 //     return view('product');
 // });
 
-Route::resource('products', ProductController::class)->only(['index', 'show']);
+Route::resource('products', ProductController::class)->only(['index', 'show', 'create']);

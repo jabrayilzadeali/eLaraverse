@@ -13,7 +13,7 @@
         <!-- Styles -->
         @vite('resources/css/app.css')
     </head>
-    <body class="h-full dark:bg-gray-950">
+    <body class="flex flex-col gap-12 font-sans antialiased h-dvh dark:bg-gray-950 dark:text-white/50">
         {{ $slot }}
     </body>
 </html>

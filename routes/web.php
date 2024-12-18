@@ -21,8 +21,11 @@ Route::get('/api/cart/index', [CartController::class, 'index']);
 
 Route::post('/logout', [SessionController::class, 'destroy']);
 
+
 // Route::get('/product', function () {
 //     return view('product');
 // });
 
 Route::resource('products', ProductController::class)->only(['index', 'show', 'create']);
+Route::get('/api', [ProductController::class, 'index_api']);
+Route::post('/api', [ProductController::class, 'store_api']);

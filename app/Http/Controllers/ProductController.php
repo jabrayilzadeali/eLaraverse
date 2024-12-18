@@ -23,4 +23,18 @@ class ProductController extends Controller
     {
         return view('products.create');
     }
+    public function index_api()
+    {
+        return response()->json([
+            'csrf_token' => csrf_token(),
+            'xsrf_token' => request()->cookie('XSRF-TOKEN'),
+            'message' => 'get request works'
+        ]);
+    }
+    public function store_api()
+    {
+        return response()->json(['message' => 'post request works']);
+    }
+
+
 }

@@ -14,15 +14,16 @@
         <!-- Styles -->
         @vite('resources/css/app.css')
     </head>
-    <body class="font-sans antialiased dark:bg-gray-950 dark:text-white/50">
+    <body class="flex flex-col gap-12 font-sans antialiased h-dvh dark:bg-gray-950 dark:text-white/50">
         <x-navbar></x-navbar>
-        <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="flex-1 px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
             {{ $slot }}
         </div>
         @vite('resources/js/app.js')
         {{-- <script>
             const isAuthenticated = "{{ Auth::user() }}" ? true : false
         </script> --}}
+        <x-footer></x-footer>
     </body>
 </html>
 

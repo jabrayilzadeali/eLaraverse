@@ -22,9 +22,14 @@
 
                 <div>
                     <label for="username" class="block font-medium text-gray-900 text-sm/6">Username</label>
-                    <div class="mt-2">
-                        <input type="text" name="username" id="username" value="{{ old('username' )}}" required
+                    <div class="relative mt-2">
+                        <input type="text" name="username" id="" required value="{{ old('username') }}"
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                        <div class="absolute right-0 -translate-y-1/2 top-1/2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12 9a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5a5 5 0 0 1 5-5a5 5 0 0 1 5 5a5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5" />
+                            </svg>
+                        </div>
                     </div>
                     @error('username')
                         <p class="mt-1 text-xs font-semibold text-red-500">{{ $message }}</p>

@@ -56,7 +56,7 @@
                             <div class="flex justify-center mt-6 text-sm text-center text-gray-500 dark:text-gray-400">
                                 <p>
                                     or
-                                    <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                    <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500">
                                         Continue Shopping
                                         <span aria-hidden="true"> &rarr;</span>
                                     </button>

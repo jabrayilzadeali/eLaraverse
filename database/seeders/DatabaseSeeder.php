@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
             'password' => '12345678',
         ]);
 
-        Cart::factory(2)->create(['user_id' => $user->id]);
+        // Cart::factory(2)->create(['user_id' => $user->id]);
         $this->call([
             ProductSeeder::class
         ]);
-        $this->call([
-            CartSeeder::class
-        ]);
+        // $this->call([
+        //     CartSeeder::class
+        // ]);
     }
 }

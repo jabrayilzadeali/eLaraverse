@@ -56,13 +56,20 @@ function addCart(id, img, title, price, quantity) {
             quantity: +quantity,
         });
     }
+    if (isAuthenticated) {
+        sendDataToBackend(cartsArray, 'POST', 'http://127.0.0.1:8000/cart')
+    }
     localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
 }
 
 function removeCart(id) {
     let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
+    const removedItem = cartsArray.find((c) => c.id === +id);
     cartsArray = cartsArray.filter((c) => c.id !== +id);
     localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
+    if (isAuthenticated) {
+        sendDataToBackend(removedItem, 'DELETE', 'http://127.0.0.1:8000/cart')
+    }
     updateCartUi();
 }
 
@@ -101,8 +108,10 @@ carts?.addEventListener("click", (e) => {
         let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
         const id = increaseQuantity.dataset.increaseQuantity;
         const c = cartsArray.find((cart) => +cart.id === +id);
-        console.log(c);
         c.quantity++;
+        if (isAuthenticated) {
+            sendDataToBackend(c, 'PATCH', 'http://127.0.0.1:8000/change_cart_quantity')
+        }
         localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
         updateCartUi();
 
@@ -111,18 +120,23 @@ carts?.addEventListener("click", (e) => {
         let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
         const id = decreaseQuantity.dataset.decreaseQuantity;
         const c = cartsArray.find((cart) => +cart.id === +id);
-        console.log(c.quantity)
+        console.log(c.quantity);
         if (c.quantity <= 1) {
             removeCart(id);
             const el = document.querySelector(
-                `[data-remove-from-cart][data-id="${id}"]`
+                `[data-remove-from-cart][data-id="${id}" ]`
             );
             el?.classList.toggle("hidden");
             el?.previousElementSibling.classList.toggle("hidden");
         } else {
-            console.log('quantity: ', c.quantity);
+            console.log("quantity: ", c.quantity);
 
             c.quantity--;
+
+            if (isAuthenticated) {
+                console.log(c)
+                sendDataToBackend(c, 'PATCH', 'http://127.0.0.1:8000/change_cart_quantity')
+            }
             localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
         }
         updateCartUi();
@@ -133,6 +147,25 @@ carts?.addEventListener("click", (e) => {
 cartCloseBtn?.addEventListener("click", () => {
     checkout.classList.toggle("hidden");
 });
+
+async function sendDataToBackend(params, method, url) {
+    try {
+        const response = await fetch(url, {
+            method,
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="_token"]')
+                    .content,
+            },
+            body: JSON.stringify(params),
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+    } catch {}
+}
 
 async function getData(queryParam) {
     const url = `http://127.0.0.1:8000/api/cart/index?query=${queryParam}`;

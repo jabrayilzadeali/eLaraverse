@@ -102,7 +102,7 @@
                             From: "transform opacity-100 scale-100"
                             To: "transform opacity-0 scale-95"
                         -->
-                        <div class="absolute right-0 z-10 hidden w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black/5 focus:outline-none"
+                        <div class="absolute right-0 hidden w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black/5 focus:outline-none"
                             data-user-option-list role="menu" aria-orientation="vertical"
                             aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->

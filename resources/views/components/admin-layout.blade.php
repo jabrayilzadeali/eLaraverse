@@ -13,7 +13,9 @@
         <!-- Styles -->
         @vite('resources/css/app.css')
     </head>
-    <body class="flex flex-col gap-12 font-sans antialiased h-dvh dark:bg-gray-950 dark:text-white/50">
-        {{ $slot }}
+    <body class="">
+        <main class="flex-1 px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            {{ $slot }}
+        </main>
     </body>
 </html>

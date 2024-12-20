@@ -28,4 +28,4 @@ Route::patch('/change_cart_quantity', [ProductController::class, 'change_cart_qu
 //     return view('product');
 // });
 
-Route::resource('products', ProductController::class)->only(['index', 'show', 'create', 'store']);
+Route::resource('products', ProductController::class)->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);

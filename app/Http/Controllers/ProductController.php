@@ -6,6 +6,8 @@ use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 
@@ -28,8 +30,53 @@ class ProductController extends Controller
     
     public function store()
     {
-        dd("wow");
+        $validated = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'file_upload' => 'image',
+            'rating' => 'required|numeric|between:0,5',
+            'price' => 'required',
+        ]);
+        $slug = Str::slug($validated['title']);
+        $validated['slug'] = $slug;
+        
+        if (request()->hasFile('file_upload')) {
+            $file_upload = Storage::disk('public')->put("/$slug", request()->file('file_upload'));
+            $validated['img_path'] = $file_upload;
+        }
+
+        Product::Create($validated);
+        redirect('products.index');
     }
+    
+    public function edit(Product $product)
+    {
+        return view('products.edit', ['product' => $product]);
+    }
+    
+    public function update(Product $product)
+    {
+        
+        $validated = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'file_upload' => 'image',
+            'rating' => 'required|numeric|between:0,5',
+            'price' => 'required',
+        ]);
+        $product->update($validated);
+
+        return redirect()->route('products.index')->with('success', 'Post Edited Successfully');
+    }
+    
+    public function destroy(Product $product)
+    {
+        $product->delete();
+        // dd($product->img_path);
+        Storage::disk('public')->delete($product->img_path);
+        return redirect()->route('products.index')->with('success', 'Post Deleted Successfully');
+    }
+
     public function index_api()
     {
         return response()->json([

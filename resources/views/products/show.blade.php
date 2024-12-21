@@ -1,8 +1,18 @@
 @props(['title'])
 <x-layout>
+    @auth
+        <div class="flex justify-center gap-3 mb-5">
+            <form action="{{ route('products.destroy', $product->slug) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <input class="px-3 py-2 font-semibold text-white bg-indigo-500 rounded-md" type="submit" value="Delete">
+            </form>
+            <a class="px-3 py-2 font-semibold text-white bg-indigo-500 rounded-md" href="{{ route('products.edit', $product->slug) }}">Edit</a>
+        </div>
+    @endauth
     <div class="grid gap-3 md:grid-cols-2 md:grid-rows-[repeat(3, auto)]">
         <div class="row-start-2 md:row-span-2 md:row-start-auto">
-            <img src="{{ $product->img_path }}" alt="">
+            <img src="{{ Storage::url($product->img_path) }}" alt="">
         </div>
         <div class="grid md:flex-col justify-between grid-cols-3 grid-rows-[repeat(3, auto)] gap-4 md:flex md:grid-cols-1">
             <p class="text-zinc-200 auto-cols-min">Brand Name</p>

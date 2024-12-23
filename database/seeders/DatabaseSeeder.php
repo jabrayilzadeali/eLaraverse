@@ -24,9 +24,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Cart::factory(2)->create(['user_id' => $user->id]);
-        $this->call([
-            ProductSeeder::class
-        ]);
+        // $this->call([
+        //     ProductSeeder::class
+        // ]);
         // $this->call([
         //     CartSeeder::class
         // ]);

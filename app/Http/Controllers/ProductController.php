@@ -46,7 +46,7 @@ class ProductController extends Controller
         }
 
         Product::Create($validated);
-        redirect('products.index');
+        return redirect()->route('products.index')->with('success', 'Post Created Successfully');
     }
     
     public function edit(Product $product)
@@ -64,6 +64,25 @@ class ProductController extends Controller
             'rating' => 'required|numeric|between:0,5',
             'price' => 'required',
         ]);
+        
+        $oldSlug = $product->slug;
+        $slug = Str::slug($validated['title']);
+
+
+        if (request()->hasFile('file_upload')) {
+            Storage::disk('public')->delete($product->img_path);
+            $file_upload = Storage::disk('public')->put("/$slug", request()->file('file_upload'));
+            $validated['img_path'] = $file_upload;
+        }
+
+
+        if ($oldSlug !== $slug) {
+            Storage::disk('public')->delete($oldSlug);
+            // rename(storage_path("app/public/$oldSlug"), storage_path("app/public/$slug"));
+            $validated['img_path'] = str_replace($oldSlug, $slug, $product->img_path);
+        }
+        $validated['slug'] = $slug;
+        dd($validated);
         $product->update($validated);
 
         return redirect()->route('products.index')->with('success', 'Post Edited Successfully');
@@ -73,7 +92,9 @@ class ProductController extends Controller
     {
         $product->delete();
         // dd($product->img_path);
-        Storage::disk('public')->delete($product->img_path);
+        // Storage::disk('public')->delete($product->img_path);
+        $directory = dirname($product->img_path);
+        Storage::disk('public')->deleteDirectory($directory);
         return redirect()->route('products.index')->with('success', 'Post Deleted Successfully');
     }
 

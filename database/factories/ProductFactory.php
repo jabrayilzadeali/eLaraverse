@@ -21,6 +21,7 @@ class ProductFactory extends Factory
         $slug = Str::slug($title);
         return [
             'slug' => $slug,
+            'user_id' => 1,
             'title' => $title,
             'description' => fake()->sentence(10),
             'img_path' => fake()->imageUrl(),

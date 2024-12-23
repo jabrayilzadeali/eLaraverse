@@ -39,6 +39,8 @@ class ProductController extends Controller
         ]);
         $slug = Str::slug($validated['title']);
         $validated['slug'] = $slug;
+        $validated['user_id'] = Auth::id();
+
         
         if (request()->hasFile('file_upload')) {
             $file_upload = Storage::disk('public')->put("/$slug", request()->file('file_upload'));
@@ -82,7 +84,6 @@ class ProductController extends Controller
             $validated['img_path'] = str_replace($oldSlug, $slug, $product->img_path);
         }
         $validated['slug'] = $slug;
-        dd($validated);
         $product->update($validated);
 
         return redirect()->route('products.index')->with('success', 'Post Edited Successfully');

@@ -11,6 +11,10 @@ class ProductPolicy
     /**
      * Determine whether the user can view any models.
      */
+    // public function edit(User $user, Product $product)
+    // {
+    //     $product
+    // }
     public function viewAny(User $user): bool
     {
         return false;
@@ -29,7 +33,7 @@ class ProductPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->is_vendor;
     }
 
     /**
@@ -37,7 +41,7 @@ class ProductPolicy
      */
     public function update(User $user, Product $product): bool
     {
-        return false;
+        return $product->user->is($user);
     }
 
     /**
@@ -45,7 +49,7 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product): bool
     {
-        return false;
+        return $product->user->is($user);
     }
 
     /**

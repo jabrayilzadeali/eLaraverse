@@ -4,6 +4,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,4 +29,28 @@ Route::patch('/change_cart_quantity', [ProductController::class, 'change_cart_qu
 //     return view('product');
 // });
 
-Route::resource('products', ProductController::class)->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
+// Route::resource('products', ProductController::class)->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
+// Route::get('/products/{product}/edit', [ProductController::class, 'edit'])
+//     ->name('product.edit')
+//     ->middleware('auth')
+//     ->can('edit', 'product');
+//
+Route::get('products', [ProductController::class, 'index'])->name('products.index');
+Route::middleware(['auth'])->group(function () {
+    Route::get('products/create', [ProductController::class, 'create'])
+        ->can('create', Product::class)
+        ->name('products.create');
+    Route::post('products', [ProductController::class, 'store'])
+        ->can('create', Product::class)
+        ->name('products.store');
+    Route::get('products/{product}/edit', [ProductController::class, 'edit'])
+        ->can('update', 'product')
+        ->name('products.edit');
+    Route::patch('products/{product}', [ProductController::class, 'update'])
+        ->can('update', 'product')
+        ->name('products.update');
+    Route::delete('products/{product}', [ProductController::class, 'destroy'])
+        ->can('delete', 'product')
+        ->name('products.destroy');
+});
+Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');

@@ -1,4 +1,27 @@
 import "./bootstrap";
+import Swiper from "swiper";
+import { Navigation, Pagination } from "swiper/modules";
+// import Swiper and modules styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+const swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+    },
+    pagination: {
+        el: ".swiper-pagination",
+    },
+});
 
 const mobileMenuToggleBtn = document.querySelector(
     "[data-mobile-menu-toggle-btn]"
@@ -57,7 +80,7 @@ function addCart(id, img, title, price, quantity) {
         });
     }
     if (isAuthenticated) {
-        sendDataToBackend(cartsArray, 'POST', 'http://127.0.0.1:8000/cart')
+        sendDataToBackend(cartsArray, "POST", "http://127.0.0.1:8000/cart");
     }
     localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
 }
@@ -68,7 +91,7 @@ function removeCart(id) {
     cartsArray = cartsArray.filter((c) => c.id !== +id);
     localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
     if (isAuthenticated) {
-        sendDataToBackend(removedItem, 'DELETE', 'http://127.0.0.1:8000/cart')
+        sendDataToBackend(removedItem, "DELETE", "http://127.0.0.1:8000/cart");
     }
     updateCartUi();
 }
@@ -110,7 +133,11 @@ carts?.addEventListener("click", (e) => {
         const c = cartsArray.find((cart) => +cart.id === +id);
         c.quantity++;
         if (isAuthenticated) {
-            sendDataToBackend(c, 'PATCH', 'http://127.0.0.1:8000/change_cart_quantity')
+            sendDataToBackend(
+                c,
+                "PATCH",
+                "http://127.0.0.1:8000/change_cart_quantity"
+            );
         }
         localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
         updateCartUi();
@@ -134,8 +161,12 @@ carts?.addEventListener("click", (e) => {
             c.quantity--;
 
             if (isAuthenticated) {
-                console.log(c)
-                sendDataToBackend(c, 'PATCH', 'http://127.0.0.1:8000/change_cart_quantity')
+                console.log(c);
+                sendDataToBackend(
+                    c,
+                    "PATCH",
+                    "http://127.0.0.1:8000/change_cart_quantity"
+                );
             }
             localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
         }

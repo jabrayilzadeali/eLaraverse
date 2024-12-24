@@ -1,4 +1,4 @@
-<footer class="py-5 dark:bg-gray-800">
+<footer class="py-5">
     <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="grid gap-10 md:gap-7 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[3fr_1fr_1fr_3fr]">
             <div class="">

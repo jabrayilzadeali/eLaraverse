@@ -20,9 +20,10 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="flex flex-col gap-12 font-sans antialiased h-dvh dark:bg-gray-950 dark:text-white/50">
+<body class="relative flex flex-col gap-12 font-sans antialiased bg-neutral-900 h-dvh dark:text-white/50">
+    <div class="absolute top-0 z-[-2] h-full w-full bg-neutral-900 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
     <x-navbar></x-navbar>
-    <div class="flex-1 px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="container flex-1 px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
         {{ $slot }}
     </div>
     @vite('resources/js/app.js')

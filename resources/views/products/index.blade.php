@@ -508,6 +508,7 @@
                         <div class="relative inline-block text-left">
                             <div>
                                 <button type="button"
+                                    data-sort-products-btn
                                     class="inline-flex justify-center text-sm font-medium text-gray-700 dark:text-gray-300 group dark:hover:text-gray-400 hover:text-gray-900"
                                     id="menu-button" aria-expanded="false" aria-haspopup="true">
                                     Sort
@@ -530,7 +531,8 @@
                       From: "transform opacity-100 scale-100"
                       To: "transform opacity-0 scale-95"
                   -->
-                            <div class="absolute right-0 z-10 w-40 mt-2 origin-top-right bg-white rounded-md shadow-2xl dark:bg-neutral-800 ring-1 ring-black/5 focus:outline-none"
+                            <div class="absolute right-0 z-10 hidden w-40 mt-2 origin-top-right bg-white rounded-md shadow-2xl dark:bg-neutral-800 ring-1 ring-black/5 focus:outline-none"
+                                data-sort-menu
                                 role="menu" aria-orientation="vertical" aria-labelledby="menu-button"
                                 tabindex="-1">
                                 <div class="py-1" role="none">
@@ -563,6 +565,7 @@
                             </svg>
                         </button>
                         <button type="button"
+                            data-mobile-filter-close
                             class="p-2 ml-4 -m-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
                             <span class="sr-only">Filters</span>
                             <svg class="size-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"

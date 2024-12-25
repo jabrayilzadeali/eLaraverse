@@ -49,6 +49,18 @@ const carts = document.querySelector("[data-carts]");
 const addToCartBtns = document.querySelectorAll("[data-add-to-cart]");
 const removeFromCartBtns = document.querySelectorAll("[data-remove-from-cart]");
 const addToCartInShowBtn = document.querySelector("[data-add-to-cart-in-show]");
+const sortProductsBtn = document.querySelector("[data-sort-products-btn]");
+const sortMenu = document.querySelector("[data-sort-menu]");
+const mobileFilterClose = document.querySelector("[data-mobile-filter-close]")
+
+mobileFilterClose.addEventListener('click', () => {
+    mobileFilterClose
+})
+
+sortProductsBtn.addEventListener('click', () => {
+    sortMenu.classList.toggle('hidden')
+})
+
 
 addToCartInShowBtn?.addEventListener("click", (e) => {
     if (e.target.matches("button")) {

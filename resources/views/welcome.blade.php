@@ -4,10 +4,46 @@
             <ul class="flex flex-col gap-5 p-3">
                 <li class="relative group">
                     <a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Texnalogiya</a>
-                    <div class="absolute z-50 hidden pl-5 bg-transparent group-hover:block -top-3 left-full">
-                        <div class="pl-5 bg-zinc-800 dark:bg-zinc-600">
+                    <div class="absolute z-50 hidden pl-5 min-w-[30rem] bg-transparent group-hover:block -top-3 left-full">
+                        <div class="grid grid-cols-3 grid-rows-3 gap-5 px-5 py-4 rounded-md bg-zinc-800 dark:bg-zinc-600">
                             <div>
                                 <h2 class="font-bold text-md min-w-28">Test lorem</h2>
+                                <ul>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h2 class="font-bold text-md min-w-28">Test 2</h2>
+                                <ul>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h2 class="font-bold text-md min-w-28">Test 2</h2>
+                                <ul>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h2 class="font-bold text-md min-w-28">Test 2</h2>
+                                <ul>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                    <li><a href="#">Test</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h2 class="font-bold text-md min-w-28">Test 2</h2>
                                 <ul>
                                     <li><a href="#">Test</a></li>
                                     <li><a href="#">Test</a></li>

@@ -7,19 +7,27 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const swiper = new Swiper(".mySwiper", {
-    effect: "coverflow",
-    grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: "auto",
-    coverflowEffect: {
-        rotate: 50,
-        stretch: 0,
-        depth: 100,
-        modifier: 1,
-        slideShadows: true,
-    },
+    slidesPerView: 3,
+    spaceBetween: 30,
+    loop: true,
+    autoplay: true,
     pagination: {
         el: ".swiper-pagination",
+        clickable: true,
+    },
+    breakpoints: {
+        640: {
+            slidesPerView: 4,
+            spaceBetween: 50,
+        },
+        768: {
+            slidesPerView: 6,
+            spaceBetween: 50,
+        },
+        1024: {
+            slidesPerView: 8,
+            spaceBetween: 50,
+        },
     },
 });
 

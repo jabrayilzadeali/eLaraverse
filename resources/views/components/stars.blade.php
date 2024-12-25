@@ -23,5 +23,5 @@
             </svg>
         @endfor
     @endif
-    <span class="ml-2 text-white">{{ $rating }}</span>
+    <span class="ml-2 text-black dark:text-white">{{ $rating }}</span>
 </div>

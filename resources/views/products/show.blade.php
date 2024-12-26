@@ -1,5 +1,5 @@
 @props(['title'])
-<x-layout>
+<x-layouts.app-layout>
     @auth
         <div class="flex justify-center gap-3 mb-5">
             @can('delete', $product)

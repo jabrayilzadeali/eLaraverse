@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-layouts.admin-layout>
     <form class="" method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="space-y-12">
@@ -97,4 +97,4 @@
                 class="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
         </div>
     </form>
-</x-admin-layout>
+</x-layouts.admin-layout>

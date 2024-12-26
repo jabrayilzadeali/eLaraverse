@@ -53,4 +53,6 @@ Route::middleware(['auth'])->group(function () {
         ->can('delete', 'product')
         ->name('products.destroy');
 });
+
 Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::view('vendors', 'vendors.index');

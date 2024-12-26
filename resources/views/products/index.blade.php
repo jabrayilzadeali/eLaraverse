@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app-layout>
     <div>
         <div>
             <!--
@@ -6,7 +6,7 @@
       
             Off-canvas filters for mobile, show/hide based on off-canvas filters state.
           -->
-            <div class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
+            <div data-mobile-filter-menu class="relative z-40 hidden lg:hidden" role="dialog" aria-modal="true">
                 <!--
               Off-canvas menu backdrop, show/hide based on off-canvas menu state.
       
@@ -35,6 +35,7 @@
                         <div class="flex items-center justify-between px-4">
                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">Filters</h2>
                             <button type="button"
+                                data-mobile-filter-close
                                 class="flex items-center justify-center p-2 -mr-2 text-gray-400 bg-white rounded-md dark:text-gray-100 dark:bg-transparent size-10">
                                 <span class="sr-only">Close menu</span>
                                 <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -501,7 +502,7 @@
             </div>
 
             <main class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div class="flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
+                <div class="flex items-baseline justify-between pb-6 border-b border-gray-200">
                     <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-300">All Products</h1>
 
                     <div class="flex items-center">
@@ -564,8 +565,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </button>
-                        <button type="button"
-                            data-mobile-filter-close
+                        <button type="button" data-mobile-filter-open
                             class="p-2 ml-4 -m-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
                             <span class="sr-only">Filters</span>
                             <svg class="size-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"
@@ -608,7 +608,7 @@
                                 <h3 class="flow-root -my-3">
                                     <!-- Expand/collapse section button -->
                                     <button type="button"
-                                        class="flex items-center justify-between w-full py-3 text-sm text-gray-400 bg-white dark:bg-neutral-900 hover:text-gray-500"
+                                        class="flex items-center justify-between w-full py-3 text-sm text-gray-400 bg-white dark:bg-transparent hover:text-gray-500"
                                         aria-controls="filter-section-0" aria-expanded="false">
                                         <span class="font-semibold text-gray-900 dark:text-gray-200">Color</span>
                                         <span class="flex items-center ml-6 dark:text-gray-200">
@@ -1053,4 +1053,4 @@
             </div>
         </div>
     </div> --}}
-</x-layout>
+</x-layouts.app-layout>

@@ -1,11 +1,11 @@
-<x-layout>
+<x-layouts.app-layout>
     <div class="grid grid-cols-2 grid-rows-2 gap-3 mb-5 md:grid-cols-9 lg:grid-cols-12 lg:grid-rows-2">
         <div class="hidden col-span-2 row-span-2 rounded-md lg:block bg-zinc-300/50 dark:text-zinc-200 dark:bg-zinc-700">
             <ul class="flex flex-col gap-5 p-3">
                 <li class="relative group">
                     <a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Texnalogiya</a>
                     <div class="absolute z-50 hidden pl-5 min-w-[30rem] bg-transparent group-hover:block -top-3 left-full">
-                        <div class="grid grid-cols-3 grid-rows-3 gap-5 px-5 py-4 rounded-md bg-zinc-800 dark:bg-zinc-600">
+                        <div class="grid grid-cols-3 grid-rows-3 gap-5 px-5 py-4 rounded-md bg-zinc-200 dark:bg-zinc-600">
                             <div>
                                 <h2 class="font-bold text-md min-w-28">Test lorem</h2>
                                 <ul>
@@ -151,7 +151,7 @@
         <button class="p-3 text-gray-700 border border-gray-400 rounded-md dark:text-gray-300">Endirimli Məhsullar</button>
         <button class="p-3 text-gray-700 border border-gray-400 rounded-md dark:text-gray-300">Çox Baxılanlar</button>
     </div>
-    <div class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+    <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         <x-product-item id="1" slug="#" title="lorem ipsum 1" rating="3.2" price="32" previousPrice="64"></x-product-item>
         <x-product-item id="2" slug="#" title="lorem ipsum 2" rating="3.2" price="32" previousPrice="64"></x-product-item>
         <x-product-item id="3" slug="#" title="lorem ipsum 3" rating="3.2" price="32" previousPrice="64"></x-product-item>
@@ -162,4 +162,4 @@
         <x-product-item id="8" slug="#" title="lorem ipsum 8" rating="3.2" price="32" previousPrice="64"></x-product-item>
     </div>
 
-</x-layout>
+</x-layouts.app-layout>

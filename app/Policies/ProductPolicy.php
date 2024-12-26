@@ -33,7 +33,7 @@ class ProductPolicy
      */
     public function create(User $user): bool
     {
-        return $user->is_vendor;
+        return $user->is_seller;
     }
 
     /**

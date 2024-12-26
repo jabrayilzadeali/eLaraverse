@@ -6,6 +6,38 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+const mobileMenuToggleBtn = document.querySelector(
+    "[data-mobile-menu-toggle-btn]"
+);
+const mobileMenuClosed = document.querySelector(
+    "[data-mobile-menu-closed-icon]"
+);
+const mobileMenuOpen = document.querySelector("[data-mobile-menu-open-icon]");
+const mobileMenuLinks = document.querySelector("[data-mobile-menu-links]");
+const userOptionBtn = document.querySelector("[data-user-option-btn]");
+const userOptionList = document.querySelector("[data-user-option-list]");
+
+const checkout = document.querySelector("[data-checkout]");
+const cartBtn = document.querySelector("[data-cart-button]");
+const cartCloseBtn = document.querySelector("[data-cart-close-btn]");
+const carts = document.querySelector("[data-carts]");
+const addToCartBtns = document.querySelectorAll("[data-add-to-cart]");
+const removeFromCartBtns = document.querySelectorAll("[data-remove-from-cart]");
+const addToCartInShowBtn = document.querySelector("[data-add-to-cart-in-show]");
+const sortProductsBtn = document.querySelector("[data-sort-products-btn]");
+const sortMenu = document.querySelector("[data-sort-menu]");
+const mobileFilterMenu = document.querySelector("[data-mobile-filter-menu]")
+const mobileFilterOpen = document.querySelector("[data-mobile-filter-open]")
+const mobileFilterClose = document.querySelector("[data-mobile-filter-close]")
+
+mobileFilterOpen?.addEventListener('click', () => {
+    mobileFilterMenu.classList.remove('hidden')
+})
+
+mobileFilterClose?.addEventListener('click', () => {
+    mobileFilterMenu.classList.add('hidden')
+})
+
 const swiper = new Swiper(".mySwiper", {
     slidesPerView: 3,
     spaceBetween: 30,
@@ -31,33 +63,8 @@ const swiper = new Swiper(".mySwiper", {
     },
 });
 
-const mobileMenuToggleBtn = document.querySelector(
-    "[data-mobile-menu-toggle-btn]"
-);
-const mobileMenuClosed = document.querySelector(
-    "[data-mobile-menu-closed-icon]"
-);
-const mobileMenuOpen = document.querySelector("[data-mobile-menu-open-icon]");
-const mobileMenuLinks = document.querySelector("[data-mobile-menu-links]");
-const userOptionBtn = document.querySelector("[data-user-option-btn]");
-const userOptionList = document.querySelector("[data-user-option-list]");
 
-const checkout = document.querySelector("[data-checkout]");
-const cartBtn = document.querySelector("[data-cart-button]");
-const cartCloseBtn = document.querySelector("[data-cart-close-btn]");
-const carts = document.querySelector("[data-carts]");
-const addToCartBtns = document.querySelectorAll("[data-add-to-cart]");
-const removeFromCartBtns = document.querySelectorAll("[data-remove-from-cart]");
-const addToCartInShowBtn = document.querySelector("[data-add-to-cart-in-show]");
-const sortProductsBtn = document.querySelector("[data-sort-products-btn]");
-const sortMenu = document.querySelector("[data-sort-menu]");
-const mobileFilterClose = document.querySelector("[data-mobile-filter-close]")
-
-mobileFilterClose.addEventListener('click', () => {
-    mobileFilterClose
-})
-
-sortProductsBtn.addEventListener('click', () => {
+sortProductsBtn?.addEventListener('click', () => {
     sortMenu.classList.toggle('hidden')
 })
 

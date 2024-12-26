@@ -21,14 +21,14 @@ class DatabaseSeeder extends Seeder
             'username' => 'Test User',
             'email' => 'test@example.com',
             'password' => '12345678',
-            'is_vendor' => true
+            'is_seller' => true
         ]);
 
         $user = User::factory()->create([
             'username' => 'Test2 User',
             'email' => 'test2@example.com',
             'password' => '12345678',
-            'is_vendor' => true
+            'is_seller' => true
         ]);
 
         Cart::factory(2)->create(['user_id' => 1]);

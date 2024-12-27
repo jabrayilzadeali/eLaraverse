@@ -55,4 +55,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
-Route::view('vendors', 'vendors.index');
+Route::view('sellers', 'sellers.index');

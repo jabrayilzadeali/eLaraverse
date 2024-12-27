@@ -63,6 +63,16 @@ const swiper = new Swiper(".mySwiper", {
     },
 });
 
+const swiper2 = new Swiper(".mySwiper2", {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+});
+
 
 sortProductsBtn?.addEventListener('click', () => {
     sortMenu.classList.toggle('hidden')
@@ -80,15 +90,12 @@ addToCartInShowBtn?.addEventListener("click", (e) => {
 
 function addCart(id, img, title, price, quantity) {
     let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
-    console.log("okay");
     if (cartsArray.length) {
         const c = cartsArray.find((cart) => +cart.id === +id);
         console.log(cartsArray, id, c);
         if (c) {
-            console.log("cart is inside: ", c);
             c.quantity += +quantity;
         } else {
-            console.log("here");
             cartsArray.push({
                 id: +id,
                 title,
@@ -333,5 +340,5 @@ mobileMenuToggleBtn?.addEventListener("click", () => {
 });
 
 userOptionBtn?.addEventListener("click", () => {
-    userOptionList.classList.toggle("hidden");
+    userOptionListclassList.toggle("hidden")
 });

@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-layouts.admin-layout>
     <div class="flex flex-col items-center justify-center min-h-full px-6 py-12 lg:px-8">
 
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -47,4 +47,4 @@
             </p>
         </div>
     </div>
-</x-admin-layout>
+</x-layouts.admin-layout>

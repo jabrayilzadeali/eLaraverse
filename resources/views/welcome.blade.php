@@ -73,7 +73,47 @@
                 <li><a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Bütün Kategoriyalar</a></li>
             </ul>
         </div>
-        <div
+        <div class="col-span-2 rounded-md swiper mySwiper2 md:col-span-5 lg:col-span-6 md:row-span-2 backdrop-blur-md h-72 md:h-full lg:h-full">
+            <div class="swiper-wrapper">
+                <div
+                    class="swiper-slide rounded-md backdrop-blur-md h-72 lg:h-auto bg-[url('https://picsum.photos/id/0/500/400')] bg-cover bg-center">
+                    <div
+                        class="absolute bottom-0 p-3 text-black rounded-md bg-zinc-200/90 dark:bg-zinc-500/90 md:left-5 md:right-5 md:bottom-5">
+                        <h1 class="font-bold text-md md:text-xl">Macbook Pro | 16gb | m4 max</h1>
+                        <p class="">
+                            <span class="text-sm font-semibold text-red-500 line-through">1200$</span>
+                            <span class="text-xl font-semibold">700$</span>
+                            <span class="font-semibold text-md">-50%</span>
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="swiper-slide rounded-md backdrop-blur-md h-72 lg:h-auto bg-[url('https://picsum.photos/id/1/500/400')] bg-cover bg-center">
+                    <div
+                        class="absolute bottom-0 p-3 text-black rounded-md bg-zinc-200/90 dark:bg-zinc-500/90 md:left-5 md:right-5 md:bottom-5">
+                        <h1 class="font-bold text-md md:text-xl">Macbook Pro | 16gb | m4 max</h1>
+                        <p class="">
+                            <span class="text-sm font-semibold text-red-500 line-through">1200$</span>
+                            <span class="text-xl font-semibold">700$</span>
+                            <span class="font-semibold text-md">-50%</span>
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="swiper-slide rounded-md backdrop-blur-md h-72 lg:h-auto bg-[url('https://picsum.photos/id/2/500/400')] bg-cover bg-center">
+                    <div
+                        class="absolute bottom-0 p-3 text-black rounded-md bg-zinc-200/90 dark:bg-zinc-500/90 md:left-5 md:right-5 md:bottom-5">
+                        <h1 class="font-bold text-md md:text-xl">Macbook Pro | 16gb | m4 max</h1>
+                        <p class="">
+                            <span class="text-sm font-semibold text-red-500 line-through">1200$</span>
+                            <span class="text-xl font-semibold">700$</span>
+                            <span class="font-semibold text-md">-50%</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div
             class="col-span-2 md:col-span-5 lg:col-span-6 md:row-span-2 rounded-md backdrop-blur-md h-72 md:h-full lg:h-auto bg-[url('https://picsum.photos/id/0/500/400')] bg-cover bg-center">
             <div
                 class="absolute bottom-0 p-3 text-black rounded-md bg-zinc-200/90 dark:bg-zinc-500/90 md:left-5 md:right-5 md:bottom-5">
@@ -84,7 +124,7 @@
                     <span class="font-semibold text-md">-50%</span>
                 </p>
             </div>
-        </div>
+        </div> --}}
         <div
             class="grid col-span-2 row-span-1 rounded-md place-content-center bg-zinc-300/80 dark:bg-zinc-700 md:col-span-4 h-50 md:h-auto">
             <div class="flex items-end justify-center gap-5 px-3">
@@ -117,34 +157,19 @@
 
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="https://picsum.photos/id/1/100/100" alt=""></div>
-            <div class="swiper-slide"><img src="https://picsum.photos/id/2/100/100" alt=""></div>
-            <div class="swiper-slide"><img src="https://picsum.photos/id/3/100/100" alt=""></div>
-            <div class="swiper-slide"><img src="https://picsum.photos/id/4/100/100" alt=""></div>
-            <div class="swiper-slide"><img src="https://picsum.photos/id/5/100/100" alt=""></div>
-            <div class="swiper-slide"><img src="https://picsum.photos/id/6/100/100" alt=""></div>
-            <div class="swiper-slide"><img src="https://picsum.photos/id/7/100/100" alt=""></div>
-            <div class="swiper-slide"><img src="https://picsum.photos/id/8/100/100" alt=""></div>
-            <div class="swiper-slide"><img src="https://picsum.photos/id/9/100/100" alt=""></div>
-            <div class="swiper-slide"><img src="https://picsum.photos/id/10/100/100" alt=""></div>
+            <div class="swiper-slide"><img class="w-full h-auto rounded-md" src="https://picsum.photos/id/1/100/100" alt=""></div>
+            <div class="swiper-slide"><img class="w-full h-auto rounded-md" src="https://picsum.photos/id/2/100/100" alt=""></div>
+            <div class="swiper-slide"><img class="w-full h-auto rounded-md" src="https://picsum.photos/id/3/100/100" alt=""></div>
+            <div class="swiper-slide"><img class="w-full h-auto rounded-md" src="https://picsum.photos/id/4/100/100" alt=""></div>
+            <div class="swiper-slide"><img class="w-full h-auto rounded-md" src="https://picsum.photos/id/5/100/100" alt=""></div>
+            <div class="swiper-slide"><img class="w-full h-auto rounded-md" src="https://picsum.photos/id/6/100/100" alt=""></div>
+            <div class="swiper-slide"><img class="w-full h-auto rounded-md" src="https://picsum.photos/id/7/100/100" alt=""></div>
+            <div class="swiper-slide"><img class="w-full h-auto rounded-md" src="https://picsum.photos/id/8/100/100" alt=""></div>
+            <div class="swiper-slide"><img class="w-full h-auto rounded-md" src="https://picsum.photos/id/9/100/100" alt=""></div>
+            <div class="swiper-slide"><img class="w-full h-auto rounded-md" src="https://picsum.photos/id/10/100/100" alt=""></div>
         </div>
         <div class="swiper-pagination"></div>
     </div>
-
-    <style>
-        .swiper {
-            width: 100%;
-            max-width: 1216px;
-            margin: auto;
-        }
-
-        .swiper-slide img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            /* Optional for rounded images */
-        }
-    </style>
 
     <div class="z-50 flex gap-5 mt-20 mb-8">
         <button class="p-3 font-bold text-gray-200 bg-gray-800 rounded-md">Yeni Məhsullar</button>
@@ -162,4 +187,17 @@
         <x-product-item id="8" slug="#" title="lorem ipsum 8" rating="3.2" price="32" previousPrice="64"></x-product-item>
     </div>
 
+    <style>
+        .swiper {
+            width: 100%;
+            max-width: 1216px;
+            margin: auto;
+        }
+
+        /* .swiper-slide > img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        } */
+    </style>
 </x-layouts.app-layout>

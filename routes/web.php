@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\SellerController;
 use App\Http\Controllers\SessionController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
@@ -54,5 +55,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('products.destroy');
 });
 
+// Route::middleware(['auth'])->group(function () {
+// });
 Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
-Route::view('sellers', 'sellers.index');
+Route::get('sellers/', [SellerController::class, 'index'])->name('sellers.index');
+Route::get('sellers/create', [SellerController::class, 'create'])->name('sellers.create');
+Route::post('sellers/', [SellerController::class, 'store'])->name('sellers.store');
+

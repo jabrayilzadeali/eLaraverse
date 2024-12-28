@@ -3,14 +3,18 @@
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img class="w-auto h-10 mx-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
                 alt="Your Company">
-            <h2 class="mt-10 font-bold tracking-tight text-center text-gray-900 text-2xl/9">Sign in to your account</h2>
+            <h2 class="mt-10 font-bold tracking-tight text-center text-gray-900 dark:text-gray-100 text-2xl/9">Sign in to your account</h2>
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <div class="flex gap-3">
+                <button class="px-3 py-2 rounded-md w-28 dark:bg-indigo-700 dark:text-white">Costumer</button>
+                <button class="px-3 py-2 rounded-md w-28 dark:bg-indigo-700 dark:text-white">Seller</button>
+            </div>
             <form class="space-y-6" action="/login" method="POST">
                 @csrf
                 <div>
-                    <label for="email" class="block font-medium text-gray-900 text-sm/6">Email address</label>
+                    <label for="email" class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Email address</label>
                     <div class="mt-2">
                         <input type="email" name="email" id="email" autocomplete="email" required
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
@@ -22,7 +26,7 @@
 
                 <div>
                     <div class="flex items-center justify-between">
-                        <label for="password" class="block font-medium text-gray-900 text-sm/6">Password</label>
+                        <label for="password" class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Password</label>
                         <div class="text-sm">
                             <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot
                                 password?</a>
@@ -49,5 +53,4 @@
             </p>
         </div>
     </div>
-
 </x-layouts.auth-layout>

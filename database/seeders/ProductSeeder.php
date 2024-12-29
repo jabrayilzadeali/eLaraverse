@@ -13,6 +13,10 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        Product::factory(10)->create();
+        Product::factory(2)->create(['user_id' => 1, 'is_featured' => true]);
+        Product::factory(3)->create(['user_id' => 1]);
+        Product::factory(3)->create(['user_id' => 2]);
+        Product::factory(3)->create(['user_id' => 2, 'is_featured' => true]);
+        Product::factory(3)->create(['user_id' => 3]);
     }
 }

@@ -12,6 +12,8 @@ const mobileMenuToggleBtn = document.querySelector(
 const mobileMenuClosed = document.querySelector(
     "[data-mobile-menu-closed-icon]"
 );
+
+const html = document.querySelector('html')
 const mobileMenuOpen = document.querySelector("[data-mobile-menu-open-icon]");
 const mobileMenuLinks = document.querySelector("[data-mobile-menu-links]");
 const userOptionBtn = document.querySelector("[data-user-option-btn]");
@@ -29,6 +31,17 @@ const sortMenu = document.querySelector("[data-sort-menu]");
 const mobileFilterMenu = document.querySelector("[data-mobile-filter-menu]")
 const mobileFilterOpen = document.querySelector("[data-mobile-filter-open]")
 const mobileFilterClose = document.querySelector("[data-mobile-filter-close]")
+
+const newItems = document.querySelector('[data-new-items]')
+const discountedItems = document.querySelector('[data-discounted-items]')
+const mostWatchedItems = document.querySelector('[data-most-watched-items]')
+const darkModeToggle = document.querySelector('[data-dark-mode-toggle-button]')
+
+darkModeToggle.addEventListener('click', () => {
+    html.classList.toggle('dark')
+    document.querySelector('[data-sun-icon]').classList.toggle('hidden')
+    document.querySelector('[data-moon-icon]').classList.toggle('hidden')
+})
 
 mobileFilterOpen?.addEventListener('click', () => {
     mobileFilterMenu.classList.remove('hidden')
@@ -340,5 +353,26 @@ mobileMenuToggleBtn?.addEventListener("click", () => {
 });
 
 userOptionBtn?.addEventListener("click", () => {
-    userOptionListclassList.toggle("hidden")
+    userOptionList.classList.toggle("hidden")
 });
+
+const tabActiveClasses = "p-3 font-bold text-gray-200 bg-gray-800 rounded-md"
+const tabNotActiveClasses = "p-3 text-gray-700 border border-gray-400 rounded-md dark:text-gray-300"
+
+newItems.addEventListener('click', () => {
+    activeTab('newItems')
+})
+
+discountedItems.addEventListener('click', () => {
+    activeTab('discountedItems')
+})
+
+mostWatchedItems.addEventListener('click', () => {
+    activeTab('mostWatchedItems')
+})
+
+function activeTab(active) {
+    newItems.classList = active === 'newItems' ? tabActiveClasses : tabNotActiveClasses
+    discountedItems.classList = active === 'discountedItems' ? tabActiveClasses : tabNotActiveClasses
+    mostWatchedItems.classList = active === 'mostWatchedItems' ? tabActiveClasses : tabNotActiveClasses
+}

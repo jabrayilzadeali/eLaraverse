@@ -33,6 +33,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    
+    protected $casts = [
+        'is_seller' => 'boolean', // Cast integer to real boolean
+    ];
 
     /**
      * Get the attributes that should be cast.

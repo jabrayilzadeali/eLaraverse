@@ -7,12 +7,13 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <div class="flex gap-3">
-                <button class="px-3 py-2 rounded-md w-28 dark:bg-indigo-700 dark:text-white">Costumer</button>
-                <button class="px-3 py-2 rounded-md w-28 dark:bg-indigo-700 dark:text-white">Seller</button>
+            <div class="flex border-b dark:border-indigo-700">
+                <button class="w-24 px-3 py-2 dark:bg-indigo-700 dark:text-white" data-costumer-form>Costumer</button>
+                <button class="w-24 px-3 py-2 dark:bg-indigo-100 dark:text-black" data-seller-form>Seller</button>
             </div>
-            <form class="space-y-6" action="/login" method="POST">
+            <form data-form class="space-y-6" action="/login" method="POST">
                 @csrf
+                <input type="hidden" data-user-type name="user_type" value="costumer">
                 <div>
                     <label for="email" class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Email address</label>
                     <div class="mt-2">
@@ -28,8 +29,7 @@
                     <div class="flex items-center justify-between">
                         <label for="password" class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Password</label>
                         <div class="text-sm">
-                            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot
-                                password?</a>
+                            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
                         </div>
                         @error('password')
                             <p class="mt-1 text-xs font-semibold text-red-500">{{ $message }}</p>
@@ -45,6 +45,9 @@
                     <button type="submit"
                         class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign Up</button>
                 </div>
+                @error('user_type')
+                    <p class="mt-1 text-xs font-semibold text-red-500">{{ $message }}</p>
+                @enderror
             </form>
 
             <p class="mt-10 text-center text-gray-500 text-sm/6">
@@ -53,4 +56,26 @@
             </p>
         </div>
     </div>
+
+    <script>
+        const active = "w-24 px-3 py-2 dark:bg-indigo-700 dark:text-white"
+        const notActive = "w-24 px-3 py-2 dark:bg-indigo-100 dark:text-black"
+
+        const costumerForm = document.querySelector('[data-costumer-form]')
+        const sellerForm = document.querySelector('[data-seller-form]')
+        const userType = document.querySelector('[data-user-type]')
+        
+        costumerForm.addEventListener('click', () => {
+            userType.value = 'costumer'
+            costumerForm.classList = active
+            sellerForm.classList = notActive
+        })
+        
+        sellerForm.addEventListener('click', () => {
+            userType.value = 'seller'
+            sellerForm.classList = active
+            costumerForm.classList = notActive
+        })
+        
+    </script>
 </x-layouts.auth-layout>

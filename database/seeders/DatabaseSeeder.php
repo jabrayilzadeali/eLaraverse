@@ -31,11 +31,18 @@ class DatabaseSeeder extends Seeder
             'is_seller' => true
         ]);
 
+        $user = User::factory()->create([
+            'username' => 'Test3 User',
+            'email' => 'test3@example.com',
+            'password' => '12345678',
+            'is_seller' => false
+        ]);
+
         Cart::factory(2)->create(['user_id' => 1]);
         Cart::factory(2)->create(['user_id' => 2]);
-        // $this->call([
-        //     ProductSeeder::class
-        // ]);
+        $this->call([
+            ProductSeeder::class
+        ]);
         // $this->call([
         //     CartSeeder::class
         // ]);

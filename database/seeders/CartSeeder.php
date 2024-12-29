@@ -13,6 +13,7 @@ class CartSeeder extends Seeder
      */
     public function run(): void
     {
-        Cart::factory(10)->create();
+        Cart::factory(5)->create(['is_featured' => true]);
+        Cart::factory(5)->create();
     }
 }

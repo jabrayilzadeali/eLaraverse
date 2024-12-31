@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('img_path');
-            $table->string('rating');
+            $table->string('rating')->default(0);
             $table->boolean('is_featured')->default(false);
             $table->decimal('price', 9, 3);
             $table->timestamps();

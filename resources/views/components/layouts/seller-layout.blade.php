@@ -30,7 +30,7 @@
                 </ul>
             </div>
         </div>
-        <div class="container flex-1 px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="container flex-1 px-2 mx-auto sm:px-6 lg:px-8">
             {{ $slot }}
         </div>
     </div>

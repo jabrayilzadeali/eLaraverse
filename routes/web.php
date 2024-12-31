@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $featuredProducts = Product::factory(3)->create(['user_id' => 2]);
+    $featuredProducts = Product::where('is_featured', true)->get();
     $latestProducts = Product::latest()->take(8)->get();
     return view('welcome', [
         'featuredProducts' => $featuredProducts,
@@ -73,15 +73,24 @@ Route::get('sellers/dashboard', function (User $user) {
     // ->can('isSeller', User::class)
     // ->name('sellers.index');
 Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
-Route::get('sellers/dashboard', [SellerController::class, 'index'])
-    ->can('isSeller', User::class)
-    ->name('sellers.index');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('sellers/dashboard', [SellerController::class, 'index'])
+        ->can('create', Product::class)
+        ->name('sellers.index');
     Route::get('sellers/create', [SellerController::class, 'create'])
-        ->can('isSeller')
+        ->can('create', Product::class)
         ->name('sellers.create');
-    // Route::post('sellers/', [SellerController::class, 'store'])
-    //     ->can('isSeller', User::class)
-    //     ->name('sellers.store');
+    Route::post('sellers/', [SellerController::class, 'store'])
+        ->can('create', Product::class)
+        ->name('sellers.store');
+    Route::get('sellers/{product}/edit', [SellerController::class, 'edit'])
+        ->can('update', 'product')
+        ->name('sellers.edit');
+    Route::patch('products/{product}', [SellerController::class, 'update'])
+        ->can('update', 'product')
+        ->name('sellers.update');
+    Route::delete('products/{product}', [SellerController::class, 'destroy'])
+        ->can('delete', 'product')
+        ->name('sellers.destroy');
 });

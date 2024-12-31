@@ -12,7 +12,8 @@ class SellerController extends Controller
 {
     public function index()
     {
-        return view('sellers.index');
+        $products = Auth::user()->products;
+        return view('sellers.index', ['products' => $products]);
     }
 
     public function create()
@@ -26,7 +27,7 @@ class SellerController extends Controller
             'title' => 'required',
             'description' => 'required',
             'file_upload' => 'image',
-            'rating' => 'required|numeric|between:0,5',
+            // 'rating' => 'numeric|between:0,5',
             'price' => 'required',
         ]);
         $slug = Str::slug($validated['title']);
@@ -45,7 +46,7 @@ class SellerController extends Controller
     
     public function edit(Product $product)
     {
-        return view('products.edit', ['product' => $product]);
+        return view('sellers.edit', ['product' => $product]);
     }
     
     public function update(Product $product)
@@ -55,7 +56,6 @@ class SellerController extends Controller
             'title' => 'required',
             'description' => 'required',
             'file_upload' => 'image',
-            'rating' => 'required|numeric|between:0,5',
             'price' => 'required',
         ]);
         
@@ -78,7 +78,7 @@ class SellerController extends Controller
         $validated['slug'] = $slug;
         $product->update($validated);
 
-        return redirect()->route('products.index')->with('success', 'Post Edited Successfully');
+        return redirect()->route('sellers.index')->with('success', 'Post Edited Successfully');
     }
     
     public function destroy(Product $product)
@@ -86,7 +86,7 @@ class SellerController extends Controller
         $product->delete();
         $directory = dirname($product->img_path);
         Storage::disk('public')->deleteDirectory($directory);
-        return redirect()->route('products.index')->with('success', 'Post Deleted Successfully');
+        return redirect()->route('sellers.index')->with('success', 'Post Deleted Successfully');
     }
 
 

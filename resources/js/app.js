@@ -37,7 +37,16 @@ const discountedItems = document.querySelector('[data-discounted-items]')
 const mostWatchedItems = document.querySelector('[data-most-watched-items]')
 const darkModeToggle = document.querySelector('[data-dark-mode-toggle-button]')
 
-darkModeToggle.addEventListener('click', () => {
+
+const logoutForm = document.querySelector('[data-logout-user]')
+
+logoutForm?.addEventListener('submit', (e) => {
+    localStorage.removeItem('cartsArray')
+    updateCartUi();
+})
+
+
+darkModeToggle?.addEventListener('click', () => {
     html.classList.toggle('dark')
     document.querySelector('[data-sun-icon]').classList.toggle('hidden')
     document.querySelector('[data-moon-icon]').classList.toggle('hidden')
@@ -86,6 +95,18 @@ const swiper2 = new Swiper(".mySwiper2", {
     },
 });
 
+if (isAuthenticated && localStorage.getItem('firstTimeLogin') === 'true') {
+    let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
+    sendDataToBackend(cartsArray, "POST", "http://127.0.0.1:8000/fetch_carts")
+    .then((carts) => {
+        localStorage.setItem('firstTimeLogin', false)
+        localStorage.setItem("cartsArray", JSON.stringify(carts.carts));
+        updateCartUi()
+    })
+    .catch((error) => {
+        console.error('Error fetching carts:', error);
+    });
+}
 
 sortProductsBtn?.addEventListener('click', () => {
     sortMenu.classList.toggle('hidden')
@@ -118,6 +139,7 @@ function addCart(id, img, title, price, quantity) {
             });
         }
     } else {
+        console.log(cartsArray)
         cartsArray.push({
             id: +id,
             title,
@@ -127,6 +149,7 @@ function addCart(id, img, title, price, quantity) {
         });
     }
     if (isAuthenticated) {
+        console.log("here okay", cartsArray)
         sendDataToBackend(cartsArray, "POST", "http://127.0.0.1:8000/cart");
     }
     localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
@@ -164,7 +187,6 @@ carts?.addEventListener("click", (e) => {
     const removeCartEl = e.target.matches("[data-remove-cart]");
     const increaseQuantity = e.target.closest("[data-increase-quantity]");
     const decreaseQuantity = e.target.closest("[data-decrease-quantity]");
-    console.log(e.target);
     if (removeCartEl) {
         const id = e.target.dataset.removeCart;
         removeCart(id);
@@ -241,8 +263,11 @@ async function sendDataToBackend(params, method, url) {
             throw new Error(`Response status: ${response.status}`);
         }
         const json = await response.json();
-        console.log(json);
-    } catch {}
+        console.log('here', json)
+        return json
+    } catch (error) {
+        console.error('Error sending Data', error)
+    }
 }
 
 async function getData(queryParam) {
@@ -359,15 +384,15 @@ userOptionBtn?.addEventListener("click", () => {
 const tabActiveClasses = "p-3 font-bold text-gray-200 bg-gray-800 rounded-md"
 const tabNotActiveClasses = "p-3 text-gray-700 border border-gray-400 rounded-md dark:text-gray-300"
 
-newItems.addEventListener('click', () => {
+newItems?.addEventListener('click', () => {
     activeTab('newItems')
 })
 
-discountedItems.addEventListener('click', () => {
+discountedItems?.addEventListener('click', () => {
     activeTab('discountedItems')
 })
 
-mostWatchedItems.addEventListener('click', () => {
+mostWatchedItems?.addEventListener('click', () => {
     activeTab('mostWatchedItems')
 })
 
@@ -376,3 +401,4 @@ function activeTab(active) {
     discountedItems.classList = active === 'discountedItems' ? tabActiveClasses : tabNotActiveClasses
     mostWatchedItems.classList = active === 'mostWatchedItems' ? tabActiveClasses : tabNotActiveClasses
 }
+localStorage.setItem('firstTimeLogin', false)

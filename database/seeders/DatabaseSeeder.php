@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin;
 use App\Models\Cart;
 use Database\Seeders\ProductSeeder;
 
@@ -16,8 +17,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        $user = User::factory()->create([
+        
+        $admin = Admin::factory()->create([
             'username' => 'Test User',
             'email' => 'test@example.com',
             'password' => '12345678',
@@ -25,9 +26,18 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user = User::factory()->create([
+            'username' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => '12345678',
+            'balance' => 600,
+            'is_seller' => true
+        ]);
+
+        $user = User::factory()->create([
             'username' => 'Test2 User',
             'email' => 'test2@example.com',
             'password' => '12345678',
+            'balance' => 500,
             'is_seller' => true
         ]);
 

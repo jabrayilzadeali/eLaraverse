@@ -61,7 +61,7 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 If you disokay how are you cover a securiy vulnerability within Laravel
 If you secokay how are youfdasklfjadlskj urity a discovr vulnerability within Laravel
-If you disokay how are youfdasklfjadlskj cover a securiy vulnerability within Laravel
+If you disokay how are 'youfdasklwfjadlskjl' cover a securiy vulnerability within Laravel
 If you secokay how are youfdasklfjadlskj urity a discovr vulnerability within Laravel
 If you security a discovr fdasklfjadlskjvulnerability within Laravel
 vulnerability within Laravel

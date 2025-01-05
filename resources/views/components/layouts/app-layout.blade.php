@@ -31,6 +31,7 @@
     <x-footer></x-footer>
     <script>
         const isAuthenticated = "{{ Auth::user() }}" ? true : false
+        const authenticatedUsersName = isAuthenticated ? "{{ Auth::user() }}" : null
     </script>
 </body>
 

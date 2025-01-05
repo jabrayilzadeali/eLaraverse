@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserSettingsController;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +23,7 @@ Route::get('/', function () {
     ]);
 });
 
+
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisteredUserController::class, 'create']);
     Route::post('/register', [RegisteredUserController::class, 'store']);
@@ -29,14 +33,18 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [SessionController::class, 'destroy']);
+
+    Route::post('/fetch_carts', [ProductController::class, 'fetch']);
+    Route::post('/cart', [ProductController::class, 'store_api']);
+    Route::delete('/cart', [ProductController::class, 'destroy_api']);
+    Route::patch('/change_cart_quantity', [ProductController::class, 'change_cart_quantity']);
+
+    Route::get('settings', [UserSettingsController::class, 'edit'])->name('user.settings.edit');
+    Route::patch('settings', [UserSettingsController::class, 'update'])->name('user.settings.update');
 });
 
 Route::get('/cart', [CartController::class, 'index']);
 
-Route::get('/cart', [ProductController::class, 'some_api']);
-Route::post('/cart', [ProductController::class, 'store_api']);
-Route::delete('/cart', [ProductController::class, 'destroy_api']);
-Route::patch('/change_cart_quantity', [ProductController::class, 'change_cart_quantity']);
 
 // Route::get('/product', function () {
 //     return view('product');
@@ -47,31 +55,30 @@ Route::patch('/change_cart_quantity', [ProductController::class, 'change_cart_qu
 //     ->name('product.edit')
 //     ->middleware('auth')
 //     ->can('edit', 'product');
-//
-Route::get('products', [ProductController::class, 'index'])->name('products.index');
-Route::middleware(['auth'])->group(function () {
-    Route::get('products/create', [ProductController::class, 'create'])
-        ->can('create', Product::class)
-        ->name('products.create');
-    Route::post('products', [ProductController::class, 'store'])
-        ->can('create', Product::class)
-        ->name('products.store');
-    Route::get('products/{product}/edit', [ProductController::class, 'edit'])
-        ->can('update', 'product')
-        ->name('products.edit');
-    Route::patch('products/{product}', [ProductController::class, 'update'])
-        ->can('update', 'product')
-        ->name('products.update');
-    Route::delete('products/{product}', [ProductController::class, 'destroy'])
-        ->can('delete', 'product')
-        ->name('products.destroy');
-});
 
-Route::get('sellers/dashboard', function (User $user) {
-    dd($user);
-});
-    // ->can('isSeller', User::class)
-    // ->name('sellers.index');
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('products/create', [ProductController::class, 'create'])
+//         ->can('create', Product::class)
+//         ->name('products.create');
+//     Route::post('products', [ProductController::class, 'store'])
+//         ->can('create', Product::class)
+//         ->name('products.store');
+//     Route::get('products/{product}/edit', [ProductController::class, 'edit'])
+//         ->can('update', 'product')
+//         ->name('products.edit');
+//     Route::patch('products/{product}', [ProductController::class, 'update'])
+//         ->can('update', 'product')
+//         ->name('products.update');
+//     Route::delete('products/{product}', [ProductController::class, 'destroy'])
+//         ->can('delete', 'product')
+//         ->name('products.destroy');
+// });
+
+// Route::get('sellers/dashboard', function (User $user) {
+//     dd($user);
+// });
+
+Route::get('products', [ProductController::class, 'index'])->name('products.index');
 Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 Route::middleware(['auth'])->group(function () {
@@ -87,10 +94,46 @@ Route::middleware(['auth'])->group(function () {
     Route::get('sellers/{product}/edit', [SellerController::class, 'edit'])
         ->can('update', 'product')
         ->name('sellers.edit');
-    Route::patch('products/{product}', [SellerController::class, 'update'])
+    Route::patch('sellers/{product}', [SellerController::class, 'update'])
         ->can('update', 'product')
         ->name('sellers.update');
     Route::delete('products/{product}', [SellerController::class, 'destroy'])
         ->can('delete', 'product')
         ->name('sellers.destroy');
 });
+
+Route::get('/admin/login', [AdminController::class, 'loginForm'])
+    ->name('admin.login.form');
+
+Route::post('/admin/login', [AdminController::class, 'login'])
+    ->name('admin.login.submit');
+
+Route::get('/admin/dashboard', [AdminController::class, 'index'])
+    ->name('admin.dashboard');
+
+Route::get('admin/products/index', [AdminProductController::class, 'index'])
+    ->name('admin.products.index');
+
+Route::get('admin/products/create', [AdminProductController::class, 'create'])
+    ->name('admin.products.create');
+
+Route::post('admin/products/index', [AdminProductController::class, 'store'])
+    ->name('admin.products.store');
+
+Route::get('admin/products/{product}/edit', [AdminProductController::class, 'edit'])
+    ->name('admin.products.edit');
+
+Route::patch('admin/products/{product}/edit', [AdminProductController::class, 'update'])
+    ->name('admin.products.update');
+
+Route::delete('admin/products/{product}', [AdminProductController::class, 'destroy'])
+    ->name('admin.products.destroy');
+
+// Route::post('admin.dashboard/', [AdminController::class, 'store'])
+//     ->name('admin.products.store');
+// Route::get('sellers/{product}/edit', [AdminController::class, 'edit'])
+//     ->name('sellers.edit');
+// Route::patch('sellers/{product}', [AdminController::class, 'update'])
+//     ->name('sellers.update');
+// Route::delete('products/{product}', [AdminController::class, 'destroy'])
+//     ->name('sellers.destroy');

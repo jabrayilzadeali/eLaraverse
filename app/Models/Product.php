@@ -12,14 +12,19 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'slug',
         'user_id',
+        'sku', // Stock Keeping Unit
+        'slug',
         'title',
         'description',
         'img_path',
         'rating',
         'is_featured',
         'price',
+    ];
+
+    protected $casts = [
+        'is_featured' => 'boolean', // Cast integer to real boolean
     ];
 
     public function user(): BelongsTo

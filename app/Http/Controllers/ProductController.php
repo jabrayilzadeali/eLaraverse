@@ -15,19 +15,19 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::latest()->take(8)->get();
         return view('products.index', ['products' => $products]);
     }
     public function show(Product $product)
     {
         return view('products.show', ['product' => $product]);
     }
-    
+
     public function create()
     {
         return view('products.create');
     }
-    
+
     public function store()
     {
         $validated = request()->validate([
@@ -41,7 +41,7 @@ class ProductController extends Controller
         $validated['slug'] = $slug;
         $validated['user_id'] = Auth::id();
 
-        
+
         if (request()->hasFile('file_upload')) {
             $file_upload = Storage::disk('public')->put("/$slug", request()->file('file_upload'));
             $validated['img_path'] = $file_upload;
@@ -50,15 +50,15 @@ class ProductController extends Controller
         Product::Create($validated);
         return redirect()->route('products.index')->with('success', 'Post Created Successfully');
     }
-    
+
     public function edit(Product $product)
     {
         return view('products.edit', ['product' => $product]);
     }
-    
+
     public function update(Product $product)
     {
-        
+
         $validated = request()->validate([
             'title' => 'required',
             'description' => 'required',
@@ -66,7 +66,7 @@ class ProductController extends Controller
             'rating' => 'required|numeric|between:0,5',
             'price' => 'required',
         ]);
-        
+
         $oldSlug = $product->slug;
         $slug = Str::slug($validated['title']);
 
@@ -88,7 +88,7 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Post Edited Successfully');
     }
-    
+
     public function destroy(Product $product)
     {
         $product->delete();
@@ -130,8 +130,6 @@ class ProductController extends Controller
         return response()->json([
             'message' => 'post request works',
             'request' => request()->all(),
-            'id' => request()->all()[0]['id'],
-            'quantity' => request()->all()[0]['quantity'],
         ]);
     }
 
@@ -156,9 +154,45 @@ class ProductController extends Controller
             ['product_id', '=', request()->id],
         ]);
 
-        $cartItem->delete();
+        // $cartItem->delete();
         return response()->json([
+            'Auth::id()' => Auth::id(),
+            'request_id' => request()->id,
             'message' => 'trying to delete',
+        ]);
+    }
+
+    public function fetch()
+    {
+        if (count(request()->all()) > 0) {
+            foreach (request()->all() as $obj) {
+                $cartItem = Cart::firstOrNew([
+                    'user_id' => Auth::id(),
+                    'product_id' => $obj['id'],
+                ]);
+                // Increment quantity if item exists, or set it for new items
+                $cartItem->quantity = $obj['quantity'] ?? 1;
+                // Save the cart item
+                $cartItem->save();
+            }
+        }
+        $carts = Cart::where('user_id', Auth::id())
+            ->with(['product:id,title,img_path,price']) // Fetch only the required fields
+            ->get()
+            ->map(function ($cart) {
+                return [
+                    'id' => $cart->product->id,
+                    'title' => $cart->product->title,
+                    'img' => $cart->product->img_path,
+                    'price' => $cart->product->price,
+                    'quantity' => $cart->quantity, // Assuming `quantity` exists in the Cart model
+                ];
+            });
+
+        return response()->json([
+            'carts' => $carts,
+            'request_all' => request()->all(),
+            'message' => 'trying to get carts',
         ]);
     }
 }

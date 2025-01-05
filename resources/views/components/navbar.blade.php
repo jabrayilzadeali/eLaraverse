@@ -45,23 +45,20 @@
             <div
                 class="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button type="button"
-                    class="relative p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="absolute -inset-1.5"></span>
                     <span class="sr-only">Search</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="m19.485 20.154l-6.262-6.262q-.75.639-1.725.989t-1.96.35q-2.402 0-4.066-1.663T3.808 9.503T5.47 5.436t4.064-1.667t4.068 1.664T15.268 9.5q0 1.042-.369 2.017t-.97 1.668l6.262 6.261zM9.539 14.23q1.99 0 3.36-1.37t1.37-3.361t-1.37-3.36t-3.36-1.37t-3.361 1.37t-1.37 3.36t1.37 3.36t3.36 1.37" />
-                    </svg>
+                    <x-icons.search></x-icons.search>
                 </button>
                 <button data-dark-mode-toggle-button type="button"
-                    class="relative p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="absolute -inset-1.5"></span>
                     <span class="sr-only">Dark Mode</span>
                     <x-icons.sun data-sun-icon class="hidden"></x-icons.sun>
                     <x-icons.moon data-moon-icon></x-icons.moon>
                 </button>
                 <button data-cart-button type="button"
-                    class="relative p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="absolute -inset-1.5"></span>
                     <span class="sr-only">Cart</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -77,7 +74,7 @@
                 @endguest
                 @auth
                     <button type="button"
-                        class="relative p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">View notifications</span>
                         <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -109,17 +106,15 @@
                             From: "transform opacity-100 scale-100"
                             To: "transform opacity-0 scale-95"
                         -->
-                        <div class="absolute right-0 z-20 hidden w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black/5 focus:outline-none"
+                        <div class="absolute right-0 z-20 hidden w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg dark:bg-neutral-800 ring-1 ring-black/5 focus:outline-none"
                             data-user-option-list role="menu" aria-orientation="vertical"
                             aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                                id="user-menu-item-0">Your Profile</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                            <a href="/settings" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem" tabindex="-1"
                                 id="user-menu-item-1">Settings</a>
-                            <form action="/logout" method="POST">
+                            <form data-logout-user action="/logout" method="POST">
                                 @csrf
-                                <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem">Sign Out</button>
+                                <button class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem">Sign Out</button>
                             </form>
                         </div>
                     </div>
@@ -136,6 +131,12 @@
 
             <x-nav-link url="/">Home</x-nav-link>
             <x-nav-link url="products">Products</x-nav-link>
+            <button type="button"
+                class="relative block p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 md:hidden">
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only">Search</span>
+                <x-icons.search></x-icons.search>
+            </button>
             {{-- <a href="#" class="block px-3 py-2 text-base font-medium text-white bg-gray-900 rounded-md"
                 aria-current="page">Dashboard</a>
             <a href="#"

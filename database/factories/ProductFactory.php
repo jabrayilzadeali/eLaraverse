@@ -20,8 +20,9 @@ class ProductFactory extends Factory
         $title = fake()->sentence(2);
         $slug = Str::slug($title);
         return [
-            'slug' => $slug,
             'user_id' => 1,
+            'sku' => fake()->unique()->isbn10,
+            'slug' => $slug,
             'title' => $title,
             'description' => fake()->sentence(10),
             'img_path' => fake()->imageUrl(),

@@ -74,7 +74,7 @@
                         <x-stars class="w-2" rating="5.0"></x-stars>
                     </td>
                     <td class="px-4 py-2 align-top">{{ $product->is_featured ? 'true' : 'false' }}</td>
-                    <td class="px-4 py-2 align-top">true</td>
+                    <td class="px-4 py-2 align-top">{{ $product->stock }}</td>
                     <td class="px-4 py-2 align-top">{{ $product->price }}</td>
                     <td class="px-4 py-2 align-top">{{ $product->created_at->format('d.m.Y') }}</td>
                     <td class="flex items-center justify-center h-full gap-2 px-4 py-2">

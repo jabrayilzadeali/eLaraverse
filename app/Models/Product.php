@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $fillable = [
         'user_id',
@@ -20,6 +22,7 @@ class Product extends Model
         'img_path',
         'rating',
         'is_featured',
+        'stock',
         'price',
     ];
 
@@ -35,5 +38,42 @@ class Product extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+    
+    public function toSearchableArray()
+    {
+        return [
+            'title' => $this->title,
+        ];
+    }
+    
+    public function scopeUserId($query, $id): Builder
+    {
+        return $query->where('user_id', $id);
+    }
+
+    public function scopeMinPrice($query, $minPrice): Builder
+    {
+        return $query->where('price', '>', $minPrice);
+    }
+
+    public function scopeMaxPrice($query, $maxPrice): Builder
+    {
+        return $query->where('price', '<', $maxPrice);
+    }
+
+    public function scopeMinStock($query, $minStock): Builder
+    {
+        return $query->where('stock', '>', $minStock);
+    }
+
+    public function scopeMaxStock($query, $maxStock): Builder
+    {
+        return $query->where('stock', '<', $maxStock);
+    }
+
+    public function scopeIsFeatured($query, $is_featured): Builder
+    {
+        return $query->where('is_featured', $is_featured);
     }
 }

@@ -14,7 +14,38 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::query(); // Start with the Eloquent query builder
+
+        if (request()->has('user_id')) {
+            $products = Product::userId(request()->get('user_id'));
+        }
+
+        if (request()->has('min_price')) {
+            $products = $products->minPrice(request()->get('min_price'));
+        }
+
+        if (request()->has('max_price')) {
+            $products = $products->maxPrice(request()->get('max_price'));
+        }
+
+        if (request()->has('min_stock')) {
+            $products = $products->maxStock(request()->get('max_stock'));
+        }
+
+        if (request()->has('max_stock')) {
+            $products = $products->maxStock(request()->get('max_stock'));
+        }
+
+        if (request()->has('is_featured')) {
+            $products = $products->isFeatured(request()->get('is_featured'));
+        }
+
+
+        if (request()->has('search')) {
+            $products = $products->get()->search(request()->get('search'));
+            dd($products);
+        }
+        $products = $products->get();
         return view('admin.products.index', ['products' => $products]);
     }
     
@@ -63,11 +94,20 @@ class ProductController extends Controller
     {
         $validated = request()->validate([
             'seller' => 'required|exists:users,id',
+            'is_featured' => 'nullable|boolean',
+            'stock' => 'numeric',
             'title' => 'required',
             'description' => 'required',
             'file_upload' => 'image',
             'price' => 'required',
         ]);
+        
+        // if (array_key_exists($validated['is_featured'], $validated)) {
+        //     $validated['is_featured'] = true;
+        // } else {
+        //     $validated['is_featured'] = 0;
+        // }
+        $product->is_featured = $validated['is_featured'] ?? false;  // Default to false if not provided
         
         $slug = Str::slug($validated['title']);
         $validated['user_id'] = $validated['seller'];

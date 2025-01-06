@@ -25,6 +25,10 @@
                         <li><a href="{{ route('admin.products.index') }}" class="block px-3 py-3 rounded-md {{ request()->is('admin/products/*') ? 'dark:bg-neutral-500/50' : 'dark:bg-neutral-800/50' }} dark:hover:bg-neutral-700">Products</a></li>
                         <li><a href="admin/categories" class="block px-3 py-3 rounded-md {{ request()->is('admin/categories/*') ? 'dark:bg-neutral-500/50' : 'dark:bg-neutral-800/50' }} dark:hover:bg-neutral-700">Categories</a></li>
                     </ul>
+                    <form data-logout-user action="{{ route('admin.logout') }}" method="POST">
+                        @csrf
+                        <button class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem">Sign Out</button>
+                    </form>
                 </div>
             </div>
             <div class="container flex-1 px-2 mx-auto sm:px-6 lg:px-8">

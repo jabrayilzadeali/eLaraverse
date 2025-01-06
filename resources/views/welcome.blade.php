@@ -82,7 +82,7 @@
             <div class="swiper-wrapper">
                 @foreach ($featuredProducts as $featuredProduct)
                     <div
-                        class="z-10 bg-center bg-cover rounded-md swiper-slide backdrop-blur-md h-72 lg:h-auto" style="background-image: url('{{ $featuredProduct->img_path }}')">
+                        class="z-10 bg-center bg-cover rounded-md swiper-slide backdrop-blur-md h-72 lg:h-auto" style="background-image: url('{{ Storage::url($featuredProduct->img_path) }}')">
                         <div
                             class="absolute bottom-0 p-3 text-black rounded-md bg-zinc-200/90 dark:bg-zinc-500/90 md:left-5 md:right-5 md:bottom-5">
                             <h1 class="font-bold text-md md:text-xl">{{ $featuredProduct->title }}</h1>

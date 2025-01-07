@@ -1,8 +1,8 @@
 <x-layouts.admin-layout>
     <div class="flex items-center justify-between mt-10 mb-3">
         <div class="flex items-center justify-center gap-5">
-            <div>
-                <button
+            <div class="relative">
+                <button data-filter-btn
                     class="flex items-center justify-center gap-2 px-4 py-1 border rounded-lg text-neutral-300 border-neutral-600">
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 16 16">
                         <path fill="currentColor"
@@ -10,18 +10,65 @@
                     </svg>
                     <span>Filter</span>
                 </button>
+                <dialog data-dialog class="absolute p-5 mt-3 rounded-md position dark:bg-neutral-900 ring-2 ring-white">
+                    <form class="flex flex-col gap-5">
+                        <div>
+                            <label for="sellers"
+                                class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Select
+                                User</label>
+                            <select data-user id="sellers" name="user_id"
+                                class="col-start-1 row-start-1 w-full appearance-none rounded-md dark:bg-neutral-800 dark:text-neutral-200 py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                                <option value="">not Selected</option>
+                                @foreach ($sellers as $seller)
+                                    <option {{ +request('user_id') === +$seller->id ? 'selected' : '' }}
+                                        value="{{ $seller->id }}">{{ $seller->username }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label class="dark:text-neutral-300" for="min_price">Min Price</label>
+                            <input
+                                class="px-2 py-1 rounded-md dark:bg-neutral-800 ring-1 ring-neutral-600 dark:text-neutral-100"
+                                type="number" name="min_price" id="min_price"
+                                value="{{ old('min_price', request('min_price')) }}">
+                        </div>
+                        <div>
+                            <label class="dark:text-neutral-300" for="max_price">max Price</label>
+                            <input
+                                class="px-2 py-1 rounded-md dark:bg-neutral-800 ring-1 ring-neutral-600 dark:text-neutral-100"
+                                type="number" name="max_price" id="max_price" value="{{ request('max_price') }}">
+                        </div>
+                        <div>
+                            <label class="dark:text-neutral-300" for="min_stock">Min Stock</label>
+                            <input
+                                class="px-2 py-1 rounded-md dark:bg-neutral-800 ring-1 ring-neutral-600 dark:text-neutral-100"
+                                type="number" name="min_stock" id="min_stock" value="{{ request('min_stock') }}">
+                        </div>
+                        <div>
+                            <label class="dark:text-neutral-300" for="max_stock">max Stock</label
+                                class="dark:text-neutral-300"abel>
+                            <input
+                                class="px-2 py-1 rounded-md dark:bg-neutral-800 ring-1 ring-neutral-600 dark:text-neutral-100"
+                                type="number" name="max_stock" id="max_stock" value="{{ request('max_stock') }}">
+                        </div>
+                        <input class="py-1 text-white rounded-md ring-1 ring-white" type="submit" value="Apply">
+                    </form>
+                </dialog>
             </div>
             <div class="relative m-[2px] mr-5 float-left">
-                <label for="inputSearch" class="sr-only">Search </label>
-                <input id="inputSearch" type="text" placeholder="Search..."
-                    class="block w-64 py-2 pl-10 pr-4 text-sm border rounded-lg dark:border-none dark:bg-neutral-600 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400" />
-                <span class="absolute transform -translate-y-1/2 pointer-events-none left-3 top-1/2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-4 h-4 text-neutral-500 dark:text-neutral-200">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </span>
+                <form data-search-form>
+                    <label for="inputSearch" class="sr-only">Search</label>
+                    <input id="inputSearch" data-search value="{{ old('search', request('search')) }}" name="search"
+                        type="text" placeholder="Search..."
+                        class="block w-64 py-2 pl-10 pr-4 text-sm border rounded-lg dark:border-none dark:bg-neutral-600 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400" />
+                    <span class="absolute transform -translate-y-1/2 pointer-events-none left-3 top-1/2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-4 text-neutral-500 dark:text-neutral-200">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                    </span>
+                </form>
             </div>
         </div>
         <div>
@@ -33,18 +80,18 @@
             </button>
         </div>
     </div>
-    <table class="w-full overflow-x-auto border-t table-auto dark:border-neutral-700">
+    <table class="w-full overflow-x-auto table-auto dark:border-neutral-700">
         <thead>
             <tr class="pt-3 text-sm border-b dark:border-neutral-700 text-neutral-300">
                 <th class="px-4 py-2 text-left">#</th>
-                <th class="px-4 py-2 text-left">Created by</th>
+                <th class="px-4 py-2 text-left">Created_by</th>
                 <th class="px-4 py-2 text-left">Slug</th>
                 <th class="px-4 py-2 text-left">Title</th>
                 <th class="px-4 py-2 text-left">Description</th>
                 <th class="px-4 py-2 text-left">Img</th>
                 <th class="px-4 py-2 text-left">Rating</th>
-                <th class="px-4 py-2 text-left">Is featured</th>
-                <th class="px-4 py-2 text-left">In Stock</th>
+                <th class="px-4 py-2 text-left">Is_featured</th>
+                <th class="px-4 py-2 text-left">Stock</th>
                 <th class="px-4 py-2 text-left">Price</th>
                 <th class="px-4 py-2 text-left">Date</th>
                 <th class="px-4 py-2 text-left">Operations</th>
@@ -80,18 +127,22 @@
                     <td class="flex items-center justify-center h-full gap-2 px-4 py-2">
                         <a href="{{ route('admin.products.edit', $product->slug) }}"
                             class="block px-1 py-1 font-semibold bg-green-500 rounded-md text-neutral-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24">
                                 <path fill="currentColor"
                                     d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z" />
                             </svg>
                         </a>
-                        <dialog data-modal class="absolute z-50 p-5 rounded-md">
+                        <dialog data-modal
+                            class="absolute z-50 p-5 rounded-md dark:bg-neutral-800 dark:text-neutral-300">
                             <form action="{{ route('admin.products.destroy', $product->slug) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <p>Are you Sure You wanted to delete?</p>
                                 <button data-close-modal type="button">Close</button>
-                                <button class="px-1 py-1 font-semibold bg-red-500 rounded-md text-neutral-700" autofocus>Yes</button>
+                                <button
+                                    class="px-1 py-1 font-semibold bg-red-500 rounded-md text-neutral-700 dark:text-neutral-100"
+                                    autofocus>Yes</button>
                             </form>
                         </dialog>
                         <button data-show-modal class="px-1 py-1 font-semibold bg-red-500 rounded-md text-neutral-700">
@@ -119,21 +170,65 @@
     </table>
 
     <script>
-        const dialog = document.querySelector("[data-modal]");
+        const modal = document.querySelector("[data-modal]");
         const showModalBtns = document.querySelectorAll("[data-show-modal]");
-        const closeButton = document.querySelector("dialog button");
+        const closeModalBtns = document.querySelectorAll("[data-close-modal]");
+        const filterBtn = document.querySelector("[data-filter-btn]");
+        const dialog = document.querySelector("[data-dialog]");
+        const filterForm = document.querySelector("[data-dialog] form");
+        const searchForm = document.querySelector("[data-search-form]");
+        const searchInput = document.querySelector('[data-search]')
 
         // "Show the dialog" button opens the dialog modally
         showModalBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                dialog.showModal();
+                modal.showModal();
             })
         });
 
         // "Close" button closes the dialog
-        closeButton.addEventListener("click", () => {
-            dialog.close();
-        });
-        
+        closeModalBtns.forEach(closeBtn => {
+            closeBtn.addEventListener("click", () => {
+                modal.close();
+            })
+        })
+
+        filterBtn.addEventListener('click', () => {
+            if (dialog.open) {
+                dialog.close()
+            } else {
+                dialog.show()
+            }
+        })
+
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('search', searchInput.value)
+            const url = window.location.href.split('?')[0]
+            window.location.href = `${url}?${urlParams.toString()}`
+        })
+
+        filterForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const urlParams = new URLSearchParams(window.location.search);
+            const select = document.querySelector('[data-user]')
+            if (select.value.trim() && select.value !== "") {
+                urlParams.set('user_id', select.value)
+            } else if (select.value === "") {
+                urlParams.delete('user_id')
+            }
+            const inputs = filterForm.querySelectorAll("input[type='number']")
+            inputs.forEach(input => {
+                if (input.value.trim() && input.value !== "") {
+                    urlParams.set(input.name, input.value)
+                } else if (input.value === "") {
+                    urlParams.delete(input.name)
+                }
+            });
+            const url = window.location.href.split('?')[0]
+            window.location.href = `${url}?${urlParams.toString()}`
+        })
+
     </script>
 </x-layouts.admin-layout>

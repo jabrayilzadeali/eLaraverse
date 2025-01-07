@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\SessionController;
@@ -45,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/cart', [CartController::class, 'index']);
+
+Route::get('/checkout', [CheckoutController::class, 'index']);
 
 
 // Route::get('/product', function () {

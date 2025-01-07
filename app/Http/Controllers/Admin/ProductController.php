@@ -40,13 +40,20 @@ class ProductController extends Controller
             $products = $products->isFeatured(request()->get('is_featured'));
         }
 
-
         if (request()->has('search')) {
-            $products = $products->get()->search(request()->get('search'));
-            dd($products);
+            $search = request()->get('search');
+            $products->where(function ($q) use ($search) {
+                $q->where('title', 'LIKE', "%$search%")
+                  ->orWhere('description', 'LIKE', "%$search%")
+                  ->orWhere('sku', 'LIKE', "%$search%");
+            });
         }
         $products = $products->get();
-        return view('admin.products.index', ['products' => $products]);
+        $sellers = User::where('is_seller', true)->get();
+        return view('admin.products.index', [
+            'products' => $products,
+            'sellers' => $sellers
+        ]);
     }
     
     public function create()

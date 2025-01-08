@@ -1,117 +1,38 @@
 import "./bootstrap";
-import Swiper from "swiper";
-import { Navigation, Pagination } from "swiper/modules";
-// import Swiper and modules styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import "./carousel";
+import "./theme";
+import "./navbar";
+import "./userOptions";
+import "./productsMobileFilter";
+import "./sortProducts";
+import "./changeProductTab";
+import "./auth";
+import "./cartToggle";
+import {
+    updateCartUi,
+    calculateTotalPrice,
+    sendDataToBackend,
+    updateProductsUi,
+} from "./helpers";
 
-const mobileMenuToggleBtn = document.querySelector(
-    "[data-mobile-menu-toggle-btn]"
-);
-const mobileMenuClosed = document.querySelector(
-    "[data-mobile-menu-closed-icon]"
-);
-
-const html = document.querySelector('html')
-const mobileMenuOpen = document.querySelector("[data-mobile-menu-open-icon]");
-const mobileMenuLinks = document.querySelector("[data-mobile-menu-links]");
-const userOptionBtn = document.querySelector("[data-user-option-btn]");
-const userOptionList = document.querySelector("[data-user-option-list]");
-
-const checkout = document.querySelector("[data-checkout]");
-const cartBtn = document.querySelector("[data-cart-button]");
-const cartCloseBtn = document.querySelector("[data-cart-close-btn]");
+const checkoutBtn = document.querySelector("[data-checkout-btn]");
 const carts = document.querySelector("[data-carts]");
 const addToCartBtns = document.querySelectorAll("[data-add-to-cart]");
 const removeFromCartBtns = document.querySelectorAll("[data-remove-from-cart]");
 const addToCartInShowBtn = document.querySelector("[data-add-to-cart-in-show]");
-const sortProductsBtn = document.querySelector("[data-sort-products-btn]");
-const sortMenu = document.querySelector("[data-sort-menu]");
-const mobileFilterMenu = document.querySelector("[data-mobile-filter-menu]")
-const mobileFilterOpen = document.querySelector("[data-mobile-filter-open]")
-const mobileFilterClose = document.querySelector("[data-mobile-filter-close]")
 
-const newItems = document.querySelector('[data-new-items]')
-const discountedItems = document.querySelector('[data-discounted-items]')
-const mostWatchedItems = document.querySelector('[data-most-watched-items]')
-const darkModeToggle = document.querySelector('[data-dark-mode-toggle-button]')
-
-
-const logoutForm = document.querySelector('[data-logout-user]')
-
-logoutForm?.addEventListener('submit', (e) => {
-    localStorage.removeItem('cartsArray')
-    updateCartUi();
-})
-
-
-darkModeToggle?.addEventListener('click', () => {
-    html.classList.toggle('dark')
-    document.querySelector('[data-sun-icon]').classList.toggle('hidden')
-    document.querySelector('[data-moon-icon]').classList.toggle('hidden')
-})
-
-mobileFilterOpen?.addEventListener('click', () => {
-    mobileFilterMenu.classList.remove('hidden')
-})
-
-mobileFilterClose?.addEventListener('click', () => {
-    mobileFilterMenu.classList.add('hidden')
-})
-
-const swiper = new Swiper(".mySwiper", {
-    slidesPerView: 3,
-    spaceBetween: 30,
-    loop: true,
-    autoplay: true,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    breakpoints: {
-        640: {
-            slidesPerView: 4,
-            spaceBetween: 50,
-        },
-        768: {
-            slidesPerView: 6,
-            spaceBetween: 50,
-        },
-        1024: {
-            slidesPerView: 8,
-            spaceBetween: 50,
-        },
-    },
-});
-
-const swiper2 = new Swiper(".mySwiper2", {
-    slidesPerView: 1,
-    spaceBetween: 30,
-    loop: true,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-});
-
-if (isAuthenticated && localStorage.getItem('firstTimeLogin') === 'true') {
+if (isAuthenticated && localStorage.getItem("firstTimeLogin") === "true") {
     let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
     sendDataToBackend(cartsArray, "POST", "http://127.0.0.1:8000/fetch_carts")
-    .then((carts) => {
-        localStorage.setItem('firstTimeLogin', false)
-        localStorage.setItem("cartsArray", JSON.stringify(carts.carts));
-        updateCartUi()
-    })
-    .catch((error) => {
-        console.error('Error fetching carts:', error);
-    });
+        .then((carts) => {
+            localStorage.setItem("firstTimeLogin", false);
+            localStorage.setItem("cartsArray", JSON.stringify(carts.carts));
+            updateCartUi();
+        })
+        .catch((error) => {
+            console.error("Error fetching carts:", error);
+        });
 }
-
-sortProductsBtn?.addEventListener('click', () => {
-    sortMenu.classList.toggle('hidden')
-})
-
 
 addToCartInShowBtn?.addEventListener("click", (e) => {
     if (e.target.matches("button")) {
@@ -139,7 +60,7 @@ function addCart(id, img, title, price, quantity) {
             });
         }
     } else {
-        console.log(cartsArray)
+        console.log(cartsArray);
         cartsArray.push({
             id: +id,
             title,
@@ -149,7 +70,7 @@ function addCart(id, img, title, price, quantity) {
         });
     }
     if (isAuthenticated) {
-        console.log("here okay", cartsArray)
+        console.log("here okay", cartsArray);
         sendDataToBackend(cartsArray, "POST", "http://127.0.0.1:8000/cart");
     }
     localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
@@ -161,6 +82,7 @@ function removeCart(id) {
     cartsArray = cartsArray.filter((c) => c.id !== +id);
     localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
     if (isAuthenticated) {
+        console.log("Removed this item from db?", removedItem);
         sendDataToBackend(removedItem, "DELETE", "http://127.0.0.1:8000/cart");
     }
     updateCartUi();
@@ -185,6 +107,7 @@ removeFromCartBtns?.forEach((removeFromCartBtn) => {
 
 carts?.addEventListener("click", (e) => {
     const removeCartEl = e.target.matches("[data-remove-cart]");
+    console.log(removeCartEl);
     const increaseQuantity = e.target.closest("[data-increase-quantity]");
     const decreaseQuantity = e.target.closest("[data-decrease-quantity]");
     if (removeCartEl) {
@@ -210,8 +133,6 @@ carts?.addEventListener("click", (e) => {
         }
         localStorage.setItem("cartsArray", JSON.stringify(cartsArray));
         updateCartUi();
-
-        console.log("increase quantity");
     } else if (decreaseQuantity) {
         let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
         const id = decreaseQuantity.dataset.decreaseQuantity;
@@ -244,32 +165,6 @@ carts?.addEventListener("click", (e) => {
     }
 });
 
-cartCloseBtn?.addEventListener("click", () => {
-    checkout.classList.toggle("hidden");
-});
-
-async function sendDataToBackend(params, method, url) {
-    try {
-        const response = await fetch(url, {
-            method,
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="_token"]')
-                    .content,
-            },
-            body: JSON.stringify(params),
-        });
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        const json = await response.json();
-        console.log('here', json)
-        return json
-    } catch (error) {
-        console.error('Error sending Data', error)
-    }
-}
-
 async function getData(queryParam) {
     const url = `http://127.0.0.1:8000/api/cart/index?query=${queryParam}`;
     try {
@@ -284,121 +179,14 @@ async function getData(queryParam) {
     }
 }
 
-function createTemplate(id, img, title, price, quantity = 1) {
-    const svg =
-        quantity > 1
-            ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M19 13H5v-2h14z" /></svg>`
-            : `<svg class="" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z"/></svg>`;
-
-    return `
-        <li data-cart-id="${id}" class="flex py-6">
-            <div
-                class="overflow-hidden border border-gray-200 dark:border-gray-800 rounded-md size-24 shrink-0">
-                <img src="${img}"
-                    alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
-                    class="object-cover size-full">
-            </div>
-
-            <div class="flex flex-col flex-1 ml-4">
-                <div>
-                    <div
-                        class="flex justify-between text-base font-medium text-gray-900 dark:text-gray-100">
-                        <h3>
-                            <a href="#">${title}</a>
-                        </h3>
-                        <p class="ml-4">${price}</p>
-                    </div>
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Salmon</p>
-                </div>
-                <div class="flex items-end justify-between flex-1 text-sm">
-                    <div class="flex text-dark gap-5">
-                        <div data-decrease-quantity="${id}" class="text-black dark:text-gray-300">
-                            ${svg}
-                        </div>
-                        <p class="text-gray-500 dark:text-gray-300">Qty ${quantity}</p>
-                        <div data-increase-quantity="${id}" class="text-black dark:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg>
-                        </div>
-                    </div>
-
-                    <div class="flex">
-                        <button data-remove-cart="${id}" type="button"
-                            class="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">Remove</button>
-                    </div>
-                </div>
-            </div>
-        </li>
-    `;
+if (document.URL.includes("checkout")) {
+    const totalPrice = calculateTotalPrice();
+    const totalPriceElements = document.querySelectorAll("[data-total-price]");
+    totalPriceElements.forEach(
+        (totalPriceElement) => (totalPriceElement.textContent = totalPrice)
+    );
 }
 
-function updateCartUi() {
-    let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
-    carts.innerHTML = "";
-    if (Array.isArray(cartsArray) && cartsArray.length > 0) {
-        const totalPrice = cartsArray.reduce(
-            (accumulator, currentValue) =>
-                currentValue.price * currentValue.quantity + accumulator,
-            0
-        );
-
-        document.querySelector("[data-total-price]").textContent = totalPrice;
-        let html = "";
-        cartsArray.forEach(({ id, img, title, price, quantity }) => {
-            html += createTemplate(id, img, title, price, quantity);
-        });
-        carts.innerHTML = html;
-    } else {
-        document.querySelector("[data-total-price]").textContent = 0;
-    }
-}
-
-function updateProductsUi() {
-    const cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
-    if (Array.isArray(cartsArray) && cartsArray.length > 0) {
-        cartsArray.forEach(({ id }) => {
-            const el = document.querySelector(
-                `[data-remove-from-cart][data-id="${id}"]`
-            );
-            el?.classList.toggle("hidden");
-            el?.previousElementSibling.classList.toggle("hidden");
-        });
-    }
-}
 updateProductsUi();
 
-cartBtn?.addEventListener("click", () => {
-    updateCartUi();
-    checkout.classList.toggle("hidden");
-});
-
-mobileMenuToggleBtn?.addEventListener("click", () => {
-    mobileMenuOpen.classList.toggle("hidden");
-    mobileMenuClosed.classList.toggle("hidden");
-    mobileMenuLinks.classList.toggle("hidden");
-});
-
-userOptionBtn?.addEventListener("click", () => {
-    userOptionList.classList.toggle("hidden")
-});
-
-const tabActiveClasses = "p-3 font-bold text-gray-200 bg-gray-800 rounded-md"
-const tabNotActiveClasses = "p-3 text-gray-700 border border-gray-400 rounded-md dark:text-gray-300"
-
-newItems?.addEventListener('click', () => {
-    activeTab('newItems')
-})
-
-discountedItems?.addEventListener('click', () => {
-    activeTab('discountedItems')
-})
-
-mostWatchedItems?.addEventListener('click', () => {
-    activeTab('mostWatchedItems')
-})
-
-function activeTab(active) {
-    newItems.classList = active === 'newItems' ? tabActiveClasses : tabNotActiveClasses
-    discountedItems.classList = active === 'discountedItems' ? tabActiveClasses : tabNotActiveClasses
-    mostWatchedItems.classList = active === 'mostWatchedItems' ? tabActiveClasses : tabNotActiveClasses
-}
-localStorage.setItem('firstTimeLogin', false)
+localStorage.setItem("firstTimeLogin", false);

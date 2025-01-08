@@ -154,7 +154,7 @@ class ProductController extends Controller
             ['product_id', '=', request()->id],
         ]);
 
-        // $cartItem->delete();
+        $cartItem->delete();
         return response()->json([
             'Auth::id()' => Auth::id(),
             'request_id' => request()->id,

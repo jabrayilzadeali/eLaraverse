@@ -1,4 +1,4 @@
-@props(['id', 'slug', 'img' => 'https://picsum.photos/seed/picsum/200/300', 'title', 'rating' => 3.2, 'price', 'previousPrice'])
+@props(['id', 'slug', 'img' => 'https://picsum.photos/seed/picsum/200/300', 'title', 'rating' => 3.2, 'price', 'previousPrice', 'stock' => 0])
 <div class="transition-all duration-300 ease-in-out group hover:-translate-y-5">
     <a href="{{ $slug }}">
         @if (filter_var($img, FILTER_VALIDATE_URL))
@@ -19,9 +19,13 @@
             <p class="text-xl">${{ $price }}</p>
             <p class="text-base line-through">${{ $previousPrice }}</p>
         </div>
-        <div >
-            <button data-add-to-cart data-id="{{ $id }}" data-img="{{ $img }}" data-title="{{ $title }}" data-price="{{ $price }}" data-quantity="1" class="px-3 py-2 text-sm text-black bg-white rounded-md disabled:bg-slate-300">Add To Cart</button>
-            <button data-remove-from-cart data-id="{{ $id }}" data-img="{{ $img }}" data-title="{{ $title }}" data-price="{{ $price }}" class="hidden px-3 py-2 text-sm text-black bg-white rounded-md disabled:bg-slate-300">Remove From Cart</button>
+        <div>
+            @if ($stock)
+                <button data-add-to-cart data-id="{{ $id }}" data-img="{{ $img }}" data-title="{{ $title }}" data-price="{{ $price }}" data-quantity="1" data-stock="{{ $stock }}" class="px-3 py-2 text-sm text-black bg-white rounded-md disabled:bg-slate-300">Add To Cart</button>
+                <button data-remove-from-cart data-id="{{ $id }}" data-img="{{ $img }}" data-title="{{ $title }}" data-price="{{ $price }}" class="hidden px-3 py-2 text-sm text-black bg-white rounded-md disabled:bg-slate-300">Remove From Cart</button>
+            @else
+                <p>Out of stock</p>
+            @endif
         </div>
     </div>
 </div>

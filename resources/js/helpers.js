@@ -1,24 +1,50 @@
-const carts = document.querySelector("[data-carts]");
-
-export function updateCartUi() {
+export function updateCartUi(cartContainer = document.querySelector("[data-carts]")) {
     let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
-    carts.innerHTML = "";
+    console.log('cartContainer: ', cartContainer)
+    cartContainer.innerHTML = "";
     if (Array.isArray(cartsArray) && cartsArray.length > 0) {
         const totalPrice = calculateTotalPrice()
         // document.querySelectorAll("[data-total-price]").textContent = totalPrice;
         const totalPriceElements = document.querySelectorAll('[data-total-price]')
         totalPriceElements.forEach(totalPriceElement => totalPriceElement.textContent = totalPrice)
         
-
         let html = "";
         cartsArray.forEach(({ id, img, title, price, quantity }) => {
             html += createTemplate(id, img, title, price, quantity);
         });
-        carts.innerHTML = html;
+        cartContainer.innerHTML = html;
     } else {
-        document.querySelector("[data-total-price]").textContent = 0;
+        document.querySelectorAll("[data-total-price]").forEach(
+            (totalPriceElement) => ( totalPriceElement.textContent = 0 )
+        );
+
+        if (document.URL.includes("checkout")) {
+            const form = document.querySelector("[data-form-checkout]");
+            const notInCart = document.querySelector("[data-not-in-cart-checkout]")
+            if (cartsArray.length) {
+                form.classList.remove('hidden')
+                notInCart.classList.add('hidden')
+            } else {
+                form.classList.add('hidden')
+                notInCart.classList.remove('hidden')
+            }
+        }
     }
-    
+    if (document.URL.includes("checkout")) {
+        const userBalance = +document.querySelector('[data-user-balance]').textContent
+        const totalPrice = calculateTotalPrice()
+        const hasBalance = userBalance >= totalPrice
+        const hasNotBalanceEl = document.querySelector("[data-has-not-balance]");
+        const hasBalanceEl = document.querySelector("[data-has-balance]");
+
+        if (hasBalance) {
+            hasNotBalanceEl.classList.add("hidden");
+            hasBalanceEl.classList.remove("hidden");
+        } else {
+            hasNotBalanceEl.classList.remove("hidden");
+            hasBalanceEl.classList.add("hidden");
+        }
+    }
 }
 
 export function updateProductsUi() {

@@ -1,6 +1,8 @@
-const logoutForm = document.querySelector('[data-logout-user]')
+import { updateCartUi } from "./helpers";
 
-logoutForm?.addEventListener('submit', (e) => {
-    localStorage.removeItem('cartsArray')
+const logoutForm = document.querySelector("[data-logout-user]");
+
+logoutForm?.addEventListener("submit", (e) => {
+    localStorage.removeItem("cartsArray");
     updateCartUi();
-})
+});

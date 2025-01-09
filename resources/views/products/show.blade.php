@@ -34,6 +34,7 @@
                     type="number">
                 <button data-id="{{ $product->id }}" data-title="{{ $product->title }}"
                     data-price="{{ $product->price }}" data-img="{{ $product->img_path }}"
+                    data-stock="{{ $product->stock }}"
                     class="px-3 py-2 font-bold border-0 rounded-md dark:bg-slate-50 dark:text-black">Add to
                     Cart</button>
             </div>

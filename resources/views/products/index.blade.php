@@ -1026,8 +1026,8 @@
                         <div class="lg:col-span-3">
                             <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                                 @foreach ($products as $product)
-                                    <x-product-item :id="$product->id" :slug="route('products.show', $product->slug)" :img="$product->img_path" :title="$product->title"
-                                        :rating="$product->rating" :price="$product->price" :previousPrice="$product->price * 2"></x-product-item>
+                                    <x-product-item  :id="$product->id" :slug="route('products.show', $product->slug)" :img="$product->img_path" :title="$product->title"
+                                        :rating="$product->rating" :price="$product->price" :stock="$product->stock" :previousPrice="$product->price * 2"></x-product-item>
                                 @endforeach
                             </div>
                         </div>

@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class ProductController extends Controller
 {
@@ -16,6 +17,7 @@ class ProductController extends Controller
     {
         $products = Product::query(); // Start with the Eloquent query builder
 
+        $sorts = request()->get('sort', []);
         if (request()->has('user_id')) {
             $products = Product::userId(request()->get('user_id'));
         }
@@ -48,11 +50,17 @@ class ProductController extends Controller
                   ->orWhere('sku', 'LIKE', "%$search%");
             });
         }
+        foreach($sorts as $column => $direction) {
+            if (Schema::hasColumn('products', $column) && in_array($direction, ['asc', 'desc'])) {
+                $products->orderBy($column, $direction);
+            }
+        }
+
         $products = $products->get();
         $sellers = User::where('is_seller', true)->get();
         return view('admin.products.index', [
             'products' => $products,
-            'sellers' => $sellers
+            'sellers' => $sellers,
         ]);
     }
     

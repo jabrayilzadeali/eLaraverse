@@ -51,10 +51,12 @@
                                 class="px-2 py-1 rounded-md dark:bg-neutral-800 ring-1 ring-neutral-600 dark:text-neutral-100"
                                 type="number" name="max_stock" id="max_stock" value="{{ request('max_stock') }}">
                         </div>
+
                         <input class="py-1 text-white rounded-md ring-1 ring-white" type="submit" value="Apply">
                     </form>
                 </dialog>
             </div>
+
             <div class="relative m-[2px] mr-5 float-left">
                 <form data-search-form>
                     <label for="inputSearch" class="sr-only">Search</label>
@@ -92,7 +94,14 @@
                 <th class="px-4 py-2 text-left">Rating</th>
                 <th class="px-4 py-2 text-left">Is_featured</th>
                 <th class="px-4 py-2 text-left">Stock</th>
-                <th class="px-4 py-2 text-left">Price</th>
+                <th class="flex px-4 py-2 text-left">
+                    <span>Price</span>
+                    <div>
+                        <x-icons.up-arrow data-icon-up-arrow></x-icons.up-arrow>
+                        <x-icons.down-arrow data-icon-down-arrow></x-icons.down-arrow>
+                        <x-icons.up-down-arrow data-icon-up-down-arrow></x-icons.up-down-arrow>
+                    </div>
+                </th>
                 <th class="px-4 py-2 text-left">Date</th>
                 <th class="px-4 py-2 text-left">Operations</th>
             </tr>
@@ -118,7 +127,7 @@
 
                     </td>
                     <td class="px-4 py-2 align-top">
-                        <x-stars class="w-2" rating="5.0"></x-stars>
+                        <x-stars class="block" rating="{{ $product->rating }}"></x-stars>
                     </td>
                     <td class="px-4 py-2 align-top">{{ $product->is_featured ? 'true' : 'false' }}</td>
                     <td class="px-4 py-2 align-top">{{ $product->stock }}</td>

@@ -2,7 +2,7 @@
     <div class="flex flex-col items-center justify-center min-h-full px-6 py-12 lg:px-8">
 
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="w-auto h-10 mx-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+            <img class="w-auto h-10 mx-auto" src="{{ asset('img/logo.png') }}"
                 alt="Your Company">
             <h2 class="mt-10 font-bold tracking-tight text-center text-gray-900 dark:text-gray-100 text-2xl/9">Sign in to your Admin account
             </h2>
@@ -24,13 +24,7 @@
                 </div>
 
                 <div>
-                    <div class="flex items-center justify-between">
-                        <label for="password" class="block font-medium text-gray-900 dark:text-gray-100 text-sm/6">Password</label>
-                        <div class="text-sm">
-                            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot
-                                password?</a>
-                        </div>
-                    </div>
+                    <label for="password" class="block font-medium text-gray-900 dark:text-gray-100 text-sm/6">Password</label>
                     <div class="mt-2">
                         <input type="password" name="password" id="password" autocomplete="current-password" required
                             class="block w-full rounded-md bg-white dark:bg-neutral-800 px-3 py-1.5 text-base text-gray-100 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
@@ -46,12 +40,6 @@
                         in</button>
                 </div>
             </form>
-
-            <p class="mt-10 text-center text-gray-500 dark:text-gray-300 text-sm/6">
-                Not a member?
-                <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Start a 14 day free
-                    trial</a>
-            </p>
         </div>
     </div>
 </x-layouts.auth-layout>

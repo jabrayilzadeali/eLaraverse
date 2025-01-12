@@ -15,8 +15,8 @@
     </head>
     <body class="dark:bg-neutral-900 dark:text-neutral-200">
 
-        <div class="grid grid-cols-1 sm:grid-cols-[17rem_1fr]">
-            <div class="sticky top-0 hidden p-5 bg-black sm:block h-dvh">
+        <div class="grid grid-cols-1 overflow-x-visible sm:grid-cols-[fit-content(20rem)_1fr]">
+            <div class="top-0 hidden p-5 bg-black md:block h-dvh">
                 <div class="mt-3">
                     <h2 class="font-bold text-white">Welcome {{ auth('admin')->user()->username }}</h2>
                     <ul class="flex flex-col gap-3 mt-5">

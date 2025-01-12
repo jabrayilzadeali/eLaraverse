@@ -15,9 +15,11 @@ class ProductController extends Controller
 {
     public function index()
     {
+        $columns = ['id' => 'id'];
         $products = Product::query(); // Start with the Eloquent query builder
 
         $sorts = request()->get('sort', []);
+        // dd($sorts);
         if (request()->has('user_id')) {
             $products = Product::userId(request()->get('user_id'));
         }
@@ -59,6 +61,7 @@ class ProductController extends Controller
         $products = $products->get();
         $sellers = User::where('is_seller', true)->get();
         return view('admin.products.index', [
+            'sorts' => $sorts,
             'products' => $products,
             'sellers' => $sellers,
         ]);

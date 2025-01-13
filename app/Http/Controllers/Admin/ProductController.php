@@ -15,7 +15,34 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $columns = ['id' => 'id'];
+        $columns = [
+            ['key' => 'id', 'label' => '#', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'user.username', 'label' => 'created_by', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'slug', 'label' => 'slug', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'title', 'label' => 'title', 'sortable' => true, 'type' => 'text'],
+            ['key' => 'description', 'label' => 'description', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'img_path', 'label' => 'Img', 'sortable' => false, 'type' => 'img'],
+            ['key' => 'rating', 'label' => 'rating', 'sortable' => true, 'type' => 'rating'],
+            ['key' => 'is_featured', 'label' => 'is_featured', 'sortable' => false, 'type' => 'boolean'],
+            ['key' => 'stock', 'label' => 'stock', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'price', 'label' => 'price', 'sortable' => true, 'type' => 'text'],
+            ['key' => 'created_at', 'label' => 'date', 'sortable' => false, 'type' => 'date'],
+            // ['key' => 'operations', 'label' => 'Operations', 'sortable' => false, 'type' => 'operations'],
+        ];
+        $stackedColumns = array_column($columns, 'label');
+        $hiddenColumns = request()->get('hiddenColumns', []);
+        if ($hiddenColumns) {
+            $columns = array_filter($columns, function ($column) use ($hiddenColumns) {
+                return !in_array($column['label'], $hiddenColumns);
+            });
+        }
+        $get_columns = array_column($columns, 'key');
+        if (in_array('user.username', $get_columns)) {
+            $index = array_search('user.username', $get_columns);
+            $get_columns[$index] = 'user_id';
+        }
+        
+        
         $products = Product::query(); // Start with the Eloquent query builder
 
         $sorts = request()->get('sort', []);
@@ -58,9 +85,12 @@ class ProductController extends Controller
             }
         }
 
-        $products = $products->get();
+        $products = $products->with('user:id,username')->get($get_columns);
+        // dd($products);
         $sellers = User::where('is_seller', true)->get();
         return view('admin.products.index', [
+            'stackedColumns' => $stackedColumns,
+            'columns' => $columns,
             'sorts' => $sorts,
             'products' => $products,
             'sellers' => $sellers,

@@ -47,6 +47,11 @@ class Product extends Model
         ];
     }
     
+    public function getCreatedByAttribute()
+    {
+        return $this->user ? $this->user->username : null;
+    }
+    
     public function scopeUserId($query, $id): Builder
     {
         return $query->where('user_id', $id);

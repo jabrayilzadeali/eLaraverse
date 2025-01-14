@@ -6,6 +6,7 @@ use Database\Seeders\ProductSeeder;
 
 use App\Models\User;
 use Database\Seeders\CartSeeder;
+use Database\Seeders\CategorySeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -52,6 +53,9 @@ class DatabaseSeeder extends Seeder
         Cart::factory(2)->create(['user_id' => 2]);
         $this->call([
             ProductSeeder::class
+        ]);
+        $this->call([
+            CategorySeeder::class
         ]);
         // $this->call([
         //     CartSeeder::class

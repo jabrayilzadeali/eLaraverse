@@ -125,6 +125,7 @@ checkoutCarts?.addEventListener("click", (e) => cartOperations(e));
 addToCartInShowBtn?.addEventListener("click", (e) => {
     if (e.target.matches("button")) {
         const { id, title, price, img, stock } = e.target.dataset;
+        console.log(img)
         const quantity = e.target.previousElementSibling.value;
         addCart(id, img, title, price, quantity, stock);
         updateCartUi();

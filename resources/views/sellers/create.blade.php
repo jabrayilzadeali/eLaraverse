@@ -1,4 +1,4 @@
-<x-layouts.admin-layout>
+<x-layouts.seller-layout>
     <form class="" method="POST" action="{{ route('sellers.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="space-y-12">
@@ -39,10 +39,6 @@
             </div>
 
             <div class="pb-12 border-b border-gray-900/10">
-                <h2 class="font-semibold text-gray-900 dark:text-gray-100 text-base/7">Personal Information</h2>
-                <p class="mt-1 text-gray-600 dark:text-gray-300 text-sm/6">Use a permanent address where you can receive
-                    mail.</p>
-
                 <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="sm:col-span-3">
                         <label for="price"
@@ -52,6 +48,17 @@
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                         </div>
                         @error('price')
+                            <div class="text-sm text-red-500">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="sm:col-span-3">
+                        <label for="discount"
+                            class="block font-medium text-gray-900 dark:text-gray-100 text-sm/6">Discount</label>
+                        <div class="mt-2">
+                            <input type="number" name="discount" id="discount" value="{{ old('discount') }}"
+                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                        </div>
+                        @error('discount')
                             <div class="text-sm text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
@@ -67,4 +74,4 @@
     </form>
 
 
-</x-layouts.admin-layout>
+</x-layouts.seller-layout>

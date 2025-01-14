@@ -1,4 +1,4 @@
-<x-layouts.admin-layout>
+<x-layouts.seller-layout>
     <form class="" method="POST" action="{{ route('sellers.update', $product->slug) }}" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
@@ -51,6 +51,17 @@
                             <div class="text-sm text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="sm:col-span-3">
+                        <label for="discount"
+                            class="block font-medium text-gray-900 dark:text-gray-100 text-sm/6">Discount</label>
+                        <div class="mt-2">
+                            <input type="number" name="discount" id="discount" value="{{ old('discount', $product->discount) }}"
+                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                        </div>
+                        @error('discount')
+                            <div class="text-sm text-red-500">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,5 +72,5 @@
                 class="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
         </div>
     </form>
-</x-layouts.admin-layout>
+</x-layouts.seller-layout>
 

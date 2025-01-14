@@ -183,10 +183,20 @@
                         <form data-filter class="hidden lg:block">
                             <h3 class="sr-only">Categories</h3>
                             <ul role="list"
-                                class="pb-6 space-y-4 text-sm font-medium text-gray-900 border-b border-gray-200">
-                                <li>
-                                    <a href="#" class="text-gray-900 dark:text-gray-300">Totes</a>
-                                </li>
+                                class="pb-6 space-y-4 text-sm font-medium text-gray-900 border-b border-gray-200 dark:text-gray-300">
+                                @foreach ($categories as $category)
+                                    <x-category :category="$category"></x-category>
+                                @endforeach
+                                {{-- <li>
+                                    <a href="#" class="">Totes</a>
+                                    <ul class="pl-5">
+                                        <li><a href="#">okay</a></li>
+                                        <ul class="pl-5">
+                                            <li><a href="#">okay</a></li>
+                                        </ul>
+                                    </ul>
+                                    <a href="#">okay</a>
+                                </li> --}}
                             </ul>
 
                             <h3>Minimum and maximum</h3>
@@ -197,8 +207,7 @@
 
                             <input
                                 class="px-2 py-1 rounded-md w-28 dark:bg-neutral-800 ring-1 ring-neutral-600 dark:text-neutral-100"
-                                type="number" name="max_price" id="max_price"
-                                value="{{ request('max_price') }}">
+                                type="number" name="max_price" id="max_price" value="{{ request('max_price') }}">
                             <input type="submit" value="Apply">
                             <div class="py-6 border-b border-gray-200">
                                 <h3 class="flow-root -my-3">
@@ -259,7 +268,7 @@
                                 @foreach ($products as $product)
                                     <x-product-item :id="$product->id" :slug="route('products.show', $product->slug)" :img="$product->img_path"
                                         :title="$product->title" :rating="$product->rating" :price="$product->price" :stock="$product->stock"
-                                        :previousPrice="$product->price * 2"></x-product-item>
+                                        :discount="$product->discount"></x-product-item>
                                 @endforeach
                             </div>
                             <div class="mt-10">
@@ -272,21 +281,21 @@
         </div>
     </div>
     <script>
-            const form = document.querySelector('[data-filter]')
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const inputs = form.querySelectorAll("input[type='number']")
-                let url = new URL(window.location.href);
-                
-                inputs.forEach(input => {
-                    if (input.value.trim() && input.value !== "") {
-                        url.searchParams.set(input.name, input.value)
-                    } else if (input.value === "") {
-                        url.searchParams.delete(input.name)
-                    }
-                });
-                window.history.pushState({}, '', url); 
-                window.location.href = url
-            })
+        const form = document.querySelector('[data-filter]')
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const inputs = form.querySelectorAll("input[type='number']")
+            let url = new URL(window.location.href);
+
+            inputs.forEach(input => {
+                if (input.value.trim() && input.value !== "") {
+                    url.searchParams.set(input.name, input.value)
+                } else if (input.value === "") {
+                    url.searchParams.delete(input.name)
+                }
+            });
+            window.history.pushState({}, '', url);
+            window.location.href = url
+        })
     </script>
 </x-layouts.app-layout>

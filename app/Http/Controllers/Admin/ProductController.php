@@ -27,7 +27,6 @@ class ProductController extends Controller
             ['key' => 'stock', 'label' => 'stock', 'sortable' => false, 'type' => 'text'],
             ['key' => 'price', 'label' => 'price', 'sortable' => true, 'type' => 'text'],
             ['key' => 'created_at', 'label' => 'date', 'sortable' => false, 'type' => 'date'],
-            // ['key' => 'operations', 'label' => 'Operations', 'sortable' => false, 'type' => 'operations'],
         ];
         $stackedColumns = array_column($columns, 'label');
         $hiddenColumns = request()->get('hiddenColumns', []);
@@ -85,6 +84,9 @@ class ProductController extends Controller
             }
         }
 
+        if (!in_array('slug', $get_columns)) {
+            $get_columns[] = 'slug';
+        }
         $products = $products->with('user:id,username')->get($get_columns);
         // dd($products);
         $sellers = User::where('is_seller', true)->get();

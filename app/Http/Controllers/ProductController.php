@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,13 @@ class ProductController extends Controller
         $products = $query->simplePaginate(3)->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);
         // $products = $query->paginate(3);
         // $products = Product::orderBy($sortBy, $sortDirection)->simplePaginate(6)->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);;
-        return view('products.index', ['products' => $products, 'sortBy' => $sortBy, 'sortDirection' => $sortDirection]);
+        $categories = Category::where('parent_id', null)->get();
+        return view('products.index', [
+            'products' => $products,
+            'sortBy' => $sortBy,
+            'sortDirection' => $sortDirection,
+            'categories' => $categories
+        ]);
     }
     public function show(Product $product)
     {

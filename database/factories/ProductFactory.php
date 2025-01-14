@@ -25,9 +25,10 @@ class ProductFactory extends Factory
             'slug' => $slug,
             'title' => $title,
             'description' => fake()->sentence(10),
-            'img_path' => fake()->imageUrl(),
+            'img_path' => 'default-img.jpg',
             'rating' => fake()->randomFloat(1, 0, 5),
             'is_featured' => fake()->boolean(),
+            'discount' => fake()->numberBetween(50, 100),
             'price' => fake()->numberBetween(10, 1000),
         ];
     }

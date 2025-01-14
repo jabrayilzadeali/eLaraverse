@@ -12,10 +12,11 @@
         </div>
         <div
             class="grid md:flex-col justify-between grid-cols-3 grid-rows-[repeat(3, auto)] gap-4 md:flex md:grid-cols-1">
-            <p class="text-zinc-200 auto-cols-min">Brand Name</p>
+            <p class="text-zinc-200 auto-cols-min">{{ $product->user->username }}</p>
             <h2
                 class="col-span-3 row-start-2 font-semibold text-white md:grid-cols-auto md:grid-rows-auto md:font-bold md:text-xl">
                 {{ $product->title }}</h2>
+            <p>{{ $product->description }}</p>
             <x-stars :rating="$product->rating" class="col-start-3 row-start-1 md:grid-cols-auto md:grid-rows-auto"></x-stars>
             @if ($product->is_featured)
                 <div class="flex items-center col-span-2 grid-rows-3 gap-3">
@@ -28,18 +29,23 @@
         </div>
         <div class="flex flex-col justify-between gap-3 pt-3 mt-3 border-t border-gray-700 md:col-start-2">
             @csrf
+            @if ($product->stock)
             <div data-add-to-cart-in-show class="">
                 <input value="1"
                     class="rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     type="number">
                 <button data-id="{{ $product->id }}" data-title="{{ $product->title }}"
-                    data-price="{{ $product->price }}" data-img="{{ $product->img_path }}"
+                    data-price="{{ $product->price }}" data-img="{{ Storage::url($product->img_path) }}"
                     data-stock="{{ $product->stock }}"
                     class="px-3 py-2 font-bold border-0 rounded-md dark:bg-slate-50 dark:text-black">Add to
                     Cart</button>
             </div>
+            @else
+                <p>Out of stock</p>
+                
+            @endif
             <div class="flex items-end gap-3">
-                <p class="text-2xl text-red-500">-50%</p>
+                <p class="text-2xl text-red-500">-{{ $product->discount }}%</p>
                 <p class="text-4xl text-zinc-200">${{ $product->price }}</p>
                 <div>
                 </div>

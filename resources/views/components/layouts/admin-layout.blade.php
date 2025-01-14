@@ -39,5 +39,6 @@
             const isAuthenticated = "{{ Auth::user() }}" ? true : false
             const authenticatedUsersName = isAuthenticated ? "{{ Auth::user() }}" : null
         </script>
+        @vite('resources/js/admin.js')
     </body>
 </html>

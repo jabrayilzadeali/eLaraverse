@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -22,9 +23,11 @@ return new class extends Migration
             $table->string('rating')->default(0);
             $table->boolean('is_featured')->default(false);
             $table->decimal('price', 9, 3);
+            $table->unsignedTinyInteger('discount')->default(0);
             $table->unsignedInteger('stock')->default(0);
             $table->timestamps();
         });
+        DB::statement('ALTER TABLE products ADD CONSTRAINT check_discount_range CHECK (discount >= 0 AND discount <= 100)');
     }
 
     /**
@@ -32,6 +35,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        DB::statement('ALTER TABLE products DROP CONSTRAINT check_discount_range');
         Schema::dropIfExists('products');
     }
 };

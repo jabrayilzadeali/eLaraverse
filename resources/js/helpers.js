@@ -100,7 +100,7 @@ export function createTemplate(id, img, title, price, quantity = 1) {
         <li data-cart-id="${id}" class="flex py-6">
             <div
                 class="overflow-hidden border border-gray-200 dark:border-gray-800 rounded-md size-24 shrink-0">
-                <img src="${img}"
+                <img src="storage/${img}"
                     alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
                     class="object-cover size-full">
             </div>

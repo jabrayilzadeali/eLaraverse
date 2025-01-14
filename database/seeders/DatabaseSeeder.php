@@ -49,8 +49,8 @@ class DatabaseSeeder extends Seeder
             'is_seller' => false
         ]);
 
-        Cart::factory(2)->create(['user_id' => 1]);
-        Cart::factory(2)->create(['user_id' => 2]);
+        // Cart::factory(2)->create(['user_id' => 1]);
+        // Cart::factory(2)->create(['user_id' => 2]);
         $this->call([
             ProductSeeder::class
         ]);

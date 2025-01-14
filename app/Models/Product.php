@@ -41,6 +41,11 @@ class Product extends Model
         return 'slug';
     }
     
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+    
     public function toSearchableArray()
     {
         return [

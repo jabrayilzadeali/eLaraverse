@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('sku')->unique(); // Stock Keeping Unit
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('slug');
             $table->string('title');
             $table->string('description');

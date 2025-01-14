@@ -183,20 +183,10 @@
                         <form data-filter class="hidden lg:block">
                             <h3 class="sr-only">Categories</h3>
                             <ul role="list"
-                                class="pb-6 space-y-4 text-sm font-medium text-gray-900 border-b border-gray-200 dark:text-gray-300">
+                                class="flex flex-col gap-4">
                                 @foreach ($categories as $category)
                                     <x-category :category="$category"></x-category>
                                 @endforeach
-                                {{-- <li>
-                                    <a href="#" class="">Totes</a>
-                                    <ul class="pl-5">
-                                        <li><a href="#">okay</a></li>
-                                        <ul class="pl-5">
-                                            <li><a href="#">okay</a></li>
-                                        </ul>
-                                    </ul>
-                                    <a href="#">okay</a>
-                                </li> --}}
                             </ul>
 
                             <h3>Minimum and maximum</h3>

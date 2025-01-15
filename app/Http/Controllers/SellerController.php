@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -26,6 +27,7 @@ class SellerController extends Controller
             ['key' => 'discount', 'label' => 'discount', 'sortable' => true, 'type' => 'text'],
             // ['key' => 'discount', 'label' => 'discount', 'sortable' => true, 'type' => 'text'],
             ['key' => 'created_at', 'label' => 'date', 'sortable' => false, 'type' => 'date'],
+            ['key' => 'category.name', 'label' => 'category', 'sortable' => false, 'type' => 'text'],
         ];
 
         $stackedColumns = array_column($columns, 'label');
@@ -40,11 +42,15 @@ class SellerController extends Controller
             $index = array_search('user.username', $get_columns);
             $get_columns[$index] = 'user_id';
         }
+        if (in_array('category.name', $get_columns)) {
+            $index = array_search('category.name', $get_columns);
+            $get_columns[$index] = 'category_id';
+        }
 
 
         // $products = Product::query(); // Start with the Eloquent query builder
         // $products = Product::where('user_id', Auth::id())->query();
-        $products = Product::where('user_id', Auth::id());
+        $products = Product::with(['category'])->where('user_id', Auth::id());
         // $products = Auth::user()->products;
 
         $sorts = request()->get('sort', []);
@@ -100,7 +106,8 @@ class SellerController extends Controller
 
     public function create()
     {
-        return view('sellers.create');
+        $categories = Category::all();
+        return view('sellers.create', ['categories' => $categories]);
     }
 
     public function store()
@@ -110,6 +117,7 @@ class SellerController extends Controller
             'description' => 'required',
             'file_upload' => 'image',
             'discount' => 'numeric',
+            'category' => 'required',
             // 'rating' => 'numeric|between:0,5',
             'price' => 'required',
         ]);
@@ -118,6 +126,7 @@ class SellerController extends Controller
         $slug = Str::slug($validated['title']);
         $validated['slug'] = $slug;
         $validated['user_id'] = Auth::id();
+        $validated['category_id'] = $validated['category'];
         $sku = Str::uuid();
         $validated['sku'] = $sku;
 
@@ -135,7 +144,8 @@ class SellerController extends Controller
 
     public function edit(Product $product)
     {
-        return view('sellers.edit', ['product' => $product]);
+        $categories = Category::all();
+        return view('sellers.edit', ['product' => $product, 'categories' => $categories]);
     }
 
     public function update(Product $product)
@@ -145,11 +155,13 @@ class SellerController extends Controller
             'title' => 'required',
             'description' => 'required',
             'file_upload' => 'image',
+            'category' => 'required',
             'discount' => 'numeric',
             'price' => 'required',
         ]);
 
         $slug = Str::slug($validated['title']);
+        $validated['category_id'] = $validated['category'];
 
 
         if (request()->hasFile('file_upload')) {

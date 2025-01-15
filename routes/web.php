@@ -4,13 +4,18 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserSettingsController;
+use App\Http\Middleware\AuthCheck;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\EnsureAdminGuest;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +23,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $featuredProducts = Product::where('is_featured', true)->get();
+    $categories = Category::where('parent_id', null)->take(7)->get();
     $latestProducts = Product::latest()->take(8)->get();
     return view('welcome', [
         'featuredProducts' => $featuredProducts,
-        'latestProducts' => $latestProducts
+        'latestProducts' => $latestProducts,
+        'categories' => $categories,
     ]);
 });
 
@@ -43,12 +50,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('settings', [UserSettingsController::class, 'edit'])->name('user.settings.edit');
     Route::patch('settings', [UserSettingsController::class, 'update'])->name('user.settings.update');
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 });
 
 Route::get('/cart', [CartController::class, 'index']);
 
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
 
 
 // Route::get('/product', function () {
@@ -86,6 +94,10 @@ Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.s
 Route::get('products', [ProductController::class, 'index'])->name('products.index');
 Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
 
+Route::get('/category/{path}', [CategoryController::class, 'show'])
+     ->where('path', '.*')
+     ->name('category.show');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('sellers/dashboard', [SellerController::class, 'index'])
         ->can('create', Product::class)
@@ -121,6 +133,11 @@ Route::middleware([EnsureAdmin::class])->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'index'])
         ->name('admin.dashboard');
+
+    Route::get('/admin/users', [AdminProductController::class, 'index'])
+        ->name('admin.users.index');
+    Route::get('/admin/categories', [AdminProductController::class, 'index'])
+        ->name('admin.categories.index');
 
     Route::get('/admin/products', [AdminProductController::class, 'index'])
         ->name('admin.products.index');

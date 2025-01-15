@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -27,6 +28,7 @@ class ProductController extends Controller
             ['key' => 'stock', 'label' => 'stock', 'sortable' => false, 'type' => 'text'],
             ['key' => 'price', 'label' => 'price', 'sortable' => true, 'type' => 'text'],
             ['key' => 'created_at', 'label' => 'date', 'sortable' => false, 'type' => 'date'],
+            ['key' => 'category.name', 'label' => 'category', 'sortable' => false, 'type' => 'text'],
         ];
         $stackedColumns = array_column($columns, 'label');
         $hiddenColumns = request()->get('hiddenColumns', []);
@@ -40,8 +42,12 @@ class ProductController extends Controller
             $index = array_search('user.username', $get_columns);
             $get_columns[$index] = 'user_id';
         }
-        
-        
+        if (in_array('category.name', $get_columns)) {
+            $index = array_search('category.name', $get_columns);
+            $get_columns[$index] = 'category_id';
+        }
+
+
         $products = Product::query(); // Start with the Eloquent query builder
 
         $sorts = request()->get('sort', []);
@@ -74,11 +80,11 @@ class ProductController extends Controller
             $search = request()->get('search');
             $products->where(function ($q) use ($search) {
                 $q->where('title', 'LIKE', "%$search%")
-                  ->orWhere('description', 'LIKE', "%$search%")
-                  ->orWhere('sku', 'LIKE', "%$search%");
+                    ->orWhere('description', 'LIKE', "%$search%")
+                    ->orWhere('sku', 'LIKE', "%$search%");
             });
         }
-        foreach($sorts as $column => $direction) {
+        foreach ($sorts as $column => $direction) {
             if (Schema::hasColumn('products', $column) && in_array($direction, ['asc', 'desc'])) {
                 $products->orderBy($column, $direction);
             }
@@ -87,7 +93,7 @@ class ProductController extends Controller
         if (!in_array('slug', $get_columns)) {
             $get_columns[] = 'slug';
         }
-        $products = $products->with('user:id,username')->get($get_columns);
+        $products = $products->with(['user:id,username', 'category'])->get($get_columns);
         // dd($products);
         $sellers = User::where('is_seller', true)->get();
         return view('admin.products.index', [
@@ -98,11 +104,15 @@ class ProductController extends Controller
             'sellers' => $sellers,
         ]);
     }
-    
+
     public function create()
     {
         $sellers = User::where('is_seller', true)->get();
-        return view('admin.products.create', ['sellers'=> $sellers]);
+        $categories = Category::all();
+        return view('admin.products.create', [
+            'sellers' => $sellers,
+            'categories' => $categories
+        ]);
     }
 
     public function store()
@@ -112,18 +122,20 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'file_upload' => 'image',
+            'category' => 'required',
             'price' => 'required',
         ]);
-        
-        
+
+
         $slug = Str::slug($validated['title']);
         $validated['slug'] = $slug;
         $validated['user_id'] = $validated['seller'];
+        $validated['category_id'] = $validated['category'];
         $sku = Str::uuid();
         $validated['sku'] = $sku;
 
 
-        
+
         if (request()->hasFile('file_upload')) {
             $file_upload = Storage::disk('public')->put("/$sku", request()->file('file_upload'));
             $validated['img_path'] = $file_upload;
@@ -133,11 +145,12 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index')->with('success', 'Post Created Successfully');
     }
-    
+
     public function edit(Product $product)
     {
         $sellers = User::where('is_seller', true)->get();
-        return view('admin.products.edit', ['product' => $product, 'sellers' => $sellers]);
+        $categories = Category::all();
+        return view('admin.products.edit', ['product' => $product, 'sellers' => $sellers, 'categories' => $categories]);
     }
 
     public function update(Product $product)
@@ -149,16 +162,18 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'file_upload' => 'image',
+            'category' => 'required',
             'price' => 'required',
         ]);
-        
+
         // if (array_key_exists($validated['is_featured'], $validated)) {
         //     $validated['is_featured'] = true;
         // } else {
         //     $validated['is_featured'] = 0;
         // }
         $product->is_featured = $validated['is_featured'] ?? false;  // Default to false if not provided
-        
+        $validated['category_id'] = $validated['category'];
+
         $slug = Str::slug($validated['title']);
         $validated['user_id'] = $validated['seller'];
 
@@ -188,5 +203,4 @@ class ProductController extends Controller
         Storage::disk('public')->deleteDirectory($directory);
         return redirect()->route('admin.products.index')->with('success', 'Post Deleted Successfully');
     }
-
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -21,6 +22,7 @@ class ProductFactory extends Factory
         $slug = Str::slug($title);
         return [
             'user_id' => 1,
+            'category_id' => Category::inRandomOrder()->first()->id,
             'sku' => fake()->unique()->isbn10,
             'slug' => $slug,
             'title' => $title,

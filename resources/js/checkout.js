@@ -30,8 +30,9 @@ if (document.URL.includes("checkout")) {
             if (allStockSufficient) {
                 localStorage.removeItem("cartsArray");
                 form.submit()
+            } else {
+                alert('not in stock')
             }
-
         } else {
         }
     })

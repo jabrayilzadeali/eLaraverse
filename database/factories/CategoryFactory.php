@@ -18,11 +18,13 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $parent = $this->faker->randomElement([null, Category::inRandomOrder()->first()]);
         $name = fake()->sentence(2);
         $slug = Str::slug($name);
+        $fullSlug = $parent ? $parent->slug . '/' . $slug : $slug;
         return [
-            'parent_id' => $this->faker->randomElement([null, Category::inRandomOrder()->first()?->id]), // Random parent_id or null
-            'slug' => $slug,
+            'parent_id' => $parent?->id,
+            'slug' => $fullSlug,
             'name' => $name,
             'order' => 0
         ];

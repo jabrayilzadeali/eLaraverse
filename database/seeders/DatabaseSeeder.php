@@ -52,10 +52,10 @@ class DatabaseSeeder extends Seeder
         // Cart::factory(2)->create(['user_id' => 1]);
         // Cart::factory(2)->create(['user_id' => 2]);
         $this->call([
-            ProductSeeder::class
+            CategorySeeder::class
         ]);
         $this->call([
-            CategorySeeder::class
+            ProductSeeder::class
         ]);
         // $this->call([
         //     CartSeeder::class

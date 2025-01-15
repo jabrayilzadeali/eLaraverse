@@ -42,7 +42,8 @@ class ProductController extends Controller
             'products' => $products,
             'sortBy' => $sortBy,
             'sortDirection' => $sortDirection,
-            'categories' => $categories
+            'categories' => $categories,
+            'sortUrl' => 'products.index'
         ]);
     }
     public function show(Product $product)

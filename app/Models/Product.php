@@ -15,6 +15,7 @@ class Product extends Model
 
     protected $fillable = [
         'user_id',
+        'category_id',
         'sku', // Stock Keeping Unit
         'slug',
         'title',
@@ -36,14 +37,14 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-    
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
     
     public function toSearchableArray()

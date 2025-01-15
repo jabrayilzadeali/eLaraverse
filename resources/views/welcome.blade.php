@@ -2,7 +2,10 @@
     <div class="grid grid-cols-2 grid-rows-2 gap-3 mb-5 md:grid-cols-9 lg:grid-cols-12 lg:grid-rows-2">
         <div class="hidden col-span-2 row-span-2 rounded-md lg:block bg-zinc-300/50 dark:text-zinc-200 dark:bg-zinc-700">
             <ul class="flex flex-col gap-5 p-3">
-                <li class="relative group">
+                @foreach ($categories as $category)
+                    <x-category-home :category="$category"></x-category-home>
+                @endforeach
+                {{-- <li class="relative group">
                     <a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Texnalogiya</a>
                     <div
                         class="absolute z-50 hidden pl-5 min-w-[30rem] bg-transparent group-hover:block -top-3 left-full">
@@ -74,7 +77,7 @@
                 </li>
                 <li><a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Kitablar</a></li>
                 <li><a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Bütün
-                        Kategoriyalar</a></li>
+                        Kategoriyalar</a></li> --}}
             </ul>
         </div>
         <div

@@ -21,7 +21,7 @@
                     <h2 class="font-bold text-white">Welcome {{ auth('admin')->user()->username }}</h2>
                     <ul class="flex flex-col gap-3 mt-5">
                         <li><a href="{{ route('admin.dashboard') }}" class="block px-3 py-3 rounded-md {{ request()->is('admin/dashboard') ? 'dark:bg-neutral-500/50' : 'dark:bg-neutral-800/50' }} dark:hover:bg-neutral-700">Home</a></li>
-                        <li><a href="admin/users" class="block px-3 py-3 rounded-md {{ request()->is('admin/users/*') ? 'dark:bg-neutral-500/50' : 'dark:bg-neutral-800/50' }} dark:hover:bg-neutral-700">Users</a></li>
+                        <li><a href="{{ route('admin.users.index') }}" class="block px-3 py-3 rounded-md {{ request()->is('admin/users/*') ? 'dark:bg-neutral-500/50' : 'dark:bg-neutral-800/50' }} dark:hover:bg-neutral-700">Users</a></li>
                         <li><a href="{{ route('admin.products.index') }}" class="block px-3 py-3 rounded-md {{ request()->is('admin/products/*') ? 'dark:bg-neutral-500/50' : 'dark:bg-neutral-800/50' }} dark:hover:bg-neutral-700">Products</a></li>
                         <li><a href="admin/categories" class="block px-3 py-3 rounded-md {{ request()->is('admin/categories/*') ? 'dark:bg-neutral-500/50' : 'dark:bg-neutral-800/50' }} dark:hover:bg-neutral-700">Categories</a></li>
                     </ul>

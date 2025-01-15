@@ -58,7 +58,6 @@ class CheckoutController extends Controller
         DB::transaction(function () use ($user, $carts, $totalPrice) {
             // Deduct the total price from the user's balance
             $user->decrement('balance', $totalPrice);
-            
     
             // Update the stock for each product and clear the cart
             foreach ($carts as $cart) {

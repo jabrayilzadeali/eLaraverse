@@ -140,6 +140,15 @@
                                     <a href="{{ route('products.index') }}"
                                         class="{{ is_null(request('created_at')) && is_null(request('direction')) ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
                                         role="menuitem" tabindex="-1" id="menu-item-2">Default</a>
+                                    {{-- <a href="?sortBy=created_at&direction=desc"
+                                        class="{{ request('created_at') === 'price' && request('direction') === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
+                                        role="menuitem" tabindex="-1" id="menu-item-2">Newest</a>
+                                    <a href="?sorBy=price&direction=asc{{ route('products.index', ['sortBy' => 'price', 'direction' => 'asc']) }}"
+                                        class="{{ request('sortBy') === 'price' && request('direction') === 'asc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
+                                        role="menuitem" tabindex="-1" id="menu-item-3">Price: Low to High</a>
+                                    <a href="?sortBy=price&direction=desc"
+                                        class="{{ request('sortBy') === 'price' && request('direction') === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
+                                        role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</a> --}}
                                     <a href="{{ route('products.index', ['sortBy' => 'created_at', 'direction' => 'desc']) }}"
                                         class="{{ request('created_at') === 'price' && request('direction') === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
                                         role="menuitem" tabindex="-1" id="menu-item-2">Newest</a>
@@ -184,8 +193,9 @@
                             <h3 class="sr-only">Categories</h3>
                             <ul role="list"
                                 class="flex flex-col gap-4">
+                                {{-- {{ $currentCategory ?? '' }} --}}
                                 @foreach ($categories as $category)
-                                    <x-category :category="$category"></x-category>
+                                    <x-category :currentCategory="$currentCategory->id ?? ''" :category="$category"></x-category>
                                 @endforeach
                             </ul>
 

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->boolean('is_featured')->default(false);
             $table->decimal('price', 9, 3);
             $table->unsignedTinyInteger('discount')->default(0);
+            $table->decimal('discounted_price', 9, 3);
             $table->unsignedInteger('stock')->default(0);
             $table->timestamps();
         });

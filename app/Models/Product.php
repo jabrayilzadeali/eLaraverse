@@ -64,6 +64,16 @@ class Product extends Model
         return $query->where('user_id', $id);
     }
 
+    public function scopeMinDiscountedPrice($query, $minPrice): Builder
+    {
+        return $query->where('price', '>', $minPrice);
+    }
+
+    public function scopeMaxDiscountedPrice($query, $maxPrice): Builder
+    {
+        return $query->where('price', '<', $maxPrice);
+    }
+
     public function scopeMinPrice($query, $minPrice): Builder
     {
         return $query->where('price', '>', $minPrice);

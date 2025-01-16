@@ -1,87 +1,52 @@
 <x-layouts.app-layout>
-    <div class="grid grid-cols-2 grid-rows-2 gap-3 mb-5 md:grid-cols-9 lg:grid-cols-12 lg:grid-rows-2">
-        <div class="hidden col-span-2 row-span-2 rounded-md lg:block bg-zinc-300/50 dark:text-zinc-200 dark:bg-zinc-700">
+    <div class="grid grid-cols-2 gap-3 mb-5 md:grid-cols-9">
+        <div class="hidden col-span-2 rounded-md md:block bg-zinc-300/50 dark:text-zinc-200 dark:bg-zinc-700">
             <ul class="flex flex-col gap-5 p-3">
                 @foreach ($categories as $category)
                     <x-category-home :category="$category"></x-category-home>
                 @endforeach
-                {{-- <li class="relative group">
-                    <a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Texnalogiya</a>
-                    <div
-                        class="absolute z-50 hidden pl-5 min-w-[30rem] bg-transparent group-hover:block -top-3 left-full">
-                        <div
-                            class="grid grid-cols-3 grid-rows-3 gap-5 px-5 py-4 rounded-md bg-zinc-200 dark:bg-zinc-600">
-                            <div>
-                                <h2 class="font-bold text-md min-w-28">Test lorem</h2>
-                                <ul>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h2 class="font-bold text-md min-w-28">Test 2</h2>
-                                <ul>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h2 class="font-bold text-md min-w-28">Test 2</h2>
-                                <ul>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h2 class="font-bold text-md min-w-28">Test 2</h2>
-                                <ul>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h2 class="font-bold text-md min-w-28">Test 2</h2>
-                                <ul>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h2 class="font-bold text-md min-w-28">Test 2</h2>
-                                <ul>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                    <li><a href="#">Test</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li><a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Geyimlər</a></li>
-                <li><a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Kozmetik</a></li>
-                <li><a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Mebel</a></li>
-                <li><a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Sağlamlıq</a></li>
-                <li><a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Uşaq geyimləri və
-                        oyuncaqları</a>
-                </li>
-                <li><a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Kitablar</a></li>
+
                 <li><a href="#" class="block p-2 rounded-md bg-zinc-300/90 dark:bg-zinc-600">Bütün
-                        Kategoriyalar</a></li> --}}
+                        Kategoriyalar</a></li>
             </ul>
         </div>
-        <div
-            class="col-span-2 rounded-md swiper mySwiper2 md:col-span-5 lg:col-span-6 md:row-span-2 backdrop-blur-md h-72 md:h-full lg:h-full">
+        <div class="col-span-7 dark:bg-zinc-500/50 bg-zinc-300/50">
+
+            <div class="swiper mySwiper2">
+                <div class="swiper-wrapper">
+
+                    @foreach ($featuredProducts as $featuredProduct)
+                        <div class="swiper-slide">
+                            <div class="flex flex-col justify-around p-5 md:items-center md:flex-row">
+                                <div class="flex flex-col justify-center gap-5 md:items-center">
+                                    <div class="flex flex-col gap-3 max-w-96">
+                                        <h1 class="block font-bold text-md md:text-4xl">{{ $featuredProduct->title }}</h1>
+                                        <p class="text-sm">{{ $featuredProduct->description }}</p>
+                                        <p class="">
+                                            @if ($featuredProduct->discount)
+                                                <span class="text-sm font-semibold text-red-500 line-through">{{ $featuredProduct->price }}$</span>
+                                            @endif
+                                            <span class="text-xl font-semibold">{{ $featuredProduct->price - $featuredProduct->price * $featuredProduct->discount / 100 }}</span>
+                                            @if ($featuredProduct->discount)
+                                                <span class="font-semibold text-md">{{ $featuredProduct->discount }}%</span>
+                                            @endif
+                                        </p>
+                                        <div>
+                                            <button class="px-3 py-2 rounded-md dark:bg-zinc-900 text-neutral-200">Add To Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="py-10">
+                                    <img class="rounded-md max-w-96 max-h-96" src="{{ Storage::url($featuredProduct->img_path) }}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        {{-- <div
+            class="col-span-2 rounded-md swiper mySwiper2 bg-slate-50 lg:col-span-4 backdrop-blur-md h-72 md:h-full lg:h-full">
             <div class="swiper-wrapper">
                 @foreach ($featuredProducts as $featuredProduct)
                     <div
@@ -98,52 +63,10 @@
                     </div>
                 @endforeach
             </div>
-        </div>
-        {{-- <div
-            class="col-span-2 md:col-span-5 lg:col-span-6 md:row-span-2 rounded-md backdrop-blur-md h-72 md:h-full lg:h-auto bg-[url('https://picsum.photos/id/0/500/400')] bg-cover bg-center">
-            <div
-                class="absolute bottom-0 p-3 text-black rounded-md bg-zinc-200/90 dark:bg-zinc-500/90 md:left-5 md:right-5 md:bottom-5">
-                <h1 class="font-bold text-md md:text-xl">Macbook Pro | 16gb | m4 max</h1>
-                <p class="">
-                    <span class="text-sm font-semibold text-red-500 line-through">1200$</span>
-                    <span class="text-xl font-semibold">700$</span>
-                    <span class="font-semibold text-md">-50%</span>
-                </p>
-            </div>
         </div> --}}
-        <div
-            class="grid col-span-2 row-span-1 rounded-md place-content-center bg-zinc-300/80 dark:bg-zinc-700 md:col-span-4 h-50 md:h-auto">
-            <div class="flex items-end justify-center gap-5 px-3">
-                <div>
-                    <h1 class="">Cactus</h1>
-                    <p class="pb-3">
-                        <span class="text-sm font-semibold text-red-500 line-through">1200$</span>
-                        <span class="text-xl font-semibold">700$</span>
-                        <span class="font-semibold text-md">-50%</span>
-                    </p>
-                </div>
-                <img class="rounded-md" src="https://picsum.photos/id/248/150" alt="">
-            </div>
-        </div>
-        <div
-            class="grid row-span-1 px-2 pt-5 rounded-md place-content-center bg-zinc-300/80 dark:bg-zinc-700 md:col-span-2">
-            <img class="mb-3 rounded-md" src="https://picsum.photos/id/250/150" alt="">
-            <div>
-                <h1 class="">Camera</h1>
-                <p class="pb-3">
-                    <span class="text-sm font-semibold text-red-500 line-through">1200$</span>
-                    <span class="text-xl font-semibold">700$</span>
-                    <span class="font-semibold text-md">-50%</span>
-                </p>
-            </div>
-        </div>
-        <div
-            class="flex items-center justify-center row-span-1 text-xl rounded-md bg-zinc-300/80 dark:bg-zinc-700 md:col-span-2">
-            <a href="{{ route('products.index') }}">All Products</a>
-        </div>
     </div>
 
-    <div class="swiper mySwiper">
+    {{-- <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide"><img class="w-full h-auto rounded-md" src="https://picsum.photos/id/1/100/100"
                     alt=""></div>
@@ -167,7 +90,7 @@
                     alt=""></div>
         </div>
         <div class="swiper-pagination"></div>
-    </div>
+    </div> --}}
 
     <div class="my-20">
         <h2 class="mb-8 text-4xl font-bold text-center">Why Choose Us</h2>

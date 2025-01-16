@@ -32,6 +32,8 @@
     <script>
         const isAuthenticated = "{{ Auth::user() }}" ? true : false
         const authenticatedUsersName = isAuthenticated ? "{{ Auth::user() }}" : null
+        const authenticatedUserName = isAuthenticated ? "{{ Auth::user() }}" : null
+        // const authenticatedUserName = isAuthenticated ? JSON.parse(k) : null
     </script>
 </body>
 

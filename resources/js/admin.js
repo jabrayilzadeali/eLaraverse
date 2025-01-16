@@ -29,7 +29,7 @@ closeModalBtns.forEach(closeBtn => {
     })
 })
 
-stackBtn.addEventListener('click', () => {
+stackBtn?.addEventListener('click', () => {
     if (stacks.open) {
         stacks.close()
     } else {
@@ -37,7 +37,7 @@ stackBtn.addEventListener('click', () => {
     }
 })
 
-stacksForm.addEventListener('submit', (e) => {
+stacksForm?.addEventListener('submit', (e) => {
     e.preventDefault()
     const checkedElements = [...hideColumnElements].filter(el => el.checked).map(el => el.dataset.hideColumn)
     console.log(checkedElements)
@@ -125,7 +125,7 @@ icons.forEach(i => {
     })
 })
 
-filterBtn.addEventListener('click', () => {
+filterBtn?.addEventListener('click', () => {
     if (dialog.open) {
         dialog.close()
     } else {
@@ -133,7 +133,7 @@ filterBtn.addEventListener('click', () => {
     }
 })
 
-searchForm.addEventListener('submit', (e) => {
+searchForm?.addEventListener('submit', (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('search', searchInput.value)
@@ -141,7 +141,7 @@ searchForm.addEventListener('submit', (e) => {
     window.location.href = `${url}?${urlParams.toString()}`
 })
 
-filterForm.addEventListener('submit', (e) => {
+filterForm?.addEventListener('submit', (e) => {
     e.preventDefault()
     const urlParams = new URLSearchParams(window.location.search);
     const select = document.querySelector('[data-user]')

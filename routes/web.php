@@ -41,7 +41,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::post('/logout', [SessionController::class, 'destroy']);
+    Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
     Route::post('/fetch_carts', [ProductController::class, 'fetch']);
     Route::post('/cart', [ProductController::class, 'store_api']);

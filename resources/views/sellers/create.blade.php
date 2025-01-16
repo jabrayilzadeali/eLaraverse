@@ -5,7 +5,7 @@
             <div class="pb-12 border-b border-gray-900/10">
                 <h2 class="font-semibold text-gray-900 dark:text-gray-100 text-base/7">Create a product</h2>
                 <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div class="col-span-full">
+                    <div class="col-span-2">
                         <label for="title"
                             class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Title</label>
                         <div

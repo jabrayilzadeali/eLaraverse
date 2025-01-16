@@ -23,11 +23,11 @@ class ProductController extends Controller
 
 
         if (request()->has('min_price')) {
-            $query = $query->minPrice(request()->get('min_price'));
+            $query = $query->minDiscountedPrice(request()->get('min_price'));
         }
 
         if (request()->has('max_price')) {
-            $query = $query->maxPrice(request()->get('max_price'));
+            $query = $query->maxDiscountedPrice(request()->get('max_price'));
         }
 
         if ($sortBy) {

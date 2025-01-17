@@ -18,6 +18,7 @@ class Product extends Model
         'category_id',
         'sku', // Stock Keeping Unit
         'slug',
+        'attributes',
         'title',
         'description',
         'img_path',

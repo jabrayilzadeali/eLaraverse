@@ -102,9 +102,12 @@
                                     <div class="">
                                         <p class="text-base font-medium text-gray-700 dark:text-gray-300">
                                             Sorted by:
-                                            @switch($sortBy)
-                                                @case('price')
-                                                    {{ $sortDirection === 'asc' ? 'Price: Low to High' : 'Price: High to Low' }}
+                                            @php
+                                                $sortParams = request()->get('sort', []); // Get the 'sort' array from the query string
+                                            @endphp
+                                            @switch(key($sortParams))
+                                                @case('discounted_price')
+                                                    {{ current($sortParams) === 'asc' ? 'Price: Low to High' : 'Price: High to Low' }}
                                                 @break
 
                                                 @case('created_at')
@@ -136,20 +139,23 @@
                             <div class="absolute right-0 z-10 hidden w-40 mt-2 origin-top-right bg-white rounded-md shadow-2xl dark:bg-neutral-800 ring-1 ring-black/5 focus:outline-none"
                                 data-sort-menu role="menu" aria-orientation="vertical" aria-labelledby="menu-button"
                                 tabindex="-1">
-                                <div class="py-1" role="none">
-                                    <a href="{{ route('products.index') }}"
-                                        class="{{ is_null(request('created_at')) && is_null(request('direction')) ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
-                                        role="menuitem" tabindex="-1" id="menu-item-2">Default</a>
-                                    {{-- <a href="?sortBy=created_at&direction=desc"
-                                        class="{{ request('created_at') === 'price' && request('direction') === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
-                                        role="menuitem" tabindex="-1" id="menu-item-2">Newest</a>
-                                    <a href="?sorBy=price&direction=asc{{ route('products.index', ['sortBy' => 'price', 'direction' => 'asc']) }}"
-                                        class="{{ request('sortBy') === 'price' && request('direction') === 'asc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
-                                        role="menuitem" tabindex="-1" id="menu-item-3">Price: Low to High</a>
-                                    <a href="?sortBy=price&direction=desc"
-                                        class="{{ request('sortBy') === 'price' && request('direction') === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
-                                        role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</a> --}}
-                                    <a href="{{ route('products.index', ['sortBy' => 'created_at', 'direction' => 'desc']) }}"
+                                <div class="flex flex-col py-1" role="none">
+                                    <button
+                                        class="{{ is_null(request('sort')) ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm text-left"
+                                        role="menuitem" tabindex="-1" id="menu-item-2">Default</button>
+                                    <button data-sort-by="created_at" data-sort-direction="desc"
+                                        class="{{ (request('sort')['created_at'] ?? null) === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm text-left"
+                                        role="menuitem" tabindex="-1" id="menu-item-2">Newest</button>
+                                    <button data-sort-by="discounted_price" data-sort-direction="asc"
+                                        class="{{ (request('sort')['discounted_price'] ?? null) === 'asc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm text-left"
+                                        role="menuitem" tabindex="-1" id="menu-item-3">Price: Low to High</button>
+                                    <button data-sort-by="discounted_price" data-sort-direction="desc"
+                                        class="{{ (request('sort')['discounted_price'] ?? null) === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm text-left"
+                                        role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</button>
+                                    <button data-sort-by="discount" data-sort-direction="desc"
+                                        class="{{ (request('sort')['discount'] ?? null) === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm text-left"
+                                        role="menuitem" tabindex="-1" id="menu-item-4">Discount: High to Low</button>
+                                    {{-- <a href="{{ route('products.index', ['sortBy' => 'created_at', 'direction' => 'desc']) }}"
                                         class="{{ request('created_at') === 'price' && request('direction') === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
                                         role="menuitem" tabindex="-1" id="menu-item-2">Newest</a>
                                     <a href="{{ route('products.index', ['sortBy' => 'discounted_price', 'direction' => 'asc']) }}"
@@ -157,7 +163,7 @@
                                         role="menuitem" tabindex="-1" id="menu-item-3">Price: Low to High</a>
                                     <a href="{{ route('products.index', ['sortBy' => 'discounted_price', 'direction' => 'desc']) }}"
                                         class="{{ request('sortBy') === 'discounted_price' && request('direction') === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
-                                        role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</a>
+                                        role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</a> --}}
                                 </div>
                             </div>
                         </div>
@@ -191,8 +197,7 @@
                         <!-- Filters -->
                         <form data-filter class="hidden lg:block">
                             <h3 class="sr-only">Categories</h3>
-                            <ul role="list"
-                                class="flex flex-col gap-4">
+                            <ul role="list" class="flex flex-col gap-4">
                                 {{-- {{ $currentCategory ?? '' }} --}}
                                 @foreach ($categories as $category)
                                     <x-category :currentCategory="$currentCategory->id ?? 0" :category="$category"></x-category>

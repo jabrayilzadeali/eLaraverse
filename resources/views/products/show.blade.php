@@ -63,8 +63,23 @@
             </div> --}}
         </div>
     </div>
+    @if ($product->attributes)
+        <div class="my-4">
+            <h2 class="mb-5 text-2xl font-bold text-gray-200">Products Information</h2>
+            <table class="min-w-full border-separate table-auto border-spacing-0 dark:bg-neutral-800">
+                <tbody class="">
+                    @foreach (json_decode($product->attributes) as $key => $attribute)
+                        <tr class="my-2">
+                            <td class="px-4 py-2">{{ $key}}</td>
+                            <td class="px-4 py-2 text-right">{{ $attribute }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
     <div class="mt-8">
-        <h2 class="mb-5 text-4xl font-bold text-gray-200">Reviews</h2>
+        <h2 class="mb-5 text-2xl font-bold text-gray-200">Reviews</h2>
         <form class="my-5" action="" data-add-comment>
             <x-rating></x-rating>
             <label for="heading" class="">Title</label>

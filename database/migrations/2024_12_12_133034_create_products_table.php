@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('slug');
             $table->string('title');
+            $table->json('attributes')->nullable();
             $table->string('description');
             $table->string('img_path');
             $table->string('rating')->default(0);

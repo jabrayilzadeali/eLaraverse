@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class CategoryController extends Controller
 {
@@ -12,6 +13,7 @@ class CategoryController extends Controller
     {
         $currentCategory = Category::where('slug', $path)->firstOrFail();
         // $products = Product::where('category_id', $currentCategory->id)->get();
+        $sorts = request()->get('sort', []);
 
         $sortBy = request()->get('sortBy', ''); // Default to 'created_at'
         $sortDirection = request()->get('direction', ''); // Default to 'desc'
@@ -25,9 +27,14 @@ class CategoryController extends Controller
             $query = $query->maxPrice(request()->get('max_price'));
         }
 
-        if ($sortBy) {
-            // Apply sorting only if sortBy is provided
-            $query->orderBy($sortBy, $sortDirection);
+        // if ($sortBy) {
+        //     // Apply sorting only if sortBy is provided
+        //     $query->orderBy($sortBy, $sortDirection);
+        // }
+        foreach ($sorts as $column => $direction) {
+            if (Schema::hasColumn('products', $column) && in_array($direction, ['asc', 'desc'])) {
+                $query->orderBy($column, $direction);
+            }
         }
 
         $products = $query->where('category_id', $currentCategory->id)->simplePaginate(3)->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);

@@ -112,7 +112,10 @@ export function createTemplate(id, img, title, price, quantity = 1) {
                         <h3>
                             <a href="#">${title}</a>
                         </h3>
-                        <p class="ml-4">${price}</p>
+                        <div class="ml-4 flex flex-col justify-end items-end">
+                            <p>${price}</p>
+                            <p class="line-through text-sm">${price}</p>
+                        </div>
                     </div>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Salmon</p>
                 </div>
@@ -135,4 +138,53 @@ export function createTemplate(id, img, title, price, quantity = 1) {
             </div>
         </li>
     `;
+}
+
+
+export function setUrlParams(key, value) {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.delete('hiddenColumns[]')
+    const existingValues = urlParams.getAll(key);
+    for (const v of value) {
+        if (!existingValues.includes(v)) {
+            urlParams.append(key, v); // Add only if it doesn't already exist
+        }
+    }
+
+    const url = window.location.href.split('?')[0]
+    window.location.href = `${url}?${urlParams.toString()}`
+}
+
+export function setUrlParam(key, value) {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (key.endsWith('[]')) {
+        const existingValues = urlParams.getAll(key);
+        if (!existingValues.includes(value)) {
+            urlParams.append(key, value); // Add only if it doesn't already exist
+        }
+    } else {
+        urlParams.set(key, value); // Overwrite for non-array keys
+    }
+    const url = window.location.href.split('?')[0]
+    window.location.href = `${url}?${urlParams.toString()}`
+}
+
+export function deleteUrlParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.delete(param);
+    const url = window.location.href.split('?')[0]
+    window.location.href = `${url}?${urlParams.toString()}`
+}
+
+export function removeParams(value) {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Filter out all 'sort[...]' params and update the URL
+    [...urlParams.keys()]
+        .filter(key => key.startsWith(value))
+        .forEach(key => urlParams.delete(key));
+
+    // Update the URL without reloading the page
+    const baseUrl = window.location.href.split('?')[0];
+    window.history.replaceState({}, '', urlParams.toString() ? `${baseUrl}?${urlParams.toString()}` : baseUrl);
 }

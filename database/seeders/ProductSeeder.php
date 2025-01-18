@@ -39,7 +39,7 @@ class ProductSeeder extends Seeder
         Product::create([
             'user_id' => 1,
             'sku' => $sku,
-            'title' => 'Iphone 15 Pro Max',
+            'title' => 'Iphone 15',
             'description' => 'iPhone 15 256GB Desert Titanium bu qabaqcıl texnologiyaları və zərif dizaynı özündə birləşdirən güclü bir cihazdır. Yüksək keyfiyyət və funksionallıq axtaranlar üçün ideal seçimdir.',
             'slug' => 'iphone-15',
             'img_path' => "$sku/iphone-15.jpg",

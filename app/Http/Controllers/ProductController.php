@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -20,6 +21,7 @@ class ProductController extends Controller
         $sortBy = request()->get('sortBy', ''); // Default to 'created_at'
         $sortDirection = request()->get('direction', ''); // Default to 'desc'
         $query = Product::query();
+        $sorts = request()->get('sort', []);
 
 
         if (request()->has('min_price')) {
@@ -30,9 +32,14 @@ class ProductController extends Controller
             $query = $query->maxDiscountedPrice(request()->get('max_price'));
         }
 
-        if ($sortBy) {
-            // Apply sorting only if sortBy is provided
-            $query->orderBy($sortBy, $sortDirection);
+        // if ($sortBy) {
+        //     // Apply sorting only if sortBy is provided
+        //     $query->orderBy($sortBy, $sortDirection);
+        // }
+        foreach ($sorts as $column => $direction) {
+            if (Schema::hasColumn('products', $column) && in_array($direction, ['asc', 'desc'])) {
+                $query->orderBy($column, $direction);
+            }
         }
         $products = $query->simplePaginate(3)->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);
         // $products = $query->paginate(3);

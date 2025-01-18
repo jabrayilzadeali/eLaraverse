@@ -63,6 +63,35 @@
                         @enderror
                     </div>
 
+                    <div class="sm:col-span-3">
+                        <label for="attributes"
+                            class="block mb-5 text-lg font-medium text-gray-900 dark:text-gray-100">Attributes</label>
+                        <div>
+                            <div class="flex justify-between my-2 text-neutral-200">
+                                <p>Key</p>
+                                <p>Value</p>
+                            </div>
+                            <div class="flex justify-between my-2 text-neutral-200">
+                                <p>Key</p>
+                                <p>Value</p>
+                            </div>
+                            <div class="flex justify-between my-2 text-neutral-200">
+                                <p>Key</p>
+                                <p>Value</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 mt-7">
+                            <input type="text" name="attributes" id="attributes" value="{{ old('attributes') }}"
+                                class="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 dark:bg-neutral-800 dark:text-neutral-200">
+                            <input type="text" name="values" id="values" value="{{ old('attributes') }}"
+                                class="block w-full rounded-md px-3 py-1.5 text-base text-gray-900">
+                        </div>
+                        <button>Add</button>
+                        @error('attributes')
+                            <div class="text-sm text-red-500">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="col-span-full">
                         <label for="categories"
                             class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Select Category</label>

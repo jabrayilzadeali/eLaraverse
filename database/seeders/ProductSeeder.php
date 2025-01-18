@@ -112,6 +112,11 @@ class ProductSeeder extends Seeder
         $price = 3500;
         $discount = 50;
         $discounted_price = $price - $price * $discount / 100;
+        $attributes = json_encode([
+            'cpu' => 'm3',
+            'İstehsalçı' => 'Apple',
+            'ram' => '16',
+        ]);
         Product::create([
             'user_id' => 1,
             'sku' => $sku,
@@ -119,6 +124,7 @@ class ProductSeeder extends Seeder
             'description' => 'Macbook air m3 bu qabaqcıl texnologiyaları və zərif dizaynı özündə birləşdirən güclü bir cihazdır. Yüksək keyfiyyət və funksionallıq axtaranlar üçün ideal seçimdir.',
             'slug' => 'macbook-air-m3',
             'img_path' => "$sku/macbook-air-m3.jpg",
+            'attributes' => $attributes,
             'is_featured' => true,
             'price' => $price,
             'discount' => $discount,

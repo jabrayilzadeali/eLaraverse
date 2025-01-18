@@ -20,26 +20,47 @@
                             <div class="flex flex-col justify-around p-5 md:items-center md:flex-row">
                                 <div class="flex flex-col justify-center gap-5 md:items-center">
                                     <div class="flex flex-col gap-3 max-w-96">
-                                        <h1 class="block font-bold text-md md:text-4xl">{{ $featuredProduct->title }}</h1>
+                                        <h1 class="block font-bold text-md md:text-4xl">{{ $featuredProduct->title }}
+                                        </h1>
                                         <p class="text-sm">{{ $featuredProduct->description }}</p>
                                         <p class="">
                                             @if ($featuredProduct->discount)
-                                                <span class="text-sm font-semibold text-red-500 line-through">{{ $featuredProduct->price }}$</span>
+                                                <span
+                                                    class="text-sm font-semibold text-red-500 line-through">{{ $featuredProduct->price }}$</span>
                                             @endif
-                                            <span class="text-xl font-semibold">{{ $featuredProduct->price - $featuredProduct->price * $featuredProduct->discount / 100 }}</span>
+                                            <span
+                                                class="text-xl font-semibold">{{ $featuredProduct->price - ($featuredProduct->price * $featuredProduct->discount) / 100 }}</span>
                                             @if ($featuredProduct->discount)
-                                                <span class="font-semibold text-md">{{ $featuredProduct->discount }}%</span>
+                                                <span
+                                                    class="font-semibold text-md">{{ $featuredProduct->discount }}%</span>
                                             @endif
                                         </p>
+
                                         @if ($featuredProduct->stock)
                                             <div>
-                                                <button class="px-3 py-2 rounded-md dark:bg-zinc-900 text-neutral-200">Add To Cart</button>
+                                                <button data-add-to-cart data-id="{{ $featuredProduct->id }}"
+                                                    data-img="{{ $featuredProduct->img_path }}"
+                                                    data-title="{{ $featuredProduct->title }}"
+                                                    data-price="{{ $featuredProduct->price }}" data-quantity="1"
+                                                    data-stock="{{ $featuredProduct->stock }}"
+                                                    class="px-3 py-2 rounded-md dark:bg-zinc-900 text-neutral-200">Add
+                                                    To Cart</button>
+                                                <button data-remove-from-cart data-id="{{ $featuredProduct->id }}"
+                                                    data-img="{{ $featuredProduct->img }}"
+                                                    data-title="{{ $featuredProduct->title }}"
+                                                    data-price="{{ $featuredProduct->price }}"
+                                                    class="hidden px-3 py-2 rounded-md dark:bg-zinc-900 text-neutral-200">Remove
+                                                    From
+                                                    Cart</button>
                                             </div>
-                                        @endif
+                                        @else
+                                            <p>Out of stock</p>
+                                <span class="font-semibold text-md">-50%</span>
                                     </div>
                                 </div>
                                 <div class="py-10">
-                                    <img class="rounded-md max-w-96 max-h-96" src="{{ Storage::url($featuredProduct->img_path) }}" alt="">
+                                    <img class="rounded-md max-w-96 max-h-96"
+                                        src="{{ Storage::url($featuredProduct->img_path) }}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -99,15 +120,18 @@
         <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
             <div class="flex flex-col items-center justify-between gap-20 px-16 py-10 text-center bg-black rounded-md">
                 <h2 class="text-2xl font-bold text-white">Lorem, ipsum dolor</h2>
-                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere tempora in magni reiciendis, sequi vel fugiat eligendi sapiente placeat esse quis perferendis ratione sed illum?</p>
+                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere tempora in magni
+                    reiciendis, sequi vel fugiat eligendi sapiente placeat esse quis perferendis ratione sed illum?</p>
             </div>
             <div class="flex flex-col items-center justify-between gap-20 px-16 py-10 text-center bg-black rounded-md">
                 <h2 class="text-2xl font-bold text-white">Lorem, ipsum dolor</h2>
-                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere tempora in magni reiciendis, sequi vel fugiat eligendi sapiente placeat esse quis perferendis ratione sed illum?</p>
+                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere tempora in magni
+                    reiciendis, sequi vel fugiat eligendi sapiente placeat esse quis perferendis ratione sed illum?</p>
             </div>
             <div class="flex flex-col items-center justify-between gap-20 px-16 py-10 text-center bg-black rounded-md">
                 <h2 class="text-2xl font-bold text-white">Lorem, ipsum dolor</h2>
-                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere tempora in magni reiciendis, sequi vel fugiat eligendi sapiente placeat esse quis perferendis ratione sed illum?</p>
+                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere tempora in magni
+                    reiciendis, sequi vel fugiat eligendi sapiente placeat esse quis perferendis ratione sed illum?</p>
             </div>
         </div>
     </div>
@@ -122,7 +146,12 @@
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         @foreach ($latestProducts as $latestProduct)
             <x-product-item :id="$latestProduct->id" :slug="route('products.show', $latestProduct->slug)" :img="$latestProduct->img_path" :title="$latestProduct->title" :rating="$latestProduct->rating"
+<<<<<<< HEAD
                 :stock="$latestProduct->stock" :price="$latestProduct->price" :previousPrice="$latestProduct->price * 2"></x-product-item>
+=======
+                :stock="$latestProduct->stock"
+                :price="$latestProduct->price" :previousPrice="$latestProduct->price * 2"></x-product-item>
+>>>>>>> 065e6873416f634f3a73c89de5298bd2709c5962
         @endforeach
     </div>
 

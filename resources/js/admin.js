@@ -1,3 +1,4 @@
+import { setUrlParams, setUrlParam, deleteUrlParam } from "./helpers";
 const filterBtn = document.querySelector("[data-filter-btn]");
 const dialog = document.querySelector("[data-dialog]");
 const filterForm = document.querySelector("[data-dialog] form");
@@ -44,40 +45,7 @@ stacksForm?.addEventListener('submit', (e) => {
     setUrlParams('hiddenColumns[]', checkedElements)
 })
 
-function setUrlParams(key, value) {
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.delete('hiddenColumns[]')
-    const existingValues = urlParams.getAll(key);
-    for (const v of value) {
-        if (!existingValues.includes(v)) {
-            urlParams.append(key, v); // Add only if it doesn't already exist
-        }
-    }
 
-    const url = window.location.href.split('?')[0]
-    window.location.href = `${url}?${urlParams.toString()}`
-}
-
-function setUrlParam(key, value) {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (key.endsWith('[]')) {
-        const existingValues = urlParams.getAll(key);
-        if (!existingValues.includes(value)) {
-            urlParams.append(key, value); // Add only if it doesn't already exist
-        }
-    } else {
-        urlParams.set(key, value); // Overwrite for non-array keys
-    }
-    const url = window.location.href.split('?')[0]
-    window.location.href = `${url}?${urlParams.toString()}`
-}
-
-function deleteUrlParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.delete(param);
-    const url = window.location.href.split('?')[0]
-    window.location.href = `${url}?${urlParams.toString()}`
-}
 
 function removeHiddenColumn(columnToRemove) {
     const urlParams = new URLSearchParams(window.location.search);

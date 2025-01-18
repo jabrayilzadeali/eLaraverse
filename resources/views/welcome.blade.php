@@ -14,11 +14,10 @@
 
             <div class="swiper mySwiper2">
                 <div class="swiper-wrapper">
-
                     @foreach ($featuredProducts as $featuredProduct)
                         <div class="swiper-slide">
                             <div class="flex flex-col justify-around p-5 md:items-center md:flex-row">
-                                <div class="flex flex-col justify-center gap-5 md:items-center">
+                                <div class="flex flex-col justify-center gap-5 md:flex-row md:items-center">
                                     <div class="flex flex-col gap-3 max-w-96">
                                         <h1 class="block font-bold text-md md:text-4xl">{{ $featuredProduct->title }}
                                         </h1>
@@ -35,7 +34,6 @@
                                                     class="font-semibold text-md">{{ $featuredProduct->discount }}%</span>
                                             @endif
                                         </p>
-
                                         @if ($featuredProduct->stock)
                                             <div>
                                                 <button data-add-to-cart data-id="{{ $featuredProduct->id }}"
@@ -54,13 +52,16 @@
                                                     Cart</button>
                                             </div>
                                         @else
-                                            <p>Out of stock</p>
-                                <span class="font-semibold text-md">-50%</span>
+                                            <div>
+                                                <p>Out of stock</p>
+                                                <span class="font-semibold text-md">-50%</span>
+                                            </div>
+                                        @endif
                                     </div>
-                                </div>
-                                <div class="py-10">
-                                    <img class="rounded-md max-w-96 max-h-96"
-                                        src="{{ Storage::url($featuredProduct->img_path) }}" alt="">
+                                    <div class="py-10">
+                                        <img class="rounded-md max-w-96 max-h-96"
+                                            src="{{ Storage::url($featuredProduct->img_path) }}" alt="">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -146,12 +147,7 @@
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         @foreach ($latestProducts as $latestProduct)
             <x-product-item :id="$latestProduct->id" :slug="route('products.show', $latestProduct->slug)" :img="$latestProduct->img_path" :title="$latestProduct->title" :rating="$latestProduct->rating"
-<<<<<<< HEAD
                 :stock="$latestProduct->stock" :price="$latestProduct->price" :previousPrice="$latestProduct->price * 2"></x-product-item>
-=======
-                :stock="$latestProduct->stock"
-                :price="$latestProduct->price" :previousPrice="$latestProduct->price * 2"></x-product-item>
->>>>>>> 065e6873416f634f3a73c89de5298bd2709c5962
         @endforeach
     </div>
 

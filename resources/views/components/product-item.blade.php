@@ -6,6 +6,7 @@
     'rating' => 3.2,
     'price',
     'discount' => 0,
+    'discounted_price' => 0,
     'stock' => 0,
 ])
 <div class="transition-all duration-300 ease-in-out group hover:-translate-y-5">
@@ -19,7 +20,7 @@
     </a>
     <div class="flex items-center justify-between">
         <div>
-            <p class="text-xl">${{ $discount > 0 ? $price - $price * $discount / 100 : $price }}</p>
+            <p class="text-xl">${{ $discount > 0 ? $price - ($price * $discount) / 100 : $price }}</p>
             @if ($discount)
                 <p class="text-base line-through">${{ $price }}</p>
             @endif
@@ -27,7 +28,8 @@
         <div>
             @if ($stock)
                 <button data-add-to-cart data-id="{{ $id }}" data-img="{{ $img }}"
-                    data-title="{{ $title }}" data-price="{{ $price }}" data-quantity="1"
+                    data-title="{{ $title }}" data-price="{{ $price }}" data-discount="{{ $discount }}"
+                    data-discounted-price="{{ $price - ($price * $discount) / 100 }}" data-quantity="1"
                     data-stock="{{ $stock }}"
                     class="px-3 py-2 text-sm text-black bg-white rounded-md disabled:bg-slate-300">Add To Cart</button>
                 <button data-remove-from-cart data-id="{{ $id }}" data-img="{{ $img }}"

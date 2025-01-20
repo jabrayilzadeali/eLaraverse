@@ -39,10 +39,20 @@
                                                 <button data-add-to-cart data-id="{{ $featuredProduct->id }}"
                                                     data-img="{{ $featuredProduct->img_path }}"
                                                     data-title="{{ $featuredProduct->title }}"
-                                                    data-price="{{ $featuredProduct->price }}" data-quantity="1"
+                                                    data-price="{{ $featuredProduct->price }}"
+                                                    data-discounted-price="{{ $featuredProduct->price - ($featuredProduct->price * $featuredProduct->discount) / 100 }}" 
+                                                    data-quantity="1"
                                                     data-stock="{{ $featuredProduct->stock }}"
                                                     class="px-3 py-2 rounded-md dark:bg-zinc-900 text-neutral-200">Add
                                                     To Cart</button>
+                                                
+                                                    
+                                                {{-- <button data-add-to-cart data-id="{{ $id }}" data-img="{{ $img }}"
+                                                    data-title="{{ $title }}" data-price="{{ $price }}" data-discount="{{ $discount }}"
+                                                    data-discounted-price="{{ $price - ($price * $discount) / 100 }}" data-quantity="1"
+                                                    data-stock="{{ $stock }}"
+                                                    class="px-3 py-2 text-sm text-black bg-white rounded-md disabled:bg-slate-300">Add To Cart</button> --}}
+
                                                 <button data-remove-from-cart data-id="{{ $featuredProduct->id }}"
                                                     data-img="{{ $featuredProduct->img }}"
                                                     data-title="{{ $featuredProduct->title }}"
@@ -147,7 +157,7 @@
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         @foreach ($latestProducts as $latestProduct)
             <x-product-item :id="$latestProduct->id" :slug="route('products.show', $latestProduct->slug)" :img="$latestProduct->img_path" :title="$latestProduct->title" :rating="$latestProduct->rating"
-                :stock="$latestProduct->stock" :price="$latestProduct->price" :previousPrice="$latestProduct->price * 2"></x-product-item>
+                :stock="$latestProduct->stock" :price="$latestProduct->price" :discount="$latestProduct->discount" :discounted_price="$latestProduct->discountedPrice"></x-product-item>
         @endforeach
     </div>
 

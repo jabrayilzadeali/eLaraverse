@@ -154,7 +154,8 @@
                                         role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</button>
                                     <button data-sort-by="discount" data-sort-direction="desc"
                                         class="{{ (request('sort')['discount'] ?? null) === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm text-left"
-                                        role="menuitem" tabindex="-1" id="menu-item-4">Discount: High to Low</button>
+                                        role="menuitem" tabindex="-1" id="menu-item-4">Discount: High to
+                                        Low</button>
                                     {{-- <a href="{{ route('products.index', ['sortBy' => 'created_at', 'direction' => 'desc']) }}"
                                         class="{{ request('created_at') === 'price' && request('direction') === 'desc' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300' }} block px-4 py-2 text-sm"
                                         role="menuitem" tabindex="-1" id="menu-item-2">Newest</a>
@@ -272,7 +273,7 @@
                             <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                                 @foreach ($products as $product)
                                     <x-product-item :id="$product->id" :slug="route('products.show', $product->slug)" :img="$product->img_path"
-                                        :title="$product->title" :rating="$product->rating" :price="$product->price" :stock="$product->stock"
+                                        :title="$product->title" :rating="$product->rating" :price="$product->price" :discounted_price="$product->discounted_price" :stock="$product->stock"
                                         :discount="$product->discount"></x-product-item>
                                 @endforeach
                             </div>

@@ -24,25 +24,48 @@
         <div class="flex flex-col justify-start gap-3 pt-3 mt-3 border-t border-gray-700 md:col-start-2">
             @csrf
             @if ($product->stock)
-            <div data-add-to-cart-in-show class="">
-                <input value="1"
+                <div data-add-to-cart-in-show class="">
+                    {{-- <input value="1"
                     class="rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    type="number">
-                <button data-id="{{ $product->id }}" data-title="{{ $product->title }}"
-                    data-price="{{ $product->price }}" data-img="{{ Storage::url($product->img_path) }}"
-                    data-stock="{{ $product->stock }}"
-                    class="px-3 py-2 font-bold border-0 rounded-md dark:bg-slate-50 dark:text-black">Add to
-                    Cart</button>
-            </div>
+                    type="number"> --}}
+                    <select id="quantity" name="quantity"
+                        class="appearance-none w-40 rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                        @for ($i = 1; $i < 15; $i++)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                    </select>
+
+                    <button data-id="{{ $product->id }}" data-img="{{ $product->img_path }}" 
+                        data-title="{{ $product->title }}"
+                        data-price="{{ $product->price }}" 
+                        data-discount="{{ $product->discount }}"
+                        data-discounted-price="{{ $product->price - ($product->price * $product->discount) / 100 }}"
+                        data-stock="{{ $product->stock }}"
+                        class="px-3 py-2 font-bold border-0 rounded-md dark:bg-slate-50 dark:text-black">Add to
+                        Cart</button>
+                    {{-- <button data-id="{{ $id }}" data-img="{{ $img }}"
+                        data-title="{{ $title }}" data-price="{{ $price }}" data-discount="{{ $discount }}"
+                        data-discounted-price="{{ $price - ($price * $discount) / 100 }}" data-quantity="1"
+                        data-stock="{{ $stock }}"
+                        class="px-3 py-2 text-sm text-black bg-white rounded-md disabled:bg-slate-300">Add To Cart</button> --}}
+
+
+
+                    {{-- <button data-add-to-cart data-id="{{ $product->id }}" data-img="{{ $img }}"
+                    data-title="{{ $title }}" data-price="{{ $price }}" data-discount="{{ $discount }}"
+                    data-discounted-price="{{ $price - ($price * $discount) / 100 }}" data-quantity="1"
+                    data-stock="{{ $stock }}"
+                    class="px-3 py-2 text-sm text-black bg-white rounded-md disabled:bg-slate-300">Add To Cart</button> --}}
+                </div>
             @else
                 <p>Out of stock</p>
-                
             @endif
             <div class="flex items-end gap-3">
                 @if ($product->discount)
                     <p class="text-2xl text-red-500">-{{ $product->discount }}%</p>
                 @endif
-                <p class="text-4xl text-zinc-200">{{ $product->price - $product->price * $product->discount / 100 }}</p>
+                <p class="text-4xl text-zinc-200">{{ $product->price - ($product->price * $product->discount) / 100 }}
+                </p>
                 <div>
                 </div>
             </div>
@@ -70,7 +93,7 @@
                 <tbody class="">
                     @foreach (json_decode($product->attributes) as $key => $attribute)
                         <tr class="my-2">
-                            <td class="px-4 py-2">{{ $key}}</td>
+                            <td class="px-4 py-2">{{ $key }}</td>
                             <td class="px-4 py-2 text-right">{{ $attribute }}</td>
                         </tr>
                     @endforeach
@@ -148,7 +171,7 @@
                 </div>
             `
         }
-        
+
         // console.log('usersName: ', authenticatedUserName)
         const addCommentForm = document.querySelector('[data-add-comment]')
         const formRating = document.querySelector('[data-input-rating]')

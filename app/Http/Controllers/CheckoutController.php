@@ -35,16 +35,14 @@ class CheckoutController extends Controller
                 $outOfStock[] = $cart;
                 $insufficientStock = true;
             }
-            $totalPrice += $product->price * $cart->quantity;
+            $totalPrice += ($product->price - $product->price * $product->discount / 100) * $cart->quantity;
 
         }
         if ($insufficientStock) {
             dd('not in stock', $outOfStock);
             return redirect()->route('checkout.index')->with('error', 'not in stock');
         }
-        
 
-        
         // calculate total price
         // $totalPrice = $carts->sum(function ($cart) {
         //     return $cart->product->price * $cart->quantity;

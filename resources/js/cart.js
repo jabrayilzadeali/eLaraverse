@@ -19,7 +19,8 @@ if (isAuthenticated && localStorage.getItem("firstTimeLogin") === "true") {
         });
 }
 
-export function addCart(id, img, title, price, quantity, stock = 0) {
+
+export function addCart(id, img, title, price, discounted_price, discount, quantity, stock = 0) {
     let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
     if (cartsArray.length) {
         const c = cartsArray.find((cart) => +cart.id === +id);
@@ -32,6 +33,8 @@ export function addCart(id, img, title, price, quantity, stock = 0) {
                 img,
                 price: +price,
                 quantity: +quantity,
+                discount: +discount,
+                discounted_price: +discounted_price,
                 stock: +stock,
             });
         }
@@ -42,6 +45,8 @@ export function addCart(id, img, title, price, quantity, stock = 0) {
             img,
             price: +price,
             quantity: +quantity,
+            discount: +discount,
+            discounted_price: +discounted_price,
             stock: +stock,
         });
     }
@@ -124,18 +129,19 @@ checkoutCarts?.addEventListener("click", (e) => cartOperations(e));
 
 addToCartInShowBtn?.addEventListener("click", (e) => {
     if (e.target.matches("button")) {
-        const { id, title, price, img, stock } = e.target.dataset;
-        console.log(img)
+        const { id, img, title, price, discountedPrice, discount, stock } = e.target.dataset;
+        console.log(price, discountedPrice, discount)
         const quantity = e.target.previousElementSibling.value;
-        addCart(id, img, title, price, quantity, stock);
+        addCart(id, img, title, price, discountedPrice, discount, quantity, stock);
         updateCartUi();
     }
 });
 
 addToCartBtns?.forEach((addToCartBtn) => {
     addToCartBtn.addEventListener("click", () => {
-        const { id, img, title, price, quantity, stock } = addToCartBtn.dataset;
-        addCart(id, img, title, price, quantity, stock);
+        const { id, img, title, price, discountedPrice, discount, quantity, stock } = addToCartBtn.dataset;
+        console.log(discountedPrice)
+        addCart(id, img, title, price, discountedPrice, discount, quantity, stock);
         addToCartBtn.classList.toggle("hidden");
         addToCartBtn.nextElementSibling.classList.toggle("hidden");
     });

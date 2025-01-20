@@ -9,8 +9,9 @@ export function updateCartUi(cartContainer = document.querySelector("[data-carts
         totalPriceElements.forEach(totalPriceElement => totalPriceElement.textContent = totalPrice)
         
         let html = "";
-        cartsArray.forEach(({ id, img, title, price, quantity }) => {
-            html += createTemplate(id, img, title, price, quantity);
+        cartsArray.forEach(({ id, img, title, price, discounted_price, discount, stock, quantity }) => {
+            console.log(price, discounted_price, discount)
+            html += createTemplate(id, img, title, price, discounted_price, quantity);
         });
         cartContainer.innerHTML = html;
     } else {
@@ -85,12 +86,12 @@ export function calculateTotalPrice() {
     let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
     return cartsArray.reduce(
         (accumulator, currentValue) =>
-            currentValue.price * currentValue.quantity + accumulator,
+            currentValue.discounted_price * currentValue.quantity + accumulator,
         0
     );
 }
 
-export function createTemplate(id, img, title, price, quantity = 1) {
+export function createTemplate(id, img, title, price, discounted_price, quantity = 1) {
     const svg =
         quantity > 1
             ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M19 13H5v-2h14z" /></svg>`
@@ -113,8 +114,8 @@ export function createTemplate(id, img, title, price, quantity = 1) {
                             <a href="#">${title}</a>
                         </h3>
                         <div class="ml-4 flex flex-col justify-end items-end">
-                            <p>${price}</p>
-                            <p class="line-through text-sm">${price}</p>
+                            <p>${discounted_price}</p>
+                            <p class="line-through text-sm">${price === discounted_price ? '' : price}</p>
                         </div>
                     </div>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Salmon</p>

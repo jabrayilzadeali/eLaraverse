@@ -1,5 +1,5 @@
 @props(['img' => ''])
-<div class="col-span-full">
+<div class="col-span-4">
     <label for="cover-photo"
         class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Cover photo</label>
     <div data-drop-area

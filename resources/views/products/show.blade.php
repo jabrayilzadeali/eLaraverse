@@ -114,21 +114,21 @@
             <input class="block" type="submit" value="Add Comment">
         </form>
         <div data-comments class="flex flex-col gap-5">
-            {{-- @for ($i = 0; $i < 3; $i++)
+            @foreach ($reviews as $review)
                 <div class="max-w-[60rem]">
                     <div class="flex items-center gap-3">
                         <img class="rounded-full" src="https://placehold.co/50" alt="">
                         <div class="flex flex-col justify-between">
-                            <h2 class="pl-1 text-xl font-semibold">John Doe</h2>
-                            <x-stars rating="4.8"></x-stars>
+                            <h2 class="pl-1 text-xl font-semibold">koay</h2>
+                            <div class="flex items-end text-orange-500">
+                                <x-stars :rating="$review->rating"></x-stars>
+                            </div>
                         </div>
                     </div>
-                    <h2 class="text-2xl font-bold dark:text-gray-300">Pretty much Perfect</h2>
-                    <p class="dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam atque
-                        itaque nihil! Molestias aspernatur dolore inventore repudiandae ex! Vitae numquam quam quo hic.
-                        Quidem non consequatur accusamus voluptatem consequuntur repellat.</p>
+                    <h2 class="text-2xl font-bold dark:text-gray-300">{{ $review->title }}</h2>
+                    <p class="dark:text-gray-400">{{ $review->comment }}</p>
                 </div>
-            @endfor --}}
+            @endforeach
         </div>
     </div>
 

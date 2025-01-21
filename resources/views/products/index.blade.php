@@ -198,10 +198,14 @@
                         <!-- Filters -->
                         <form data-filter class="hidden lg:block">
                             <h3 class="sr-only">Categories</h3>
+                            @if(Request::is('category/*'))
+                                <a href="{{ route('products.index') }}">Go Back</a>
+                            @endif
                             <ul role="list" class="flex flex-col gap-4">
                                 {{-- {{ $currentCategory ?? '' }} --}}
                                 @foreach ($categories as $category)
-                                    <x-category :currentCategory="$currentCategory->id ?? 0" :category="$category"></x-category>
+                                    <x-category-products :category="$category"></x-category-products>
+                                    {{-- <x-category :currentCategory="$currentCategory->id ?? 0" :category="$category"></x-category> --}}
                                 @endforeach
                             </ul>
 
@@ -239,6 +243,7 @@
                                         </span>
                                     </button>
                                 </h3>
+
                                 <!-- Filter section, show/hide based on section state. -->
                                 <div class="pt-6" id="filter-section-0">
                                     <div class="space-y-4">

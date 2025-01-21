@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -55,7 +56,9 @@ class ProductController extends Controller
     }
     public function show(Product $product)
     {
-        return view('products.show', ['product' => $product]);
+        $reviews = Review::where('product_id', $product->id)->get();
+        // dd($reviews);
+        return view('products.show', ['product' => $product, 'reviews' => $reviews]);
     }
 
     public function create()

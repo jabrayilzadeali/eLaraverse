@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
@@ -60,5 +61,20 @@ class User extends Authenticatable
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function scopeMinBalance($query, $minBalance): Builder
+    {
+        return $query->where('balance', '>', $minBalance);
+    }
+
+    public function scopeMaxBalance($query, $maxBalance): Builder
+    {
+        return $query->where('balance', '<', $maxBalance);
     }
 }

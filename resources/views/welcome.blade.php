@@ -19,8 +19,8 @@
                             <div class="flex flex-col justify-around p-5 md:items-center md:flex-row">
                                 <div class="flex flex-col justify-center gap-5 md:flex-row md:items-center">
                                     <div class="flex flex-col gap-3 max-w-96">
-                                        <h1 class="block font-bold text-md md:text-4xl">{{ $featuredProduct->title }}
-                                        </h1>
+                                        <a href="{{ route('products.show', $featuredProduct->slug) }}" class="block font-bold text-md hover:underline md:text-4xl">{{ $featuredProduct->title }}
+                                        </a>
                                         <p class="text-sm">{{ $featuredProduct->description }}</p>
                                         <p class="">
                                             @if ($featuredProduct->discount)
@@ -46,13 +46,6 @@
                                                     class="px-3 py-2 rounded-md dark:bg-zinc-900 text-neutral-200">Add
                                                     To Cart</button>
                                                 
-                                                    
-                                                {{-- <button data-add-to-cart data-id="{{ $id }}" data-img="{{ $img }}"
-                                                    data-title="{{ $title }}" data-price="{{ $price }}" data-discount="{{ $discount }}"
-                                                    data-discounted-price="{{ $price - ($price * $discount) / 100 }}" data-quantity="1"
-                                                    data-stock="{{ $stock }}"
-                                                    class="px-3 py-2 text-sm text-black bg-white rounded-md disabled:bg-slate-300">Add To Cart</button> --}}
-
                                                 <button data-remove-from-cart data-id="{{ $featuredProduct->id }}"
                                                     data-img="{{ $featuredProduct->img }}"
                                                     data-title="{{ $featuredProduct->title }}"

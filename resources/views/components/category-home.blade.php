@@ -6,11 +6,14 @@
             <div class="grid grid-cols-3 grid-rows-3 gap-5 px-5 py-4 rounded-md bg-zinc-200 dark:bg-zinc-600">
                 @foreach ($category->children as $child)
                     <div>
-                        <h2 class="font-bold text-md min-w-28"><a href="{{ route('category.show', $child->slug) }}">{{ $child->name }}</a></h2>
+                        <h2 class="text-xl font-bold min-w-28"><a href="{{ route('category.show', $child->slug) }}">{{ $child->name }}</a></h2>
                         @if ($category->children->isNotEmpty())
                             <ul>
                                 @foreach ($child->children as $c)
-                                    <li><a href="{{ route('category.show', $c->slug) }}">{{ $c->name }}</a></li>
+                                    <li><a href="{{ route('category.show', $c->slug) }}" class="flex transition-all hover:text-white hover:translate-x-1">
+                                        <x-icons.dot></x-icons.dot>
+                                        <span>{{ $c->name }}</span>
+                                    </a></li>
                                 @endforeach
                             </ul>
                         @endif

@@ -81,6 +81,6 @@
     </div>
     <!-- Table responsive wrapper -->
     
-    <x-table.table :items="$products" :columns="$columns" :sorts="$sorts" editLink="sellers.edit" deleteLink="sellers.destroy"></x-table.table>
+    <x-table.table :items="$products" :columns="$columns" :sorts="$sorts" :hasOperations="true" editLink="sellers.edit" deleteLink="sellers.destroy"></x-table.table>
 
 </x-layouts.seller-layout>

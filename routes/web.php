@@ -134,7 +134,7 @@ Route::middleware([EnsureAdmin::class])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])
         ->name('admin.dashboard');
 
-    Route::get('/admin/users', [AdminProductController::class, 'index'])
+    Route::get('/admin/users', [AdminUserController::class, 'index'])
         ->name('admin.users.index');
     Route::get('/admin/categories', [AdminProductController::class, 'index'])
         ->name('admin.categories.index');

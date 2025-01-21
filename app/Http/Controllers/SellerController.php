@@ -106,7 +106,8 @@ class SellerController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
+        // $categories = Category::all();
+        $categories = Category::doesntHave('children')->get();
         return view('sellers.create', ['categories' => $categories]);
     }
 
@@ -118,15 +119,20 @@ class SellerController extends Controller
             'file_upload' => 'image',
             'discount' => 'numeric',
             'category' => 'required',
-            // 'rating' => 'numeric|between:0,5',
+            'attributes.key' => 'required|array',
+            'attributes.value' => 'required|array',
             'price' => 'required',
         ]);
+        $attributes = array_combine($validated['attributes']['key'], $validated['attributes']['value']);
+        // dd($validated);
 
 
         $slug = Str::slug($validated['title']);
         $validated['slug'] = $slug;
+        $validated['attributes'] = json_encode($attributes);
         $validated['user_id'] = Auth::id();
         $validated['category_id'] = $validated['category'];
+        $validated['discounted_price'] = $validated['price'] - $validated['price'] * $validated['discount'] / 100;
         $sku = Str::uuid();
         $validated['sku'] = $sku;
 
@@ -157,11 +163,19 @@ class SellerController extends Controller
             'file_upload' => 'image',
             'category' => 'required',
             'discount' => 'numeric',
+            'attributes.key' => 'array',
+            'attributes.value' => 'array',
             'price' => 'required',
         ]);
 
         $slug = Str::slug($validated['title']);
         $validated['category_id'] = $validated['category'];
+        if (isset($validated['attributes'])) {
+            $attributes = array_combine($validated['attributes']['key'], $validated['attributes']['value']);
+            $validated['attributes'] = json_encode($attributes);
+        } else {
+            $validated['attributes'] = json_encode([]);
+        }
 
 
         if (request()->hasFile('file_upload')) {

@@ -85,12 +85,12 @@
                 </form>
             </div>
         </div>
-        <div>
+        {{-- <div>
             <button class="flex items-center justify-center gap-2 px-4 py-1 bg-blue-600 rounded-lg text-neutral-300">
                 <x-icons.plus></x-icons.plus>
                 <a href="{{ route('admin.products.create') }}">Add New Product</a>
             </button>
-        </div>
+        </div> --}}
     </div>
     <div class="overflow-x-auto">
         {{-- <x-table.table :items="$products" :columns="$columns" :sorts="$sorts"></x-table.table> --}}

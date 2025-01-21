@@ -7,6 +7,7 @@ use Database\Seeders\ProductSeeder;
 use App\Models\User;
 use Database\Seeders\CartSeeder;
 use Database\Seeders\CategorySeeder;
+use Database\Seeders\ReviewSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -57,8 +58,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProductSeeder::class
         ]);
-        // $this->call([
-        //     CartSeeder::class
-        // ]);
+        $this->call([
+            ReviewSeeder::class
+        ]);
     }
 }

@@ -1,4 +1,4 @@
-@props(['items', 'columns', 'sorts', 'editLink', 'deleteLink'])
+@props(['items', 'columns', 'sorts', 'hasOperations' => false, 'editLink', 'deleteLink'])
 <table class="w-full overflow-x-scroll table-auto dark:border-neutral-700">
     <thead>
         <tr class="pt-3 text-sm border-b dark:border-neutral-700 text-neutral-300">
@@ -37,35 +37,38 @@
                     @endif
                 @endforeach
 
-                <td class="flex items-center justify-center h-full gap-2 px-4 py-2">
-                    <a href="{{ route($editLink, $product->slug) }}"
-                        class="block px-1 py-1 font-semibold bg-green-500 rounded-md text-neutral-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z" />
-                        </svg>
-                    </a>
-                    <dialog data-modal
-                        class="absolute z-50 p-5 rounded-md dark:bg-neutral-800 dark:text-neutral-300">
-                        <form action="{{ route($deleteLink, $product->slug) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <p>Are you Sure You wanted to delete?</p>
-                            <button data-close-modal type="button">Close</button>
-                            <button
-                                class="px-1 py-1 font-semibold bg-red-500 rounded-md text-neutral-700 dark:text-neutral-100"
-                                autofocus>Yes</button>
-                        </form>
-                    </dialog>
-                    <button data-show-modal
-                        class="px-1 py-1 font-semibold bg-red-500 rounded-md text-neutral-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM8 9h8v10H8zm7.5-5l-1-1h-5l-1 1H5v2h14V4z" />
-                        </svg>
-                    </button>
-                </td>
+                @if ($hasOperations)
+                    <td class="flex items-center justify-center h-full gap-2 px-4 py-2">
+                        
+                        <a href="{{ route($editLink, $product->slug) }}"
+                            class="block px-1 py-1 font-semibold bg-green-500 rounded-md text-neutral-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z" />
+                            </svg>
+                        </a>
+                        <dialog data-modal
+                            class="absolute z-50 p-5 rounded-md dark:bg-neutral-800 dark:text-neutral-300">
+                            <form action="{{ route($deleteLink, $product->slug) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <p>Are you Sure You wanted to delete?</p>
+                                <button data-close-modal type="button">Close</button>
+                                <button
+                                    class="px-1 py-1 font-semibold bg-red-500 rounded-md text-neutral-700 dark:text-neutral-100"
+                                    autofocus>Yes</button>
+                            </form>
+                        </dialog>
+                        <button data-show-modal
+                            class="px-1 py-1 font-semibold bg-red-500 rounded-md text-neutral-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM8 9h8v10H8zm7.5-5l-1-1h-5l-1 1H5v2h14V4z" />
+                            </svg>
+                        </button>
+                    </td>
+                @endif
             </tr>
         @endforeach
     </tbody>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -156,13 +158,13 @@ class SellerController extends Controller
 
     public function update(Product $product)
     {
-
         $validated = request()->validate([
             'title' => 'required',
             'description' => 'required',
             'file_upload' => 'image',
             'category' => 'required',
             'discount' => 'numeric',
+            'stock' => 'numeric',
             'attributes.key' => 'array',
             'attributes.value' => 'array',
             'price' => 'required',
@@ -198,5 +200,42 @@ class SellerController extends Controller
         $directory = dirname($product->img_path);
         Storage::disk('public')->deleteDirectory($directory);
         return redirect()->route('sellers.index')->with('success', 'Post Deleted Successfully');
+    }
+    
+    public function orders()
+    {
+        $columns = [
+            ['key' => 'id', 'label' => '#', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'product.img_path', 'label' => 'Img', 'sortable' => false, 'type' => 'img'],
+            ['key' => 'product.title', 'label' => 'title', 'sortable' => true, 'type' => 'text'],
+            // ['key' => 'price', 'label' => 'price', 'sortable' => true, 'type' => 'text'],
+            ['key' => 'quantity', 'label' => 'quantity', 'sortable' => true, 'type' => 'text'],
+            // ['key' => 'special_orders', 'label' => 'orders', 'sortable' => true, 'type' => 'orders'],
+            // ['key' => 'discount', 'label' => 'discount', 'sortable' => true, 'type' => 'text'],
+            // ['key' => 'created_at', 'label' => 'date', 'sortable' => false, 'type' => 'date'],
+        ];
+        $stackedColumns = array_column($columns, 'label');
+        $sorts = request()->get('sort', []);
+
+        // $orders = Order::with(['order_items.product' => function ($query) {
+        //     $query->where('user_id', Auth::id());
+        // }])->get();
+        // $orderItems = OrderItem::with(['product'])->get();
+        $orderItems = OrderItem::whereHas('product', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->with(['product', 'order'])->get();
+        
+        // dd($orderItems);
+        $orders = [];
+        return view('sellers.orders', ['orderItems' => $orderItems, 'columns' => $columns, 'sorts' => $sorts]);
+    }
+    
+    public function orderStatusUpdate()
+    {
+        return response()->json([
+            'message' => 'okay cool',
+            'csrf_token' => csrf_token(),
+            'xsrf_token' => request()->cookie('XSRF-TOKEN'),
+        ]);
     }
 }

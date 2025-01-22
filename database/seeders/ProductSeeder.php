@@ -37,7 +37,7 @@ class ProductSeeder extends Seeder
         $discount = 20;
         $discounted_price = $price - $price * $discount / 100;
         Product::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'sku' => $sku,
             'title' => 'Iphone 15',
             'description' => 'iPhone 15 256GB Desert Titanium bu qabaqcıl texnologiyaları və zərif dizaynı özündə birləşdirən güclü bir cihazdır. Yüksək keyfiyyət və funksionallıq axtaranlar üçün ideal seçimdir.',
@@ -56,7 +56,7 @@ class ProductSeeder extends Seeder
         $discount = 5;
         $discounted_price = $price - $price * $discount / 100;
         Product::create([
-            'user_id' => 1,
+            'user_id' => 3,
             'sku' => $sku,
             'title' => 'Samsung S24 Ultra',
             'description' => 'Samsung S24 Ultra bu qabaqcıl texnologiyaları və zərif dizaynı özündə birləşdirən güclü bir cihazdır. Yüksək keyfiyyət və funksionallıq axtaranlar üçün ideal seçimdir.',
@@ -75,7 +75,7 @@ class ProductSeeder extends Seeder
         $discount = 0;
         $discounted_price = $price - $price * $discount / 100;
         Product::create([
-            'user_id' => 1,
+            'user_id' => 3,
             'sku' => $sku,
             'title' => 'Samsung S23',
             'description' => 'Samsung S23 bu qabaqcıl texnologiyaları və zərif dizaynı özündə birləşdirən güclü bir cihazdır. Yüksək keyfiyyət və funksionallıq axtaranlar üçün ideal seçimdir.',

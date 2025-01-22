@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\SessionController;
@@ -32,65 +33,28 @@ Route::get('/', function () {
     ]);
 });
 
-
-Route::middleware('guest')->group(function () {
-    Route::get('/register', [RegisteredUserController::class, 'create']);
-    Route::post('/register', [RegisteredUserController::class, 'store']);
-    Route::get('/login', [SessionController::class, 'create']);
-    Route::post('/login', [SessionController::class, 'store']);
-});
-
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
-
     Route::post('/fetch_carts', [ProductController::class, 'fetch']);
     Route::post('/cart', [ProductController::class, 'store_api']);
     Route::delete('/cart', [ProductController::class, 'destroy_api']);
     Route::patch('/change_cart_quantity', [ProductController::class, 'change_cart_quantity']);
 
-    Route::get('settings', [UserSettingsController::class, 'edit'])->name('user.settings.edit');
-    Route::patch('settings', [UserSettingsController::class, 'update'])->name('user.settings.update');
+    Route::get('/settings', [UserSettingsController::class, 'edit'])->name('user.settings.edit');
+    Route::patch('/settings', [UserSettingsController::class, 'update'])->name('user.settings.update');
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+});
+
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [RegisteredUserController::class, 'create']);
+    Route::post('/register', [RegisteredUserController::class, 'store']);
+    Route::get('/login', [SessionController::class, 'create'])->name('login');
+    Route::post('/login', [SessionController::class, 'store'])->name('login.store');
 });
 
 Route::get('/cart', [CartController::class, 'index']);
-
-
-
-
-// Route::get('/product', function () {
-//     return view('product');
-// });
-
-// Route::resource('products', ProductController::class)->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
-// Route::get('/products/{product}/edit', [ProductController::class, 'edit'])
-//     ->name('product.edit')
-//     ->middleware('auth')
-//     ->can('edit', 'product');
-
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('products/create', [ProductController::class, 'create'])
-//         ->can('create', Product::class)
-//         ->name('products.create');
-//     Route::post('products', [ProductController::class, 'store'])
-//         ->can('create', Product::class)
-//         ->name('products.store');
-//     Route::get('products/{product}/edit', [ProductController::class, 'edit'])
-//         ->can('update', 'product')
-//         ->name('products.edit');
-//     Route::patch('products/{product}', [ProductController::class, 'update'])
-//         ->can('update', 'product')
-//         ->name('products.update');
-//     Route::delete('products/{product}', [ProductController::class, 'destroy'])
-//         ->can('delete', 'product')
-//         ->name('products.destroy');
-// });
-
-// Route::get('sellers/dashboard', function (User $user) {
-//     dd($user);
-// });
-
 Route::get('products', [ProductController::class, 'index'])->name('products.index');
 Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
 
@@ -102,6 +66,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('sellers/dashboard', [SellerController::class, 'index'])
         ->can('create', Product::class)
         ->name('sellers.index');
+    Route::get('sellers/orders', [SellerController::class, 'orders'])
+        ->name('sellers.orders');
+    Route::post('sellers/order-status', [SellerController::class, 'orderStatusUpdate'])
+        ->name('sellers.orders.status');
     Route::get('sellers/create', [SellerController::class, 'create'])
         ->can('create', Product::class)
         ->name('sellers.create');

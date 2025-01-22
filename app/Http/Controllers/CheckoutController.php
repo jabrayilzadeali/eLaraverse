@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,9 +59,21 @@ class CheckoutController extends Controller
         DB::transaction(function () use ($user, $carts, $totalPrice) {
             // Deduct the total price from the user's balance
             $user->decrement('balance', $totalPrice);
+            
+            $order = Order::create([
+                'user_id' => Auth::id(),
+                'order_number' => Str::uuid(),
+                'total_price' => $totalPrice,
+            ]);
+
     
             // Update the stock for each product and clear the cart
             foreach ($carts as $cart) {
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $cart->product->id,
+                    'quantity' => $cart->quantity,
+                ]);
                 $cart->product->decrement('stock', $cart->quantity);
                 $cart->delete(); // Remove the cart item after purchase
             }

@@ -2,10 +2,8 @@ const darkModeToggle = document.querySelector('[data-dark-mode-toggle-button]')
 const html = document.querySelector('html')
 
 const theme = localStorage.getItem('theme')
-console.log(theme)
 html.classList = ""
 html.classList.add(theme)
-console.log(html.classList)
 
 
 // html.classList.toggle('dark')

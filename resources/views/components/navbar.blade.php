@@ -70,7 +70,7 @@
 
                 <!-- Profile dropdown -->
                 @guest
-                    <a class="px-3 py-2 text-black bg-white rounded-md" href="/login">Login</a>
+                    <a class="px-3 py-2 text-black bg-white rounded-md dark:bg-neutral-800/80 dark:text-white dark:border-neutral-700 dark:border" href="/login">Login</a>
                 @endguest
                 @auth
                     <button type="button"
@@ -110,7 +110,9 @@
                             data-user-option-list role="menu" aria-orientation="vertical"
                             aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
-                            <a href="/settings" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem" tabindex="-1"
+                            <a href="{{ route('order.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem" tabindex="-1"
+                                id="user-menu-item-1">Orders</a>
+                            <a href="{{ route('user.settings.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem" tabindex="-1"
                                 id="user-menu-item-1">Settings</a>
                             <form data-logout-user action="/logout" method="POST">
                                 @csrf

@@ -1,4 +1,5 @@
 import { setUrlParams, setUrlParam, deleteUrlParam } from "./helpers";
+import { sendDataToBackend } from "./helpers";
 const filterBtn = document.querySelector("[data-filter-btn]");
 const dialog = document.querySelector("[data-dialog]");
 const filterForm = document.querySelector("[data-dialog] form");
@@ -44,6 +45,14 @@ stacksForm?.addEventListener('submit', (e) => {
     console.log(checkedElements)
     setUrlParams('hiddenColumns[]', checkedElements)
 })
+
+const status = document.querySelector('[data-status]')
+status?.addEventListener('change', () => {
+    console.log(status.value)
+    sendDataToBackend(status.value, 'POST', '/sellers/order-status')
+})
+console.log(status)
+
 
 
 

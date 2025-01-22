@@ -90,9 +90,10 @@
 
             <main class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="flex items-baseline justify-between pb-6 border-b border-gray-200">
-                    <h1 class="text-2xl font-bold tracking-tight text-gray-900 md:text-4xl dark:text-gray-300">All
-                        Products</h1>
-
+                    <h1 class="text-2xl font-bold tracking-tight text-gray-900 md:text-4xl dark:text-gray-300">
+                        {{-- {{ !is_null($currentCategory) ? $currentCategory->name . ' kategoriya' : 'Bütün Məhsullar' }} --}}
+                        {{ isset($currentCategory) ? $currentCategory->name . ' kategoriya' : 'Bütün Məhsullar' }}
+                    </h1>
                     <div class="flex items-center">
                         <div class="relative inline-block text-left">
                             <div>

@@ -1,4 +1,4 @@
-@props(['items', 'columns', 'sorts', 'hasOperations' => false, 'editLink', 'deleteLink'])
+@props(['items', 'columns', 'sorts', 'hasOperations' => false, 'editLink', 'deleteLink', 'status' => false, 'statuses' => []])
 <table class="w-full overflow-x-scroll table-auto dark:border-neutral-700">
     <thead>
         <tr class="pt-3 text-sm border-b dark:border-neutral-700 text-neutral-300">
@@ -67,6 +67,15 @@
                                     d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM8 9h8v10H8zm7.5-5l-1-1h-5l-1 1H5v2h14V4z" />
                             </svg>
                         </button>
+                    </td>
+                @endif
+                @if ($status)
+                    <td>
+                        <select id="" class="max-w-60 col-start-1 row-start-1 w-full appearance-none rounded-md bg-white dark:bg-neutral-800 dark:text-neutral-200 py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" data-status>
+                            @foreach ($statuses as $status)
+                                <option @if ($status == $product->status) selected @endif value="{{ $status }}">{{ $status }}</option>
+                            @endforeach
+                        </select>
                     </td>
                 @endif
             </tr>

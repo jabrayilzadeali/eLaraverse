@@ -104,8 +104,15 @@ Route::middleware([EnsureAdmin::class])->group(function () {
 
     Route::get('/admin/users', [AdminUserController::class, 'index'])
         ->name('admin.users.index');
-    Route::get('/admin/categories', [AdminProductController::class, 'index'])
+
+    Route::get('/admin/categories', [AdminCategoryController::class, 'index'])
         ->name('admin.categories.index');
+
+    Route::get('/admin/categories/create', [AdminCategoryController::class, 'create'])
+        ->name('admin.categories.create');
+
+    Route::post('/admin/categories', [AdminCategoryController::class, 'store'])
+        ->name('admin.categories.store');
 
     Route::get('/admin/products', [AdminProductController::class, 'index'])
         ->name('admin.products.index');

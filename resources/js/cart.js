@@ -22,6 +22,7 @@ if (isAuthenticated && localStorage.getItem("firstTimeLogin") === "true") {
 
 export function addCart(id, img, title, price, discounted_price, discount, quantity, stock = 0) {
     let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
+    console.log(cartsArray)
     if (cartsArray.length) {
         const c = cartsArray.find((cart) => +cart.id === +id);
         if (c) {

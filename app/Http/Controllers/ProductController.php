@@ -56,7 +56,7 @@ class ProductController extends Controller
     }
     public function show(Product $product)
     {
-        $reviews = Review::where('product_id', $product->id)->get();
+        $reviews = Review::where('product_id', $product->id)->with('user')->get();
         // dd($reviews);
         return view('products.show', ['product' => $product, 'reviews' => $reviews]);
     }
@@ -215,7 +215,7 @@ class ProductController extends Controller
             }
         }
         $carts = Cart::where('user_id', Auth::id())
-            ->with(['product:id,title,img_path,price']) // Fetch only the required fields
+            ->with(['product:id,title,img_path,price,discount,stock']) // Fetch only the required fields
             ->get()
             ->map(function ($cart) {
                 return [
@@ -223,6 +223,10 @@ class ProductController extends Controller
                     'title' => $cart->product->title,
                     'img' => $cart->product->img_path,
                     'price' => $cart->product->price,
+                    'discount' => $cart->product->discount,
+                    'discounted_price' => $cart->product->price - $cart->product->price * $cart->product->discount / 100,
+                    // 'discounted_price' => ,
+                    'stock' => $cart->product->stock,
                     'quantity' => $cart->quantity, // Assuming `quantity` exists in the Cart model
                 ];
             });

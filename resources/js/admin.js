@@ -46,12 +46,16 @@ stacksForm?.addEventListener('submit', (e) => {
     setUrlParams('hiddenColumns[]', checkedElements)
 })
 
-const status = document.querySelector('[data-status]')
-status?.addEventListener('change', () => {
-    console.log(status.value)
-    sendDataToBackend(status.value, 'POST', '/sellers/order-status')
+const statuses = document.querySelectorAll('[data-status]')
+statuses.forEach(status => {
+    status?.addEventListener('change', () => {
+        const selectedOption = status.options[status.selectedIndex];
+        const id = selectedOption.dataset.id
+        const k = sendDataToBackend({id, status: selectedOption.value}, 'POST', '/sellers/order-status')
+        console.log(k)
+    })
 })
-console.log(status)
+console.log(statuses)
 
 
 

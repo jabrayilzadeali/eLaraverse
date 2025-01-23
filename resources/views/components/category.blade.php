@@ -1,6 +1,5 @@
 @props(['currentCategory' => 0, 'category' => 0, 'parent' => ''])
 <li class="">
-    {{-- <a href="{{ route('category.show', $category->slug) }}" class="block px-2 py-1 rounded-lg {{ $currentCategory === $category->id ? ' bg-green-500' : ' bg-neutral-500 dark:bg-red-500' }}">{{ $category->name }} {{ gettype($currentCategory),  }} {{ $currentCategory }} {{ gettype($category->id) }} {{ $category->id }} {{ $currentCategory === $category->id ? 'okay' : 'false' }}</a> --}}
     <a href="{{ $category->children->isEmpty() ? route('category.show', $category->slug) : '#' }}" 
         @class([
             'block px-2 py-1 rounded-lg',

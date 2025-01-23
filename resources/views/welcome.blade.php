@@ -119,7 +119,7 @@
         <div class="swiper-pagination"></div>
     </div> --}}
 
-    <div class="my-20">
+    {{-- <div class="my-20">
         <h2 class="mb-8 text-4xl font-bold text-center">Why Choose Us</h2>
         <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
             <div class="flex flex-col items-center justify-between gap-20 px-16 py-10 text-center bg-black rounded-md">
@@ -138,7 +138,7 @@
                     reiciendis, sequi vel fugiat eligendi sapiente placeat esse quis perferendis ratione sed illum?</p>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="z-50 flex gap-5 mt-20 mb-8">
         <button class="p-3 font-bold text-gray-200 bg-gray-800 rounded-md" data-new-items>Yeni Məhsullar</button>

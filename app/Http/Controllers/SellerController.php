@@ -232,9 +232,12 @@ class SellerController extends Controller
     
     public function orderStatusUpdate()
     {
+        OrderItem::find(request()->id)->update(['status' => request()->status]);
+        // OrderItem->find(request()->id)->update(['status' -> request()->status]);
         return response()->json([
             'message' => 'okay cool',
             'csrf_token' => csrf_token(),
+            'request_all' => request()->all(),
             'xsrf_token' => request()->cookie('XSRF-TOKEN'),
         ]);
     }

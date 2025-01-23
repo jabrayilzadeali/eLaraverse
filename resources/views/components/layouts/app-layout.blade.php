@@ -27,14 +27,17 @@
     <div class="container flex-1 px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
         {{ $slot }}
     </div>
-    @vite('resources/js/app.js')
     <x-footer></x-footer>
     <script>
         const isAuthenticated = "{{ Auth::user() }}" ? true : false
         const authenticatedUsersName = isAuthenticated ? "{{ Auth::user() }}" : null
-        const authenticatedUserName = isAuthenticated ? "{{ Auth::user() }}" : null
+        // const authenticatedUserName = isAuthenticated ? "{{ Auth::user() }}" : null
+        const authenticatedUser = @json(auth()->user() ?? null);
+        // const authenticatedUser = isAuthenticated ? JSON.parse("{{ Auth::user() }}") : null
+        console.log(authenticatedUser)
         // const authenticatedUserName = isAuthenticated ? JSON.parse(k) : null
     </script>
+    @vite('resources/js/app.js')
 </body>
 
 </html>

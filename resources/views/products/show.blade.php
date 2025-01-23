@@ -107,11 +107,11 @@
             <x-rating></x-rating>
             <label for="heading" class="">Title</label>
             <input data-comment-title type="text" name="" id="" required
-                class="block p-3 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-gray-800">
+                class="block px-2 py-1 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-transparent">
             <label class="block my-3" for="comment">Comment</label>
             <textarea data-comment-body name="comment" id="comment" required
-                class="block p-3 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-gray-800"></textarea>
-            <input class="block" type="submit" value="Add Comment">
+                class="block p-3 max-w-96 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-transparent"></textarea>
+            <input class="block px-2 py-1 mt-5 font-semibold rounded-md bg-fuchsia-600 dark:text-white" type="submit" value="Add Comment">
         </form>
         <div data-comments class="flex flex-col gap-5">
             @foreach ($reviews as $review)
@@ -119,7 +119,7 @@
                     <div class="flex items-center gap-3">
                         <img class="rounded-full" src="https://placehold.co/50" alt="">
                         <div class="flex flex-col justify-between">
-                            <h2 class="pl-1 text-xl font-semibold">koay</h2>
+                            <h2 class="pl-1 text-xl font-semibold">{{ $review->user->username }}</h2>
                             <div class="flex items-end text-orange-500">
                                 <x-stars :rating="$review->rating"></x-stars>
                             </div>
@@ -160,7 +160,7 @@
                     <div class="flex items-center gap-3">
                         <img class="rounded-full" src="${img}" alt="">
                         <div class="flex flex-col justify-between">
-                            <h2 class="pl-1 text-xl font-semibold">lkjlj</h2>
+                            <h2 class="pl-1 text-xl font-semibold">${authenticatedUser.username}</h2>
                             <div class="flex items-end text-orange-500">
                                 ${generateStars(rating)}
                             </div>

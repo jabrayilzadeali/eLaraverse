@@ -14,6 +14,31 @@ use Illuminate\Http\Request;
 
 class SellerController extends Controller
 {
+
+    public function loginForm()
+    {
+        return view('sellers.login');
+    }
+
+    public function login()
+    {
+        $attr = request()->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ]);
+        if (Auth::guard('seller')->attempt($attr)) {
+            return redirect()->route('sellers.index');
+        }
+        // Login failed
+        return back()->withErrors(['email' => 'Invalid credentials']);
+    }
+    
+    public function logout()
+    {
+        Auth::guard('seller')->logout();
+        return redirect()->route('seller.login.form');
+    }
+
     public function index()
     {
         $columns = [
@@ -52,7 +77,7 @@ class SellerController extends Controller
 
         // $products = Product::query(); // Start with the Eloquent query builder
         // $products = Product::where('user_id', Auth::id())->query();
-        $products = Product::with(['category'])->where('user_id', Auth::id());
+        $products = Product::with(['category'])->where('seller_id', Auth::guard('seller')->id());
         // $products = Auth::user()->products;
 
         $sorts = request()->get('sort', []);
@@ -132,7 +157,7 @@ class SellerController extends Controller
         $slug = Str::slug($validated['title']);
         $validated['slug'] = $slug;
         $validated['attributes'] = json_encode($attributes);
-        $validated['user_id'] = Auth::id();
+        $validated['seller_id'] = Auth::guard('seller')->id();
         $validated['category_id'] = $validated['category'];
         $validated['discounted_price'] = $validated['price'] - $validated['price'] * $validated['discount'] / 100;
         $sku = Str::uuid();
@@ -222,7 +247,7 @@ class SellerController extends Controller
         // }])->get();
         // $orderItems = OrderItem::with(['product'])->get();
         $orderItems = OrderItem::whereHas('product', function ($query) {
-            $query->where('user_id', Auth::id());
+            $query->where('seller_id', Auth::guard('seller')->id());
         })->with(['product', 'order'])->get();
         
         // dd($orderItems);

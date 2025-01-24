@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
         $discount = 10;
         $discounted_price = $price - $price * $discount / 100;
         Product::create([
-            'user_id' => 1,
+            'seller_id' => 1,
             'sku' => $sku,
             'title' => 'Iphone 16 Pro Max',
             'description' => 'iPhone 16 Pro Max 512GB Desert Titanium bu qabaqcıl texnologiyaları və zərif dizaynı özündə birləşdirən güclü bir cihazdır. Yüksək keyfiyyət və funksionallıq axtaranlar üçün ideal seçimdir.',
@@ -37,7 +37,7 @@ class ProductSeeder extends Seeder
         $discount = 20;
         $discounted_price = $price - $price * $discount / 100;
         Product::create([
-            'user_id' => 2,
+            'seller_id' => 2,
             'sku' => $sku,
             'title' => 'Iphone 15',
             'description' => 'iPhone 15 256GB Desert Titanium bu qabaqcıl texnologiyaları və zərif dizaynı özündə birləşdirən güclü bir cihazdır. Yüksək keyfiyyət və funksionallıq axtaranlar üçün ideal seçimdir.',
@@ -56,7 +56,7 @@ class ProductSeeder extends Seeder
         $discount = 5;
         $discounted_price = $price - $price * $discount / 100;
         Product::create([
-            'user_id' => 3,
+            'seller_id' => 3,
             'sku' => $sku,
             'title' => 'Samsung S24 Ultra',
             'description' => 'Samsung S24 Ultra bu qabaqcıl texnologiyaları və zərif dizaynı özündə birləşdirən güclü bir cihazdır. Yüksək keyfiyyət və funksionallıq axtaranlar üçün ideal seçimdir.',
@@ -75,7 +75,7 @@ class ProductSeeder extends Seeder
         $discount = 0;
         $discounted_price = $price - $price * $discount / 100;
         Product::create([
-            'user_id' => 3,
+            'seller_id' => 3,
             'sku' => $sku,
             'title' => 'Samsung S23',
             'description' => 'Samsung S23 bu qabaqcıl texnologiyaları və zərif dizaynı özündə birləşdirən güclü bir cihazdır. Yüksək keyfiyyət və funksionallıq axtaranlar üçün ideal seçimdir.',
@@ -94,7 +94,7 @@ class ProductSeeder extends Seeder
         $discount = 40;
         $discounted_price = $price - $price * $discount / 100;
         Product::create([
-            'user_id' => 1,
+            'seller_id' => 1,
             'sku' => $sku,
             'title' => 'Macbook pro m4',
             'description' => 'Macbook pro m4 bu qabaqcıl texnologiyaları və zərif dizaynı özündə birləşdirən güclü bir cihazdır. Yüksək keyfiyyət və funksionallıq axtaranlar üçün ideal seçimdir.',
@@ -118,7 +118,7 @@ class ProductSeeder extends Seeder
             'ram' => '16',
         ]);
         Product::create([
-            'user_id' => 1,
+            'seller_id' => 1,
             'sku' => $sku,
             'title' => 'Macbook air m3',
             'description' => 'Macbook air m3 bu qabaqcıl texnologiyaları və zərif dizaynı özündə birləşdirən güclü bir cihazdır. Yüksək keyfiyyət və funksionallıq axtaranlar üçün ideal seçimdir.',

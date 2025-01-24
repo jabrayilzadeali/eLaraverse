@@ -19,7 +19,6 @@ class SessionController extends Controller
             'password' => ['required']
         ]);
         
-        
         if (Auth::attempt($attr)) {
             request()->session()->regenerate();
             if (request()->user_type === 'seller' && Auth::user()->is_seller) {

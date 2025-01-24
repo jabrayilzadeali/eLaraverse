@@ -25,13 +25,19 @@ class ProductController extends Controller
         $sorts = request()->get('sort', []);
 
 
-        if (request()->has('min_price')) {
-            $query = $query->minDiscountedPrice(request()->get('min_price'));
+        // if (request()->has('min_price') || request()->has('max_price')) {
+        //     $query = $query->scopeDiscountedPriceRange($minPrice = request()->get('min_price'), $maxPrice = request()->get('max_price'));
+        // }
+        
+        if (request()->has('min_price') || request()->has('max_price')) {
+            $minPrice = request()->get('min_price');
+            $maxPrice = request()->get('max_price');
+            $query = $query->discountedPriceRange($minPrice, $maxPrice);
         }
 
-        if (request()->has('max_price')) {
-            $query = $query->maxDiscountedPrice(request()->get('max_price'));
-        }
+        // if (request()->has('max_price')) {
+        //     $query = $query->maxDiscountedPrice(request()->get('max_price'));
+        // }
 
         // if ($sortBy) {
         //     // Apply sorting only if sortBy is provided

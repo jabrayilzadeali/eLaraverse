@@ -72,25 +72,6 @@
                 </div>
             </div>
         </div>
-        {{-- <div
-            class="col-span-2 rounded-md swiper mySwiper2 bg-slate-50 lg:col-span-4 backdrop-blur-md h-72 md:h-full lg:h-full">
-            <div class="swiper-wrapper">
-                @foreach ($featuredProducts as $featuredProduct)
-                    <div
-                        class="z-10 bg-center bg-cover rounded-md swiper-slide backdrop-blur-md h-72 lg:h-auto" style="background-image: url('{{ Storage::url($featuredProduct->img_path) }}')">
-                        <div
-                            class="absolute bottom-0 p-3 text-black rounded-md bg-zinc-200/90 dark:bg-zinc-500/90 md:left-5 md:right-5 md:bottom-5">
-                            <h1 class="font-bold text-md md:text-xl">{{ $featuredProduct->title }}</h1>
-                            <p class="">
-                                <span class="text-sm font-semibold text-red-500 line-through">1200$</span>
-                                <span class="text-xl font-semibold">{{ $featuredProduct->price }}$</span>
-                                <span class="font-semibold text-md">-50%</span>
-                            </p>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div> --}}
     </div>
 
     {{-- <div class="swiper mySwiper">
@@ -119,27 +100,6 @@
         <div class="swiper-pagination"></div>
     </div> --}}
 
-    {{-- <div class="my-20">
-        <h2 class="mb-8 text-4xl font-bold text-center">Why Choose Us</h2>
-        <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-            <div class="flex flex-col items-center justify-between gap-20 px-16 py-10 text-center bg-black rounded-md">
-                <h2 class="text-2xl font-bold text-white">Lorem, ipsum dolor</h2>
-                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere tempora in magni
-                    reiciendis, sequi vel fugiat eligendi sapiente placeat esse quis perferendis ratione sed illum?</p>
-            </div>
-            <div class="flex flex-col items-center justify-between gap-20 px-16 py-10 text-center bg-black rounded-md">
-                <h2 class="text-2xl font-bold text-white">Lorem, ipsum dolor</h2>
-                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere tempora in magni
-                    reiciendis, sequi vel fugiat eligendi sapiente placeat esse quis perferendis ratione sed illum?</p>
-            </div>
-            <div class="flex flex-col items-center justify-between gap-20 px-16 py-10 text-center bg-black rounded-md">
-                <h2 class="text-2xl font-bold text-white">Lorem, ipsum dolor</h2>
-                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere tempora in magni
-                    reiciendis, sequi vel fugiat eligendi sapiente placeat esse quis perferendis ratione sed illum?</p>
-            </div>
-        </div>
-    </div> --}}
-
     <div class="z-50 flex gap-5 mt-20 mb-8">
         <button class="p-3 font-bold text-gray-200 bg-gray-800 rounded-md" data-new-items>Yeni Məhsullar</button>
         <button class="p-3 text-gray-700 border border-gray-400 rounded-md dark:text-gray-300"
@@ -160,11 +120,5 @@
             max-width: 1216px;
             margin: auto;
         }
-
-        /* .swiper-slide > img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        } */
     </style>
 </x-layouts.app-layout>

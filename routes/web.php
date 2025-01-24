@@ -16,16 +16,23 @@ use App\Http\Controllers\UserSettingsController;
 use App\Http\Middleware\AuthCheck;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\EnsureAdminGuest;
+use App\Http\Middleware\EnsureSeller;
+use App\Http\Middleware\EnsureSellerGuest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $featuredProducts = Product::where('is_featured', true)->get();
-    $categories = Category::where('parent_id', null)->take(7)->get();
-    $latestProducts = Product::latest()->take(8)->get();
+    $featuredProducts = Product::where('is_featured', 1)->get();
+    // $categories = Category;
+    $categories = Cache::remember('categories', 3600, function () {
+        return Category::with('children')->where('parent_id', null)->take(7)->get();
+    });
+    // $latestProducts = Product::latest()->take(8)->get();
+    $latestProducts = Product::orderBy('created_at', 'desc')->limit(8)->get();
     return view('welcome', [
         'featuredProducts' => $featuredProducts,
         'latestProducts' => $latestProducts,
@@ -62,37 +69,42 @@ Route::get('/category/{path}', [CategoryController::class, 'show'])
      ->where('path', '.*')
      ->name('category.show');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware([EnsureSellerGuest::class])->group(function () {
+    Route::get('/sellers/login', [SellerController::class, 'loginForm'])
+        ->name('seller.login.form');
+
+    Route::post('/sellers/login', [SellerController::class, 'login'])
+        ->name('seller.login.submit');
+});
+
+// ->can('create', Product::class)
+Route::middleware([EnsureSeller::class])->group(function () {
+    Route::post('/sellers/logout', [SellerController::class, 'logout'])
+        ->name("sellers.logout");
     Route::get('sellers/dashboard', [SellerController::class, 'index'])
-        ->can('create', Product::class)
         ->name('sellers.index');
     Route::get('sellers/orders', [SellerController::class, 'orders'])
         ->name('sellers.orders');
     Route::post('sellers/order-status', [SellerController::class, 'orderStatusUpdate'])
         ->name('sellers.orders.status');
     Route::get('sellers/create', [SellerController::class, 'create'])
-        ->can('create', Product::class)
         ->name('sellers.create');
     Route::post('sellers/', [SellerController::class, 'store'])
-        ->can('create', Product::class)
         ->name('sellers.store');
     Route::get('sellers/{product}/edit', [SellerController::class, 'edit'])
-        ->can('update', 'product')
         ->name('sellers.edit');
     Route::patch('sellers/{product}', [SellerController::class, 'update'])
-        ->can('update', 'product')
         ->name('sellers.update');
     Route::delete('products/{product}', [SellerController::class, 'destroy'])
-        ->can('delete', 'product')
         ->name('sellers.destroy');
 });
 
 Route::middleware([EnsureAdminGuest::class])->group(function () {
-Route::get('/admin/login', [AdminController::class, 'loginForm'])
-    ->name('admin.login.form');
+    Route::get('/admin/login', [AdminController::class, 'loginForm'])
+        ->name('admin.login.form');
 
-Route::post('/admin/login', [AdminController::class, 'login'])
-    ->name('admin.login.submit');
+    Route::post('/admin/login', [AdminController::class, 'login'])
+        ->name('admin.login.submit');
 });
 
 Route::middleware([EnsureAdmin::class])->group(function () {

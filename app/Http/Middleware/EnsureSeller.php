@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsureAdminGuest
+class EnsureSeller
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,9 @@ class EnsureAdminGuest
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::guard('admin')->check()) {
-            return redirect()->route('seller.index');
+        if (Auth::guard('seller')->check()) {
+            return $next($request);
         }
-        return $next($request);
+        abort(404);
     }
 }

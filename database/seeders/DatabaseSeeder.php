@@ -8,9 +8,11 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Seller;
 use Database\Seeders\CartSeeder;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\ReviewSeeder;
+use Illuminate\Support\Facades\Hash;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -30,7 +32,32 @@ class DatabaseSeeder extends Seeder
             'is_seller' => true
         ]);
 
-        $user1 = User::factory()->create([
+        $seller1 = Seller::create([
+            'username' => 'Test User',
+            'email' => 'test@example.com',
+            // 'password' => '12345678',
+            'password' => Hash::make('12345678'),
+        ]);
+        $seller2 = Seller::create([
+            'username' => 'Test2 User',
+            'email' => 'test2@example.com',
+            // 'password' => '12345678',
+            'password' => Hash::make('12345678'),
+        ]);
+        $seller3 = Seller::create([
+            'username' => 'Test3 User',
+            'email' => 'test3@example.com',
+            // 'password' => '12345678',
+            'password' => Hash::make('12345678'),
+        ]);
+        $seller4 = Seller::create([
+            'username' => 'Test4 User',
+            'email' => 'test4@example.com',
+            // 'password' => '12345678',
+            'password' => Hash::make('12345678'),
+        ]);
+
+        $user2 = User::factory()->create([
             'username' => 'Test User',
             'email' => 'test@example.com',
             'password' => '12345678',
@@ -38,7 +65,7 @@ class DatabaseSeeder extends Seeder
             'is_seller' => true
         ]);
 
-        $user2 = User::factory()->create([
+        $user3 = User::factory()->create([
             'username' => 'Test2 User',
             'email' => 'test2@example.com',
             'password' => '12345678',
@@ -46,7 +73,7 @@ class DatabaseSeeder extends Seeder
             'is_seller' => true
         ]);
 
-        $user3 = User::factory()->create([
+        $user4 = User::factory()->create([
             'username' => 'Test3 User',
             'email' => 'test3@example.com',
             'password' => '12345678',

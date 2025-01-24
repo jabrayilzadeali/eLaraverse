@@ -15,7 +15,7 @@ class Product extends Model
     use HasFactory, Searchable;
 
     protected $fillable = [
-        'user_id',
+        'seller_id',
         'category_id',
         'sku', // Stock Keeping Unit
         'slug',
@@ -35,9 +35,9 @@ class Product extends Model
         'is_featured' => 'boolean', // Cast integer to real boolean
     ];
 
-    public function user(): BelongsTo
+    public function seller(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Seller::class, 'seller_id');
     }
 
     public function category(): BelongsTo
@@ -67,19 +67,41 @@ class Product extends Model
         return $this->user ? $this->user->username : null;
     }
     
-    public function scopeUserId($query, $id): Builder
+    public function scopeSellerId($query, $id): Builder
     {
-        return $query->where('user_id', $id);
+        return $query->where('seller_id', $id);
     }
 
     public function scopeMinDiscountedPrice($query, $minPrice): Builder
     {
-        return $query->where('price', '>', $minPrice);
+        return $query
+            ->selectRaw('*, price - (price * discount / 100) as discounted_price')
+            ->havingRaw('discounted_price > ?', [$minPrice]);
     }
 
     public function scopeMaxDiscountedPrice($query, $maxPrice): Builder
     {
-        return $query->where('price', '<', $maxPrice);
+        return $query
+            ->selectRaw('*, price - (price * discount / 100) as discounted_price')
+            ->havingRaw('discounted_price < ?', [$maxPrice]);
+    }
+    
+    public function scopeDiscountedPriceRange($query, $minPrice = null, $maxPrice = null): Builder
+    {
+        // Calculate the discounted price once
+        $query->selectRaw('*, price - (price * discount / 100) as discounted_price');
+        
+        // Apply minPrice condition if it's provided
+        if ($minPrice !== null) {
+            $query->havingRaw('discounted_price >= ?', [$minPrice]);
+        }
+        
+        // Apply maxPrice condition if it's provided
+        if ($maxPrice !== null) {
+            $query->havingRaw('discounted_price <= ?', [$maxPrice]);
+        }
+
+        return $query;
     }
 
     public function scopeMinPrice($query, $minPrice): Builder

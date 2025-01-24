@@ -3,11 +3,11 @@
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img class="w-auto h-10 mx-auto" src="{{ asset('img/logo.png') }}"
                 alt="Your Company">
-            <h2 class="mt-10 font-bold tracking-tight text-center text-gray-900 dark:text-gray-100 text-2xl/9">Sign in to your account</h2>
+            <h2 class="mt-10 font-bold tracking-tight text-center text-gray-900 dark:text-gray-100 text-2xl/9">Sign in to your seller account</h2>
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form data-form class="space-y-6" action="{{ route('login.store') }}" method="POST">
+            <form data-form class="space-y-6" action="{{ route('seller.login.submit') }}" method="POST">
                 @csrf
                 <input type="hidden" data-user-type name="user_type" value="costumer">
                 <div>
@@ -80,3 +80,4 @@
         
     </script> --}}
 </x-layouts.auth-layout>
+

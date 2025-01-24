@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ProductPolicy
 {
@@ -33,7 +34,7 @@ class ProductPolicy
      */
     public function create(User $user): bool
     {
-        return $user->is_seller;
+        return Auth::guard('seller')->check();
     }
 
     /**
@@ -41,7 +42,8 @@ class ProductPolicy
      */
     public function update(User $user, Product $product): bool
     {
-        return $product->user->is($user);
+        // return Auth::guard('seller')->check();
+        return $product->user->is(Auth::guard('seller'));
     }
 
     /**
@@ -49,7 +51,8 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product): bool
     {
-        return $product->user->is($user);
+        // return $product->user->is($user);
+        return $product->user->is(Auth::guard('seller'));
     }
 
     /**

@@ -15,6 +15,11 @@ import {
 } from "./helpers";
 import "./checkout"
 
+const flashMessage = document.querySelector('[flash-message]')
+
+if (flashMessage) {
+    flashMessage.style.display = 'none';
+}
 
 updateProductsUi();
 

@@ -86,13 +86,16 @@
                     <div class="relative">
                         <div>
                             <button type="button" data-user-option-btn
-                                class="relative flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                class="relative flex text-sm rounded-full dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                 id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">Open user menu</span>
-                                <img class="rounded-full size-8"
-                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="">
+                                <div class="flex items-center justify-center gap-3">
+                                    <img class="rounded-full size-8"
+                                        src="{{ Storage::url(Auth::user()->img_path) }}"
+                                        alt="">
+                                    <p class="hidden pr-3 lg:block">{{ Auth::user()->username }}</p>
+                                </div>
                             </button>
                         </div>
 

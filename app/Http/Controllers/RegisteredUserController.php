@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class RegisteredUserController extends Controller
 {
@@ -24,7 +26,24 @@ class RegisteredUserController extends Controller
         $user = User::create($attrs);
 
         Auth::login($user);
+        
+        event(new Registered(($user)));
 
-        return redirect('login');
+        return redirect('/');
     }
-}
+    public function verifyNotice()
+    {
+        return view('auth.verify-email');
+    }
+    public function verifyEmail(EmailVerificationRequest $request)
+    {
+        $request->fulfill();
+     
+        return redirect('/')->with('message', 'Please verify your email');
+    }
+    public function verifyHandler(Request $request) {
+            $request->user()->sendEmailVerificationNotification();
+         
+            return back()->with('message', 'Verification link sent!');
+        }
+    }

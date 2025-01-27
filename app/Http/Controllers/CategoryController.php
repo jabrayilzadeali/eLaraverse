@@ -13,10 +13,13 @@ class CategoryController extends Controller
     {
         $currentCategory = Category::where('slug', $path)->firstOrFail();
         // $products = Product::where('category_id', $currentCategory->id)->get();
-        $sorts = request()->get('sort', []);
+        // Fetch all child categories (recursively)
+        $allCategoryIds = $currentCategory->getAllCategoryIds();
 
+        $sorts = request()->get('sort', []);
         $sortBy = request()->get('sortBy', ''); // Default to 'created_at'
         $sortDirection = request()->get('direction', ''); // Default to 'desc'
+
         $query = Product::query();
 
         if (request()->has('min_price')) {
@@ -37,7 +40,13 @@ class CategoryController extends Controller
             }
         }
 
-        $products = $query->where('category_id', $currentCategory->id)->simplePaginate(3)->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);
+        // $products = $query->where('category_id', $currentCategory->id)
+        //     ->simplePaginate(3)
+        //     ->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);
+        // Fetch products from current category and all its subcategories
+        $products = $query->whereIn('category_id', $allCategoryIds)
+            ->simplePaginate(3)
+            ->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);
         $categories = Category::where('parent_id', null)->get();
 
         return view('products.index', [

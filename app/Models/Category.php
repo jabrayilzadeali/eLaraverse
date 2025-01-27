@@ -31,6 +31,18 @@ class Category extends Model
         return $this->belongsTo(Category::class, 'parent_id');
     }
     
+    public function getAllCategoryIds()
+    {
+        $ids = collect([$this->id]);  // Start with the current category ID
+
+        // Recursively get children categories
+        foreach ($this->children as $child) {
+            $ids = $ids->merge($child->getAllCategoryIds());
+        }
+
+        return $ids;
+    }
+    
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

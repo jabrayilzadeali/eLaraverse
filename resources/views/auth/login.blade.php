@@ -25,7 +25,7 @@
                     <div class="flex items-center justify-between">
                         <label for="password" class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Password</label>
                         <div class="text-sm">
-                            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                            <a href="{{ route('password.request') }}" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
                         </div>
                         @error('password')
                             <p class="mt-1 text-xs font-semibold text-red-500">{{ $message }}</p>

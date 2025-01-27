@@ -1,5 +1,16 @@
 <x-layouts.app-layout>
     <h1 class="mb-10 text-4xl font-bold">Settings</h1>
+    
+    <div class="flex items-center gap-3">
+        <img class="rounded-full size-8"
+            src="{{ Storage::url(Auth::user()->img_path) }}"
+            alt="">
+        <p class="pr-3">{{ Auth::user()->username }}</p>
+    </div>
+    <p>055-123-45-67</p>
+    <p>location: Lorem ipsum dolor sit amet.</p>
+
+    <a href="{{ route('settings.change-password') }}">Change Password</a>
     <form action="" method="POST">
         @csrf
         @method('PATCH')

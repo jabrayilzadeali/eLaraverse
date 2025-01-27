@@ -57,7 +57,8 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/change_cart_quantity', [ProductController::class, 'change_cart_quantity']);
 
 
-    Route::get('/settings', [UserSettingsController::class, 'edit'])->name('user.settings.edit');
+    Route::get('/settings', [UserSettingsController::class, 'index'])->name('user.settings');
+    Route::get('/settings/edit', [UserSettingsController::class, 'edit'])->name('user.settings.edit');
     Route::patch('/settings', [UserSettingsController::class, 'update'])->name('user.settings.update');
     Route::get('/settings/change-password', [UserSettingsController::class, 'changePasswordForm'])->name('settings.change-password');
     Route::post('/settings/update-password', [UserSettingsController::class, 'updatePassword'])->name('settings.update-password');

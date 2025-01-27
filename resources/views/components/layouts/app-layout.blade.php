@@ -41,6 +41,24 @@
             </button>
         </div>
     @endif
+    @if (Auth::check() && is_null(Auth::user()->email_verified_at))
+        <div class="px-2 py-1 text-yellow-700 bg-yellow-100 border-l-4 border-yellow-500" role="alert" data-message>
+            <div class="flex justify-around lg:items-center">
+                <div>               
+                    <p class="font-bold">Email Verification Required</p>
+                    <p class="text-sm lg:text-base">Please verify your email address to access all features. 
+                        <a href="{{ route('verification.notice') }}" class="text-blue-500 underline">Click here to resend the verification email</a>.
+                    </p>
+                </div>
+                <div>
+                    <button onclick="document.querySelector('[data-message]').classList.add('hidden')" 
+                            class="px-3 py-1 ml-4 font-bold text-white bg-green-700 rounded hover:bg-green-800">
+                        X
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
     @once
         <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]"><div class="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#d5c5ff,transparent)]"></div></div>
         <div class="absolute top-0 z-[-2] h-full w-full dark:bg-neutral-900 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>

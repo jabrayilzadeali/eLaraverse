@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSettingsController extends Controller
 {
-    public function edit()
+    public function index()
     {
         return view('user.settings');
+    }
+    public function edit()
+    {
+        return view('user.edit');
     }
     public function update()
     {
@@ -19,7 +23,7 @@ class UserSettingsController extends Controller
         ]);
         $user = Auth::user();
         $user->update($validated);
-        return redirect()->route('user.settings.edit')->with('success', 'User Updated Successfully');
+        return redirect()->route('user.settings')->with('success', 'User Updated Successfully');
     }
     public function changePasswordForm()
     {
@@ -34,6 +38,7 @@ class UserSettingsController extends Controller
 
         if (Hash::check($validated['old_password'], Auth::user()->password)) {
             Auth::user()->update($validated);
+            return redirect()->route('user.settings');
         } else {
             return back()->withErrors(['old_password' => 'The provided password does not match our records.']);
         }

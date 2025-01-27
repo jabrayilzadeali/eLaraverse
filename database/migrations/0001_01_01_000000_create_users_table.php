@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('username');
             $table->boolean('is_seller')->default(false);
-            $table->string('img_path')->default('/default-user-img.png');
+            $table->string('img_path')->default('default-user-img.png');
+            $table->string('phone')->nullable();
+            $table->text('address')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

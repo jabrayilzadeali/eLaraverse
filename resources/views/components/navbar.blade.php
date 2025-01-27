@@ -115,7 +115,7 @@
                             <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
                             <a href="{{ route('order.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem" tabindex="-1"
                                 id="user-menu-item-1">Orders</a>
-                            <a href="{{ route('user.settings.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem" tabindex="-1"
+                            <a href="{{ route('user.settings') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem" tabindex="-1"
                                 id="user-menu-item-1">Settings</a>
                             <form data-logout-user action="/logout" method="POST">
                                 @csrf

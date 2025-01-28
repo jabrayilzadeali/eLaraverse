@@ -44,12 +44,26 @@
             </div>
             <div
                 class="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button type="button"
-                    class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                    <span class="absolute -inset-1.5"></span>
+                {{-- <div class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="sr-only">Search</span>
-                    <x-icons.search></x-icons.search>
-                </button>
+                    <input type="text" class="rounded-md">
+                    <x-icons.search class="absolute top-0 left-0 bg-red-500"></x-icons.search>
+                </div> --}}
+
+                <form method="GET" action="/search" class="relative flex items-center">
+                    <label for="search" class="sr-only">Search</label>
+                    <input 
+                        type="text" 
+                        id="search" 
+                        name="query" 
+                        class="w-full p-2 pl-10 text-gray-600 bg-gray-100 rounded-md dark:text-gray-400 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-500" 
+                        placeholder="Search for products..."
+                        value="{{ request('query') }}" 
+                    />
+                    <button type="submit" class="absolute top-0 left-0 p-2">
+                        <x-icons.search class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"></x-icons.search>
+                    </button>
+                </form>
                 <button data-dark-mode-toggle-button type="button"
                     class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="absolute -inset-1.5"></span>

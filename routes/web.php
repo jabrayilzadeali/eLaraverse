@@ -26,19 +26,12 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/test', function () {
-//     \Illuminate\Support\Facades\Mail::to('support@jabrayilzadeali.com')->send(
-//         new \App\Mail\VerifyCustomer()
-//     );
-//     return 'Done';
-// });
-
-// Route::get('/', [HomeController::class, 'index'])->name('home');
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::middleware(['auth'])->group(function () {
-    // Route::get('/', [HomeController::class, 'index'])->middleware('verified')->name('home');
-    // Route::get('/', [HomeController::class, 'userIsVerified'])->middleware('verified')->name('userIsVerified');
+Route::get('products', [ProductController::class, 'index'])->name('products.index');
+Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+
+Route::middleware('auth')->group(function () {
     Route::get('/email/verify', [RegisteredUserController::class, 'verifyNotice'])
         ->name('verification.notice');
 
@@ -49,8 +42,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/email/verification-notification', [RegisteredUserController::class, 'verifyHandler'])
         ->middleware(['throttle:6,1'])
         ->name('verification.send');
-
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/fetch_carts', [ProductController::class, 'fetch']);
     Route::post('/cart', [ProductController::class, 'store_api']);
     Route::delete('/cart', [ProductController::class, 'destroy_api']);
@@ -59,14 +54,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/settings', [UserSettingsController::class, 'index'])->name('user.settings');
     Route::get('/settings/edit', [UserSettingsController::class, 'edit'])->name('user.settings.edit');
+    // Route::patch('/settings', [UserSettingsController::class, 'updateSettings'])->name('user.settings.edit');
     Route::patch('/settings', [UserSettingsController::class, 'update'])->name('user.settings.update');
     Route::get('/settings/change-password', [UserSettingsController::class, 'changePasswordForm'])->name('settings.change-password');
     Route::post('/settings/update-password', [UserSettingsController::class, 'updatePassword'])->name('settings.update-password');
-    Route::get('/checkout', [CheckoutController::class, 'index'])->middleware('verified')->name('checkout.index');
-    Route::post('/checkout', [CheckoutController::class, 'store'])->middleware('verified')->name('checkout.store');
-    Route::get('/orders', [OrderController::class, 'index'])->middleware('verified')->name('order.index');
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
 });
-
 
 Route::middleware('guest')->group(function () {
     Route::view('/forgot-password', 'auth.forgot-password')->name('password.request');
@@ -80,9 +75,8 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [SessionController::class, 'store'])->name('login.store');
 });
 
+
 Route::get('/cart', [CartController::class, 'index']);
-Route::get('products', [ProductController::class, 'index'])->name('products.index');
-Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/category/{path}', [CategoryController::class, 'show'])
     ->where('path', '.*')

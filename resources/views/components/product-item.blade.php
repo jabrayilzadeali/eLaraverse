@@ -23,6 +23,7 @@
             <p class="text-xl">${{ $discount > 0 ? $price - ($price * $discount) / 100 : $price }}</p>
             @if ($discount)
                 <p class="text-base line-through">${{ $price }}</p>
+                <p class="text-base text-red-500">${{ $discount }}%</p>
             @endif
         </div>
         <div>

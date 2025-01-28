@@ -16,6 +16,9 @@ class HomeController extends Controller
         // if (Auth::check() && !Auth::user()->hasVerifiedEmail()) {
         //     return Redirect::route('verification.notice')->with('message', 'Please verify your email before continuing.');
         // }
+        if (Auth::check() && !Auth::user()->email_verified_at) {
+            return redirect()->route('verification.notice');
+        }
         $featuredProducts = Product::where('is_featured', 1)->get();
         // $categories = Category;
         $categories = Cache::remember('categories', 3600, function () {

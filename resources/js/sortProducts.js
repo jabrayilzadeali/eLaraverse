@@ -13,7 +13,9 @@ sortMenu?.addEventListener('click', (e) => {
         window.location.href = window.location.href.split('?')[0]
         return
     }
+    // removeParams('sort', 'page')
     removeParams('sort')
+    removeParams('page')
     setUrlParam(`sort[${e.target.dataset.sortBy}]`, e.target.dataset.sortDirection)
 
 })

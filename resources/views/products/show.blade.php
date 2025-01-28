@@ -6,7 +6,8 @@
         </div>
         <div
             class="grid md:flex-col justify-between grid-cols-3 grid-rows-[repeat(3, auto)] gap-4 md:flex md:grid-cols-1">
-            <p class="text-zinc-200 auto-cols-min">{{ $product->user->username }}</p>
+            {{-- {{ $product->user }} --}}
+            <p class="text-zinc-200 auto-cols-min">{{ $product->seller->username }}</p>
             <h2
                 class="col-span-3 row-start-2 font-semibold text-white md:grid-cols-auto md:grid-rows-auto md:font-bold md:text-xl">
                 {{ $product->title }}</h2>

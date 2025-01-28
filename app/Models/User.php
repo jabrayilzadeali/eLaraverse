@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     protected $fillable = [
         'is_seller',
         'img_path',
+        'email_verified_at',
         'username',
         'balance',
         'email',

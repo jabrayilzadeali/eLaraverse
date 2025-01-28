@@ -20,6 +20,10 @@
         @csrf
         <button>Send again</button>
     </form>
+    <form data-logout-user action="/logout" method="POST">
+        @csrf
+        <button class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem">Sign Out</button>
+    </form>
     @vite('resources/js/app.js')
 </body>
 

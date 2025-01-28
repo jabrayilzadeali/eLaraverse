@@ -18,20 +18,26 @@ class ProductController extends Controller
 {
     public function index()
     {
+        if (Auth::check() && !Auth::user()->email_verified_at) {
+            return redirect()->route('verification.notice');
+        }
         // $products = Product::orderBy('price', 'desc')->paginate(2);
-        $sortBy = request()->get('sortBy', ''); // Default to 'created_at'
-        $sortDirection = request()->get('direction', ''); // Default to 'desc'
+        // $sortBy = request()->get('sortBy', ''); // Default to 'created_at'
+        // $sortDirection = request()->get('direction', ''); // Default to 'desc'
         $query = Product::query();
         $sorts = request()->get('sort', []);
+        $appends = [];
 
 
         // if (request()->has('min_price') || request()->has('max_price')) {
         //     $query = $query->scopeDiscountedPriceRange($minPrice = request()->get('min_price'), $maxPrice = request()->get('max_price'));
         // }
-        
+
         if (request()->has('min_price') || request()->has('max_price')) {
             $minPrice = request()->get('min_price');
             $maxPrice = request()->get('max_price');
+            $appends['min_price'] = $minPrice;
+            $appends['max_price'] = $maxPrice;
             $query = $query->discountedPriceRange($minPrice, $maxPrice);
         }
 
@@ -46,23 +52,27 @@ class ProductController extends Controller
         foreach ($sorts as $column => $direction) {
             if (Schema::hasColumn('products', $column) && in_array($direction, ['asc', 'desc'])) {
                 $query->orderBy($column, $direction);
+                $appends["sort[$column]"] = $direction;
             }
         }
-        $products = $query->simplePaginate(3)->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);
+        // $products = $query->simplePaginate(3)->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);
+        $products = $query->simplePaginate(3)->appends($appends);
         // $products = $query->paginate(3);
         // $products = Product::orderBy($sortBy, $sortDirection)->simplePaginate(6)->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);;
         $categories = Category::where('parent_id', null)->get();
         return view('products.index', [
             'products' => $products,
-            'sortBy' => $sortBy,
-            'sortDirection' => $sortDirection,
             'categories' => $categories,
             'sortUrl' => 'products.index'
         ]);
     }
     public function show(Product $product)
     {
+        if (Auth::check() && !Auth::user()->email_verified_at) {
+            return redirect()->route('verification.notice');
+        }
         $reviews = Review::where('product_id', $product->id)->with('user')->get();
+        $product->load('seller');
         // dd($reviews);
         return view('products.show', ['product' => $product, 'reviews' => $reviews]);
     }
@@ -141,6 +151,32 @@ class ProductController extends Controller
         $directory = dirname($product->img_path);
         Storage::disk('public')->deleteDirectory($directory);
         return redirect()->route('products.index')->with('success', 'Post Deleted Successfully');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $products = Product::where('title', 'like', '%' . $query . '%')
+            ->orWhere('description', 'like', '%' . $query . '%');
+
+        $sorts = request()->get('sort', []);
+        $appends = [];
+        foreach ($sorts as $column => $direction) {
+            if (Schema::hasColumn('products', $column) && in_array($direction, ['asc', 'desc'])) {
+                $products->orderBy($column, $direction);
+                $appends["sort[$column]"] = $direction;
+            }
+        }
+
+        if (request()->has('min_price') || request()->has('max_price')) {
+            $minPrice = request()->get('min_price');
+            $maxPrice = request()->get('max_price');
+            $appends['min_price'] = $minPrice;
+            $appends['max_price'] = $maxPrice;
+            $products = $products->discountedPriceRange($minPrice, $maxPrice);
+        }
+        $products = $products->simplePaginate(3)->appends($appends);
+        return view('products.search', compact('products', 'query'));
     }
 
     public function index_api()

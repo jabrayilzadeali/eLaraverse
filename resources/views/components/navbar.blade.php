@@ -60,7 +60,7 @@
                         placeholder="Search for products..."
                         value="{{ request('query') }}" 
                     />
-                    <button type="submit" class="absolute top-0 left-0 p-2">
+                    <button type="submit" class="absolute pl-3">
                         <x-icons.search class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"></x-icons.search>
                     </button>
                 </form>
@@ -87,6 +87,12 @@
                     <a class="px-3 py-2 text-black bg-white rounded-md dark:bg-neutral-800/80 dark:text-white dark:border-neutral-700 dark:border" href="/login">Login</a>
                 @endguest
                 @auth
+                    <a href="{{ route('wishlist.index') }}"
+                        class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <span class="absolute -inset-1.5"></span>
+                        <span class="sr-only">Wishlist</span>
+                        <x-icons.heart></x-icons.heart>
+                    </a>
                     <button type="button"
                         class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span class="absolute -inset-1.5"></span>

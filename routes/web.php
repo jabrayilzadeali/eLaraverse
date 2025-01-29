@@ -15,6 +15,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserSettingsController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\AuthCheck;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\EnsureAdminGuest;
@@ -29,7 +30,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('products', [ProductController::class, 'index'])->name('products.index');
 Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/sellers/{seller}', [SellerController::class, 'seller_products'])->name('sellers.seller_products');
 Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/email/verify', [RegisteredUserController::class, 'verifyNotice'])
@@ -61,6 +65,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/wishlist/toggle', [WishlistController::class, 'wishlist.toggle']);
 });
 
 Route::middleware('guest')->group(function () {

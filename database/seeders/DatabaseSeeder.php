@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Seller;
+use App\Models\Wishlist;
 use Database\Seeders\CartSeeder;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\ReviewSeeder;
@@ -57,7 +58,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678'),
         ]);
 
-        $user2 = User::factory()->create([
+        $user = User::factory()->create([
             'username' => 'Test User',
             'email' => 'test@example.com',
             'password' => '12345678',
@@ -65,7 +66,7 @@ class DatabaseSeeder extends Seeder
             'is_seller' => true
         ]);
 
-        $user3 = User::factory()->create([
+        $user2 = User::factory()->create([
             'username' => 'Test2 User',
             'email' => 'test2@example.com',
             'password' => '12345678',
@@ -73,7 +74,7 @@ class DatabaseSeeder extends Seeder
             'is_seller' => true
         ]);
 
-        $user4 = User::factory()->create([
+        $user3 = User::factory()->create([
             'username' => 'Test3 User',
             'email' => 'test3@example.com',
             'password' => '12345678',
@@ -99,6 +100,30 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call([
             ReviewSeeder::class
+        ]);
+        
+        Wishlist::create([
+            'user_id' => $user->id,
+            'product_id' => 1
+        ]);
+        Wishlist::create([
+            'user_id' => $user->id,
+            'product_id' => 2
+        ]);
+
+        Wishlist::create([
+            'user_id' => $user2->id,
+            'product_id' => 2
+        ]);
+
+        Wishlist::create([
+            'user_id' => $user2->id,
+            'product_id' => 3
+        ]);
+
+        Wishlist::create([
+            'user_id' => $user2->id,
+            'product_id' => 4
         ]);
         
         

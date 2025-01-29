@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Seller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -37,6 +38,15 @@ class SellerController extends Controller
     {
         Auth::guard('seller')->logout();
         return redirect()->route('seller.login.form');
+    }
+    
+    public function seller_products(Seller $seller)
+    {
+        $products = $seller->products()->with('category')->paginate(3); // Eager load 'category' if needed
+        return view('sellers.seller_products', [
+            'seller' => $seller,
+            'products' => $products
+        ]);
     }
 
     public function index()

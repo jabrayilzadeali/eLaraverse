@@ -26,7 +26,10 @@
                 <p class="text-base text-red-500">${{ $discount }}%</p>
             @endif
         </div>
-        <div>
+        <div class="flex flex-col items-end justify-end gap-3">
+            <button>
+                <x-icons.heart></x-icons.heart>
+            </button>
             @if ($stock)
                 <button data-add-to-cart data-id="{{ $id }}" data-img="{{ $img }}"
                     data-title="{{ $title }}" data-price="{{ $price }}" data-discount="{{ $discount }}"

@@ -73,7 +73,6 @@ class ProductController extends Controller
         }
         $reviews = Review::where('product_id', $product->id)->with('user')->get();
         $product->load('seller');
-        // dd($reviews);
         return view('products.show', ['product' => $product, 'reviews' => $reviews]);
     }
 

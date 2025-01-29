@@ -7,7 +7,7 @@
         <div
             class="grid md:flex-col justify-between grid-cols-3 grid-rows-[repeat(3, auto)] gap-4 md:flex md:grid-cols-1">
             {{-- {{ $product->user }} --}}
-            <p class="text-zinc-200 auto-cols-min">{{ $product->seller->username }}</p>
+            <a href="{{ route('sellers.seller_products', $product->seller) }}" class="text-zinc-200 auto-cols-min hover:underline">{{ $product->seller->username }}</a>
             <h2
                 class="col-span-3 row-start-2 font-semibold text-white md:grid-cols-auto md:grid-rows-auto md:font-bold md:text-xl">
                 {{ $product->title }}</h2>
@@ -104,16 +104,18 @@
     @endif
     <div class="mt-8">
         <h2 class="mb-5 text-2xl font-bold text-gray-200">Reviews</h2>
-        <form class="my-5" action="" data-add-comment>
-            <x-rating></x-rating>
-            <label for="heading" class="">Title</label>
-            <input data-comment-title type="text" name="" id="" required
-                class="block px-2 py-1 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-transparent">
-            <label class="block my-3" for="comment">Comment</label>
-            <textarea data-comment-body name="comment" id="comment" required
-                class="block p-3 max-w-96 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-transparent"></textarea>
-            <input class="block px-2 py-1 mt-5 font-semibold rounded-md bg-fuchsia-600 dark:text-white" type="submit" value="Add Comment">
-        </form>
+        @auth
+            <form class="my-5" action="" data-add-comment>
+                <x-rating></x-rating>
+                <label for="heading" class="">Title</label>
+                <input data-comment-title type="text" name="" id="" required
+                    class="block px-2 py-1 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-transparent">
+                <label class="block my-3" for="comment">Comment</label>
+                <textarea data-comment-body name="comment" id="comment" required
+                    class="block p-3 max-w-96 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-transparent"></textarea>
+                <input class="block px-2 py-1 mt-5 font-semibold rounded-md bg-fuchsia-600 dark:text-white" type="submit" value="Add Comment">
+            </form>
+        @endauth
         <div data-comments class="flex flex-col gap-5">
             @foreach ($reviews as $review)
                 <div class="max-w-[60rem]">

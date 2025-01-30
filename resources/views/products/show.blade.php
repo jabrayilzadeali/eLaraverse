@@ -67,8 +67,6 @@
                 @endif
                 <p class="text-4xl text-zinc-200">{{ $product->price - ($product->price * $product->discount) / 100 }}
                 </p>
-                <div>
-                </div>
             </div>
             @if ($product->discount)
                 <p>
@@ -105,19 +103,32 @@
     <div class="mt-8">
         <h2 class="mb-5 text-2xl font-bold text-gray-200">Reviews</h2>
         @auth
-            <form class="my-5" action="" data-add-comment>
-                <x-rating></x-rating>
-                <label for="heading" class="">Title</label>
-                <input data-comment-title type="text" name="" id="" required
-                    class="block px-2 py-1 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-transparent">
-                <label class="block my-3" for="comment">Comment</label>
-                <textarea data-comment-body name="comment" id="comment" required
-                    class="block p-3 max-w-96 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-transparent"></textarea>
-                <input class="block px-2 py-1 mt-5 font-semibold rounded-md bg-fuchsia-600 dark:text-white" type="submit" value="Add Comment">
-            </form>
+            @if ($hasPurchased)
+                <form class="my-5" method="POST" action="{{ route('review.store') }}" data-add-comment>
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    @error('product_id')
+                        {{ $message }}
+                    @enderror
+                    <x-rating></x-rating>
+                    <label for="heading" class="">Title</label>
+                    <input data-comment-title type="text" name="title" id="" required
+                        class="block px-2 py-1 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-transparent">
+                    @error('title')
+                        {{ $message }}
+                    @enderror
+                    <label class="block my-3" for="comment">Comment</label>
+                    <textarea data-comment-body name="comment" id="comment" required
+                        class="block p-3 max-w-96 dark:text-gray-300 ring-1 ring-gray-500 dark:bg-transparent"></textarea>
+                    @error('comment')
+                        {{ $message }}
+                    @enderror
+                    <input class="block px-2 py-1 mt-5 font-semibold rounded-md bg-fuchsia-600 dark:text-white" type="submit" value="Add Comment">
+                </form>
+            @endif
         @endauth
         <div data-comments class="flex flex-col gap-5">
-            @foreach ($reviews as $review)
+            @forelse ($reviews as $review)
                 <div class="max-w-[60rem]">
                     <div class="flex items-center gap-3">
                         <img class="rounded-full" src="https://placehold.co/50" alt="">
@@ -131,7 +142,9 @@
                     <h2 class="text-2xl font-bold dark:text-gray-300">{{ $review->title }}</h2>
                     <p class="dark:text-gray-400">{{ $review->comment }}</p>
                 </div>
-            @endforeach
+            @empty
+                no Review
+            @endforelse
         </div>
     </div>
 
@@ -182,15 +195,15 @@
         const commentBody = document.querySelector('[data-comment-body]')
         const comments = document.querySelector('[data-comments]')
 
-        addCommentForm.addEventListener('submit', (e) => {
-            e.preventDefault()
-            console.log(formRating.value)
-            comments.innerHTML += createComment(
-                'https://placehold.co/50',
-                +formRating.value,
-                commentTitle.value,
-                commentBody.value
-            )
-        })
+        // addCommentForm.addEventListener('submit', (e) => {
+        //     e.preventDefault()
+        //     console.log(formRating.value)
+        //     comments.innerHTML += createComment(
+        //         'https://placehold.co/50',
+        //         +formRating.value,
+        //         commentTitle.value,
+        //         commentBody.value
+        //     )
+        // })
     </script>
     </x-layout>

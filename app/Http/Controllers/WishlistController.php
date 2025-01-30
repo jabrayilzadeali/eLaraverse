@@ -14,7 +14,6 @@ class WishlistController extends Controller
     public function index()
     {
         $wishlist = Wishlist::where('user_id', Auth::id())->with('product')->paginate(3);
-
         return view('wishlist.index', ['wishlist' => $wishlist]);
     }
 
@@ -23,12 +22,14 @@ class WishlistController extends Controller
      */
     public function toggle()
     {
-        $validators = request()->validate([
-            'product_id' => 'required|exists:products,id',
-        ]);
+        // $validators = request()->validate([
+        //     'product_id' => 'required|exists:products,id',
+        // ]);
+        
         $user = Auth::id();
         $product_id = request()->product_id;
         $wishlist = Wishlist::where('user_id', $user)->where('product_id', $product_id)->first();
+        $inWishlist = false;
         if ($wishlist) {
             $wishlist->delete();
         } else {
@@ -36,9 +37,14 @@ class WishlistController extends Controller
                 'user_id' => $user,
                 'product_id' => $product_id,
             ]);
+            $inWishlist = true;
         }
-
-
+        return response()->json([
+            'wishlistHTML' => view('components.in-wishlist', ['inWishlist' => $inWishlist])->render(),
+            'product_id' => $product_id,
+            'message' => 'trying to get carts',
+        ]);
+        // return redirect()->back();
     }
 
     /**

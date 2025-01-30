@@ -19,7 +19,8 @@
                             <div class="flex flex-col justify-around p-5 md:items-center md:flex-row">
                                 <div class="flex flex-col justify-center gap-5 md:flex-row md:items-center">
                                     <div class="flex flex-col gap-3 max-w-96">
-                                        <a href="{{ route('products.show', $featuredProduct->slug) }}" class="block font-bold text-md hover:underline md:text-4xl">{{ $featuredProduct->title }}
+                                        <a href="{{ route('products.show', $featuredProduct->slug) }}"
+                                            class="block font-bold text-md hover:underline md:text-4xl">{{ $featuredProduct->title }}
                                         </a>
                                         <p class="text-sm">{{ $featuredProduct->description }}</p>
                                         <p class="">
@@ -40,12 +41,11 @@
                                                     data-img="{{ $featuredProduct->img_path }}"
                                                     data-title="{{ $featuredProduct->title }}"
                                                     data-price="{{ $featuredProduct->price }}"
-                                                    data-discounted-price="{{ $featuredProduct->price - ($featuredProduct->price * $featuredProduct->discount) / 100 }}" 
-                                                    data-quantity="1"
-                                                    data-stock="{{ $featuredProduct->stock }}"
+                                                    data-discounted-price="{{ $featuredProduct->price - ($featuredProduct->price * $featuredProduct->discount) / 100 }}"
+                                                    data-quantity="1" data-stock="{{ $featuredProduct->stock }}"
                                                     class="px-3 py-2 rounded-md dark:bg-zinc-900 text-neutral-200">Add
                                                     To Cart</button>
-                                                
+
                                                 <button data-remove-from-cart data-id="{{ $featuredProduct->id }}"
                                                     data-img="{{ $featuredProduct->img }}"
                                                     data-title="{{ $featuredProduct->title }}"
@@ -110,7 +110,8 @@
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         @foreach ($latestProducts as $latestProduct)
             <x-product-item :id="$latestProduct->id" :slug="route('products.show', $latestProduct->slug)" :img="$latestProduct->img_path" :title="$latestProduct->title" :rating="$latestProduct->rating"
-                :stock="$latestProduct->stock" :price="$latestProduct->price" :discount="$latestProduct->discount" :discounted_price="$latestProduct->discountedPrice"></x-product-item>
+                :stock="$latestProduct->stock" :price="$latestProduct->price" :discount="$latestProduct->discount" :discounted_price="$latestProduct->discountedPrice"
+                :inWishlist="$latestProduct->inWishlist"></x-product-item>
         @endforeach
     </div>
 

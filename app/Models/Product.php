@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
+use App\Models\Seller;
+use App\Models\Wishlist;
+
 
 class Product extends Model
 {
@@ -34,6 +39,11 @@ class Product extends Model
     protected $casts = [
         'is_featured' => 'boolean', // Cast integer to real boolean
     ];
+    
+    public function wishlist(): HasOne
+    {
+        return $this->hasOne(Wishlist::class, 'product_id')->where('user_id', Auth::id());
+    }
 
     public function seller(): BelongsTo
     {

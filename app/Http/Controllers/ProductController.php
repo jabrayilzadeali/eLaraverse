@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -56,7 +58,13 @@ class ProductController extends Controller
             }
         }
         // $products = $query->simplePaginate(3)->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);
-        $products = $query->simplePaginate(3)->appends($appends);
+        $products = $query
+            ->withExists(['wishlist as inWishlist' => function ($query) {
+                $query->where('user_id', Auth::id());
+            }])
+            ->simplePaginate(3)
+            ->appends($appends);
+
         // $products = $query->paginate(3);
         // $products = Product::orderBy($sortBy, $sortDirection)->simplePaginate(6)->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);;
         $categories = Category::where('parent_id', null)->get();
@@ -71,9 +79,20 @@ class ProductController extends Controller
         if (Auth::check() && !Auth::user()->email_verified_at) {
             return redirect()->route('verification.notice');
         }
-        $reviews = Review::where('product_id', $product->id)->with('user')->get();
+        $hasPurchased = false;
+        if (Auth::check()) {
+            $hasPurchased = Order::where('user_id', Auth::id())
+                ->with('order_items')
+                ->whereHas('order_items', function ($query) use ($product) {
+                    $query
+                        ->where('product_id', $product->id)
+                        ->where('status', 'delivered');
+                })
+                ->exists();
+        }
+        $reviews = Review::where('product_id', $product->id)->with('user')->latest()->get();
         $product->load('seller');
-        return view('products.show', ['product' => $product, 'reviews' => $reviews]);
+        return view('products.show', ['product' => $product, 'reviews' => $reviews, 'hasPurchased' => $hasPurchased]);
     }
 
     public function create()

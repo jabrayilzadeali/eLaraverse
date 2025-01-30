@@ -8,6 +8,7 @@
     'discount' => 0,
     'discounted_price' => 0,
     'stock' => 0,
+    'inWishlist' => 0
 ])
 <div class="transition-all duration-300 ease-in-out group hover:-translate-y-5">
     <a href="{{ $slug }}">
@@ -27,9 +28,20 @@
             @endif
         </div>
         <div class="flex flex-col items-end justify-end gap-3">
-            <button>
-                <x-icons.heart></x-icons.heart>
-            </button>
+            @auth
+                <form data-wishlist-toggle action="{{ route('wishlist.toggle') }}" method="POST">
+                    <input type="hidden" name="product_id" value="{{ $id }}">
+                    @csrf
+                    <button data-wishlist-btn="{{ $id }}">
+                        <x-in-wishlist :inWishlist="$inWishlist"></x-in-wishlist>
+                        {{-- @if ($inWishlist)
+                            <x-icons.heart-full></x-icons.heart-full>
+                        @else
+                            <x-icons.heart></x-icons.heart>
+                        @endif --}}
+                    </button>
+                </form>
+            @endauth
             @if ($stock)
                 <button data-add-to-cart data-id="{{ $id }}" data-img="{{ $img }}"
                     data-title="{{ $title }}" data-price="{{ $price }}" data-discount="{{ $discount }}"

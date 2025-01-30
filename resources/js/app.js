@@ -14,8 +14,11 @@ import {
     updateProductsUi,
 } from "./helpers";
 import "./checkout"
+import "./wishlist"
 
 const flashMessage = document.querySelector('[flash-message]')
+
+
 
 if (flashMessage) {
     flashMessage.style.display = 'none';

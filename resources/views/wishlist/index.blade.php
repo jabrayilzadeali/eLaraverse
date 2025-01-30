@@ -9,7 +9,7 @@
                 @endphp
                 <x-product-item :id="$product->id" :slug="route('products.show', $product->slug)" :img="$product->img_path"
                     :title="$product->title" :rating="$product->rating" :price="$product->price" :discounted_price="$product->discounted_price" :stock="$product->stock"
-                    :discount="$product->discount"></x-product-item>
+                    :discount="$product->discount" :inWishlist="true"></x-product-item>
             @endforeach
         </div>
         <div class="mt-10">

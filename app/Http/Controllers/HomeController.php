@@ -25,7 +25,13 @@ class HomeController extends Controller
             return Category::with('children')->where('parent_id', null)->take(7)->get();
         });
         // $latestProducts = Product::latest()->take(8)->get();
-        $latestProducts = Product::orderBy('created_at', 'desc')->limit(8)->get();
+        $latestProducts = Product::orderBy('created_at', 'desc')
+        ->limit(8)
+        ->withExists(['wishlist as inWishlist' => function ($query) {
+            $query->where('user_id', Auth::id());
+        }])
+        ->get();
+
         return view('welcome', [
             'featuredProducts' => $featuredProducts,
             'latestProducts' => $latestProducts,

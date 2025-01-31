@@ -18,7 +18,7 @@ class ProductController extends Controller
     {
         $columns = [
             ['key' => 'id', 'label' => '#', 'sortable' => false, 'type' => 'text'],
-            ['key' => 'user.username', 'label' => 'created_by', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'seller.username', 'label' => 'created_by', 'sortable' => false, 'type' => 'text'],
             ['key' => 'slug', 'label' => 'slug', 'sortable' => false, 'type' => 'text'],
             ['key' => 'title', 'label' => 'title', 'sortable' => true, 'type' => 'text'],
             ['key' => 'description', 'label' => 'description', 'sortable' => false, 'type' => 'text'],
@@ -38,8 +38,8 @@ class ProductController extends Controller
             });
         }
         $get_columns = array_column($columns, 'key');
-        if (in_array('user.username', $get_columns)) {
-            $index = array_search('user.username', $get_columns);
+        if (in_array('seller.username', $get_columns)) {
+            $index = array_search('seller.username', $get_columns);
             $get_columns[$index] = 'user_id';
         }
         if (in_array('category.name', $get_columns)) {
@@ -52,8 +52,8 @@ class ProductController extends Controller
 
         $sorts = request()->get('sort', []);
         // dd($sorts);
-        if (request()->has('user_id')) {
-            $products = Product::userId(request()->get('user_id'));
+        if (request()->has('seller_id')) {
+            $products = Product::userId(request()->get('seller_id'));
         }
 
         if (request()->has('min_price')) {
@@ -93,8 +93,7 @@ class ProductController extends Controller
         if (!in_array('slug', $get_columns)) {
             $get_columns[] = 'slug';
         }
-        $products = $products->with(['user:id,username', 'category'])->get($get_columns);
-        // dd($products);
+        $products = $products->with(['seller:id,username', 'category'])->get();
         $sellers = User::where('is_seller', true)->get();
         return view('admin.products.index', [
             'stackedColumns' => $stackedColumns,

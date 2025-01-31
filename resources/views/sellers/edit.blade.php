@@ -32,43 +32,9 @@
 
             <div class="pb-12 border-b border-gray-900/10">
                 <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    {{-- <div class="sm:col-span-1">
-                        <label for="price" class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Price</label>
-                        <div class="mt-2">
-                            <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}"
-                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                        </div>
-                        @error('price')
-                            <div class="text-sm text-red-500">{{ $message }}</div>
-                        @enderror
-                    </div> --}}
                     <x-forms.input class="sm:col-span-1" name="price" label="Price" type="number" :item="$product->price"></x-forms.input>
                     <x-forms.input class="sm:col-span-1" name="discount" label="Discount" type="number" :item="$product->discount"></x-forms.input>
                     <x-forms.input class="sm:col-span-1" name="stock" label="Stock" type="number" :item="$product->stock"></x-forms.input>
-                    {{-- <div class="sm:col-span-1">
-                        <label for="discount"
-                            class="block font-medium text-gray-900 dark:text-gray-100 text-sm/6">Discount</label>
-                        <div class="mt-2">
-                            <input type="number" name="discount" id="discount" value="{{ old('discount', $product->discount) }}"
-                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                        </div>
-                        @error('discount')
-                            <div class="text-sm text-red-500">{{ $message }}</div>
-                        @enderror
-                    </div> --}}
-                    {{-- <div class="sm:col-span-1">
-                        <label for="stock"
-                            class="block font-medium text-gray-900 dark:text-gray-100 text-sm/6">Stock</label>
-                        <div class="mt-2">
-                            <input type="number" name="stock" id="stock" value="{{ old('stock', $product->stock) }}"
-                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                        </div>
-                        @error('stock')
-                            <div class="text-sm text-red-500">{{ $message }}</div>
-                        @enderror
-                    </div> --}}
-
-
                     <div class="col-span-full">
                         <label for="categories"
                             class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Select Category</label>

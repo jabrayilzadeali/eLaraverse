@@ -104,8 +104,8 @@
         <button class="p-3 font-bold text-gray-200 bg-gray-800 rounded-md" data-new-items>Yeni Məhsullar</button>
         <button class="p-3 text-gray-700 border border-gray-400 rounded-md dark:text-gray-300"
             data-discounted-items>Endirimli Məhsullar</button>
-        <button class="p-3 text-gray-700 border border-gray-400 rounded-md dark:text-gray-300"
-            data-most-watched-items>Çox Baxılanlar</button>
+        {{-- <button class="p-3 text-gray-700 border border-gray-400 rounded-md dark:text-gray-300"
+            data-most-watched-items>Çox Baxılanlar</button> --}}
     </div>
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         @foreach ($latestProducts as $latestProduct)

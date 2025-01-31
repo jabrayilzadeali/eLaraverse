@@ -243,11 +243,7 @@ class SellerController extends Controller
             ['key' => 'id', 'label' => '#', 'sortable' => false, 'type' => 'text'],
             ['key' => 'product.img_path', 'label' => 'Img', 'sortable' => false, 'type' => 'img'],
             ['key' => 'product.title', 'label' => 'title', 'sortable' => true, 'type' => 'text'],
-            // ['key' => 'price', 'label' => 'price', 'sortable' => true, 'type' => 'text'],
             ['key' => 'quantity', 'label' => 'quantity', 'sortable' => true, 'type' => 'text'],
-            // ['key' => 'special_orders', 'label' => 'orders', 'sortable' => true, 'type' => 'orders'],
-            // ['key' => 'discount', 'label' => 'discount', 'sortable' => true, 'type' => 'text'],
-            // ['key' => 'created_at', 'label' => 'date', 'sortable' => false, 'type' => 'date'],
         ];
         $stackedColumns = array_column($columns, 'label');
         $sorts = request()->get('sort', []);

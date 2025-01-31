@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 class CategoryController extends Controller
@@ -44,9 +45,14 @@ class CategoryController extends Controller
         //     ->simplePaginate(3)
         //     ->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);
         // Fetch products from current category and all its subcategories
-        $products = $query->whereIn('category_id', $allCategoryIds)
+        $products = $query
+            ->withExists(['wishlist as inWishlist' => function ($query) {
+                $query->where('user_id', Auth::id());
+            }])
+            ->whereIn('category_id', $allCategoryIds)
             ->simplePaginate(3)
             ->appends(['sortBy' => $sortBy, 'direction' => $sortDirection]);
+
         $categories = Category::where('parent_id', null)->get();
 
         return view('products.index', [

@@ -33,7 +33,7 @@
                                 </li>
                             </ul>
 
-                            <div class="px-4 py-6 border-t border-gray-200">
+                            {{-- <div class="px-4 py-6 border-t border-gray-200">
                                 <h3 class="flow-root -mx-2 -my-3">
                                     <!-- Expand/collapse section button -->
                                     <button type="button"
@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </form>
                     </div>
                 </div>
@@ -199,7 +199,7 @@
                         <!-- Filters -->
                         <form data-filter class="hidden lg:block">
                             <h3 class="sr-only">Categories</h3>
-                            @if(Request::is('category/*'))
+                            @if (Request::is('category/*'))
                                 <a href="{{ route('products.index') }}">Go Back</a>
                             @endif
                             <ul role="list" class="flex flex-col gap-4">
@@ -219,8 +219,7 @@
                             <input
                                 class="px-2 py-1 rounded-md w-28 dark:bg-neutral-800 ring-1 ring-neutral-600 dark:text-neutral-100"
                                 type="number" name="max_price" id="max_price" value="{{ request('max_price') }}">
-                            <input type="submit" value="Apply">
-                            <div class="py-6 border-b border-gray-200">
+                            {{-- <div class="py-6 border-b border-gray-200">
                                 <h3 class="flow-root -my-3">
                                     <!-- Expand/collapse section button -->
                                     <button type="button"
@@ -270,7 +269,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <input type="submit" value="Apply">
                         </form>
 
@@ -279,8 +278,8 @@
                             <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                                 @foreach ($products as $product)
                                     <x-product-item :id="$product->id" :slug="route('products.show', $product->slug)" :img="$product->img_path"
-                                        :title="$product->title" :rating="$product->rating" :price="$product->price" :discounted_price="$product->discounted_price" :stock="$product->stock"
-                                        :discount="$product->discount" :inWishlist="$product->inWishlist"></x-product-item>
+                                        :title="$product->title" :rating="$product->rating" :price="$product->price" :discounted_price="$product->discounted_price"
+                                        :stock="$product->stock" :discount="$product->discount" :inWishlist="$product->inWishlist"></x-product-item>
                                 @endforeach
                             </div>
                             <div class="mt-10">

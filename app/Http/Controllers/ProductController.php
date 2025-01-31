@@ -193,7 +193,12 @@ class ProductController extends Controller
             $appends['max_price'] = $maxPrice;
             $products = $products->discountedPriceRange($minPrice, $maxPrice);
         }
-        $products = $products->simplePaginate(3)->appends($appends);
+        $products = $products
+            ->withExists(['wishlist as inWishlist' => function ($query) {
+                $query->where('user_id', Auth::id());
+            }])
+            ->simplePaginate(3)
+            ->appends($appends);
         return view('products.search', compact('products', 'query'));
     }
 

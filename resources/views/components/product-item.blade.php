@@ -10,7 +10,7 @@
     'stock' => 0,
     'inWishlist' => 0
 ])
-<div class="transition-all duration-300 ease-in-out group hover:-translate-y-5">
+<div data-product="{{ $id }}" class="transition-all duration-300 ease-in-out group hover:-translate-y-5">
     <a href="{{ $slug }}">
         <x-img :img_path="$img"
             class="mb-4 aspect-square w-full rounded-lg transition-all ease-in-out bg-gray-200 object-cover group-hover:opacity-85 xl:aspect-[7/8]"></x-img>

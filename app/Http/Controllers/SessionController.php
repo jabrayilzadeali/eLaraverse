@@ -19,20 +19,12 @@ class SessionController extends Controller
             'password' => ['required']
         ]);
         if (Auth::attempt($attr)) {
-            // dd(Auth::user());
             request()->session()->regenerate();
-            // if (request()->user_type === 'seller' && Auth::user()->is_seller) {
-            //     return redirect('/sellers/dashboard');
-            // }
-            // if (request()->user_type === 'costumer') {
-            // }
             return redirect('/');
-            
-            // Auth::logout();
-            // return redirect('/login')->withErrors([
-            //     'user_type' => 'You are not authorized to access this section.'
-            // ]);
         }
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput(request()->only('email')); // Keeps the email input value
     }
     public function destroy()
     {

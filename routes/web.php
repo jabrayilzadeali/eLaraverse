@@ -60,6 +60,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/settings/edit', [UserSettingsController::class, 'edit'])->name('user.settings.edit');
     // Route::patch('/settings', [UserSettingsController::class, 'updateSettings'])->name('user.settings.edit');
     Route::patch('/settings', [UserSettingsController::class, 'update'])->name('user.settings.update');
+    Route::get('/settings/change-email', [UserSettingsController::class, 'changeEmailForm'])->name('settings.change-email');
+    Route::post('/settings/update-email', [UserSettingsController::class, 'updateEmail'])->name('settings.update-email');
     Route::get('/settings/change-password', [UserSettingsController::class, 'changePasswordForm'])->name('settings.change-password');
     Route::post('/settings/update-password', [UserSettingsController::class, 'updatePassword'])->name('settings.update-password');
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');

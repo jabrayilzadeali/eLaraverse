@@ -4,10 +4,10 @@
         @method('PATCH')
         <x-forms.img :img="Storage::url(Auth::user()->img_path)"></x-forms.img>
         <x-forms.input name="username" label="Username" :item="Auth::user()->username"></x-forms.input>
-        <x-forms.input name="email" label="Email" :item="Auth::user()->email" type="email"></x-forms.input>
+        {{-- <x-forms.input name="email" label="Email" :item="Auth::user()->email" type="email"></x-forms.input> --}}
         <x-forms.input name="phone" label="Phone" type="number"></x-forms.input>
         <x-forms.textarea name="address" label="Address"></x-forms.textarea>
-        <input type="submit" value="Edit Settings">
+        <input type="submit" class="px-3 py-2 mt-5 border rounded-md text-neutral-300" value="Change Settings">
     </form>
 
 <script>

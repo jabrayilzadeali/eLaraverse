@@ -269,8 +269,8 @@
                             <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                                 @foreach ($products as $product)
                                     <x-product-item :id="$product->id" :slug="route('products.show', $product->slug)" :img="$product->img_path"
-                                        :title="$product->title" :rating="$product->rating" :price="$product->price" :discounted_price="$product->discounted_price" :stock="$product->stock"
-                                        :discount="$product->discount"></x-product-item>
+                                        :title="$product->title" :rating="$product->rating" :price="$product->price" :discounted_price="$product->discounted_price"
+                                        :stock="$product->stock" :discount="$product->discount" :inWishlist="$product->inWishlist"></x-product-item>
                                 @endforeach
                             </div>
                             <div class="mt-10">

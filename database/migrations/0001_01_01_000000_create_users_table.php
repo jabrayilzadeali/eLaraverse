@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->string('email')->unique();
+            $table->string('pending_email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->decimal('balance', 9, 3)->default(0);

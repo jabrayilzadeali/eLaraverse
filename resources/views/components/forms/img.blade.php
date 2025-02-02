@@ -22,7 +22,7 @@
                 </svg>
                 <div class="flex mt-4 text-gray-600 text-sm/6">
                     <label for="file_upload"
-                        class="relative font-semibold text-indigo-600 rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                        class="relative font-semibold text-indigo-600 rounded-md cursor-pointer focus-within:outline-hidden focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                         <span>Upload a file</span>
                         <input data-file-upload id="file_upload" name="file_upload" type="file"
                             class="sr-only">

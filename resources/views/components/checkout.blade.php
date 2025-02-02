@@ -51,7 +51,7 @@
                             <p class="mt-0.5 text-sm text-gray-500 dark:text-gray-400">Shipping and taxes calculated at checkout.</p>
                             <div class="mt-6">
                                 <a data-checkout-btn href="{{ route('checkout.index') }}"
-                                    class="flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700">Checkout</a>
+                                    class="flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-xs hover:bg-indigo-700">Checkout</a>
                             </div>
                             <div class="flex justify-center mt-6 text-sm text-center text-gray-500 dark:text-gray-400">
                                 <p>

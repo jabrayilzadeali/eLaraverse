@@ -51,7 +51,7 @@
                 <label for="inputSearch" class="sr-only">Search</label>
                 <input id="inputSearch" data-search value="{{ old('search', request('search')) }}" name="search"
                     type="text" placeholder="Search..."
-                    class="block w-64 py-2 pl-10 pr-4 text-sm border rounded-lg dark:border-none dark:bg-neutral-600 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400" />
+                    class="block w-64 py-2 pl-10 pr-4 text-sm border rounded-lg dark:border-none dark:bg-neutral-600 focus:border-blue-400 focus:outline-hidden focus:ring-1 focus:ring-blue-400" />
                 <span class="absolute transform -translate-y-1/2 pointer-events-none left-3 top-1/2">
                     <x-icons.search></x-icons.search>
                 </span>

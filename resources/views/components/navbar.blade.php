@@ -4,7 +4,7 @@
             <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 <!-- Mobile menu button-->
                 <button type="button" data-mobile-menu-toggle-btn
-                    class="relative inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                    class="relative inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-white"
                     aria-controls="mobile-menu" aria-expanded="false">
                     <span class="absolute -inset-0.5"></span>
                     <span class="sr-only">Open main menu</span>
@@ -44,7 +44,7 @@
             </div>
             <div
                 class="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {{-- <div class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                {{-- <div class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="sr-only">Search</span>
                     <input type="text" class="rounded-md">
                     <x-icons.search class="absolute top-0 left-0 bg-red-500"></x-icons.search>
@@ -56,7 +56,7 @@
                         type="text" 
                         id="search" 
                         name="query" 
-                        class="w-full p-2 pl-10 text-gray-600 bg-gray-100 rounded-md dark:text-gray-400 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-500" 
+                        class="w-full p-2 pl-10 text-gray-600 bg-gray-100 rounded-md dark:text-gray-400 dark:bg-gray-800 focus:outline-hidden focus:ring-2 focus:ring-gray-400 focus:border-gray-500" 
                         placeholder="Search for products..."
                         value="{{ request('query') }}" 
                     />
@@ -65,14 +65,14 @@
                     </button>
                 </form>
                 <button data-dark-mode-toggle-button type="button"
-                    class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="absolute -inset-1.5"></span>
                     <span class="sr-only">Dark Mode</span>
                     <x-icons.sun data-sun-icon class="hidden"></x-icons.sun>
                     <x-icons.moon data-moon-icon></x-icons.moon>
                 </button>
                 <button data-cart-button type="button"
-                    class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="absolute -inset-1.5"></span>
                     <span class="sr-only">Cart</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -88,13 +88,13 @@
                 @endguest
                 @auth
                     <a href="{{ route('wishlist.index') }}"
-                        class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">Wishlist</span>
                         <x-icons.heart></x-icons.heart>
                     </a>
                     <button type="button"
-                        class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        class="relative p-1 text-gray-600 rounded-full dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">View notifications</span>
                         <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -106,7 +106,7 @@
                     <div class="relative">
                         <div>
                             <button type="button" data-user-option-btn
-                                class="relative flex text-sm rounded-full dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                class="relative flex text-sm rounded-full dark:bg-gray-800 focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                 id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">Open user menu</span>
@@ -129,10 +129,10 @@
                             From: "transform opacity-100 scale-100"
                             To: "transform opacity-0 scale-95"
                         -->
-                        <div class="absolute right-0 z-20 hidden w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg dark:bg-neutral-800 ring-1 ring-black/5 focus:outline-none"
+                        <div class="absolute right-0 z-20 hidden w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg dark:bg-neutral-800 ring-1 ring-black/5 focus:outline-hidden"
                             data-user-option-list role="menu" aria-orientation="vertical"
                             aria-labelledby="user-menu-button" tabindex="-1">
-                            <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
+                            <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" -->
                             <a href="{{ route('order.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem" tabindex="-1"
                                 id="user-menu-item-1">Orders</a>
                             <a href="{{ route('user.settings') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" role="menuitem" tabindex="-1"
@@ -157,7 +157,7 @@
             <x-nav-link url="/">Home</x-nav-link>
             <x-nav-link url="products">Products</x-nav-link>
             <button type="button"
-                class="relative block p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 md:hidden">
+                class="relative block p-1 text-gray-400 rounded-full hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 md:hidden">
                 <span class="absolute -inset-1.5"></span>
                 <span class="sr-only">Search</span>
                 <x-icons.search></x-icons.search>

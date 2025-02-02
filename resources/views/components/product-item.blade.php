@@ -13,7 +13,7 @@
 <div data-product="{{ $id }}" class="transition-all duration-300 ease-in-out group hover:-translate-y-5">
     <a href="{{ $slug }}">
         <x-img :img_path="$img"
-            class="mb-4 aspect-square w-full rounded-lg transition-all ease-in-out bg-gray-200 object-cover group-hover:opacity-85 xl:aspect-[7/8]"></x-img>
+            class="mb-4 aspect-square w-full rounded-lg transition-all ease-in-out bg-gray-200 object-cover group-hover:opacity-85 xl:aspect-7/8"></x-img>
         <x-stars :rating="$rating"></x-stars>
         <h3
             class="my-2 text-sm text-gray-700 transition-all ease-in-out dark:text-gray-100 hover:text-gray-300 line-clamp-2">

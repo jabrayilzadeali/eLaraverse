@@ -27,7 +27,7 @@
         </div>
         <form action="{{ route('verification.resend') }}" method="POST" class="mt-2">
             @csrf
-            <button type="submit" class="p-2 text-white bg-blue-500 rounded">
+            <button type="submit" class="p-2 text-white bg-blue-500 rounded-sm">
                 Resend Verification Email
             </button>
         </form>
@@ -36,7 +36,7 @@
         <div data-flash-message class="flex items-center justify-between p-4 mb-4 text-white transition-opacity duration-500 bg-green-500 rounded-lg">
             <span>Please verify your email</span>
             <button onclick="document.getElementById('flash-message').classList.add('opacity-0')" 
-                    class="px-3 py-1 ml-4 font-bold text-white bg-green-700 rounded hover:bg-green-800">
+                    class="px-3 py-1 ml-4 font-bold text-white bg-green-700 rounded-sm hover:bg-green-800">
                 Close
             </button>
         </div>
@@ -52,7 +52,7 @@
                 </div>
                 <div>
                     <button onclick="document.querySelector('[data-message]').classList.add('hidden')" 
-                            class="px-3 py-1 ml-4 font-bold text-white bg-green-700 rounded hover:bg-green-800">
+                            class="px-3 py-1 ml-4 font-bold text-white bg-green-700 rounded-sm hover:bg-green-800">
                         X
                     </button>
                 </div>

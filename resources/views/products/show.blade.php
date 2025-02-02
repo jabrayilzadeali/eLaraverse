@@ -78,9 +78,9 @@
             {{-- <div class="flex items-end gap-5">
                 <p class="text-2xl">Select Color:</p>
                 <div class="flex gap-3">
-                    <button class="bg-blue-500 rounded-sm size-6"></button>
-                    <button class="bg-red-500 rounded-sm size-6"></button>
-                    <button class="bg-green-500 rounded-sm size-6"></button>
+                    <button class="bg-blue-500 rounded-xs size-6"></button>
+                    <button class="bg-red-500 rounded-xs size-6"></button>
+                    <button class="bg-green-500 rounded-xs size-6"></button>
                 </div>
             </div> --}}
         </div>

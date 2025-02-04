@@ -41,6 +41,7 @@
                                                     data-img="{{ $featuredProduct->img_path }}"
                                                     data-title="{{ $featuredProduct->title }}"
                                                     data-price="{{ $featuredProduct->price }}"
+                                                    data-discount="{{ $featuredProduct->discount }}"
                                                     data-discounted-price="{{ $featuredProduct->price - ($featuredProduct->price * $featuredProduct->discount) / 100 }}"
                                                     data-quantity="1" data-stock="{{ $featuredProduct->stock }}"
                                                     class="px-3 py-2 rounded-md dark:bg-zinc-900 text-neutral-200">Add

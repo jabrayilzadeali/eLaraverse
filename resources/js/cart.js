@@ -8,8 +8,10 @@ const addToCartInShowBtn = document.querySelector("[data-add-to-cart-in-show]");
 
 if (isAuthenticated && localStorage.getItem("firstTimeLogin") === "true") {
     let cartsArray = JSON.parse(localStorage.getItem("cartsArray") || "[]");
+    console.log('this is cartsArray', cartsArray)
     sendDataToBackend(cartsArray, "POST", "http://127.0.0.1:8000/fetch_carts")
         .then((carts) => {
+            console.log(carts)
             localStorage.setItem("firstTimeLogin", false);
             localStorage.setItem("cartsArray", JSON.stringify(carts.carts));
             updateCartUi();

@@ -53,6 +53,12 @@
         </div>
     </div>
 
+    <script>
+        document.querySelector('[data-form]').addEventListener('submit', () => {
+            localStorage.setItem('firstTimeLogin', true)
+        })
+    </script>
+
     {{-- <script>
         const active = "w-24 px-3 py-2 dark:bg-indigo-700 dark:text-white"
         const notActive = "w-24 px-3 py-2 dark:bg-indigo-100 dark:text-black"

@@ -1,8 +1,10 @@
 <x-layouts.auth-layout>
-    <div class="flex flex-col justify-center min-h-full px-6 py-12 lg:px-8">
+    <div class="flex flex-col items-center justify-center min-h-full px-6 py-12 h-dvh lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="w-auto h-10 mx-auto" src="{{ asset('img/logo.png') }}"
-                alt="Your Company">
+            <a href="{{ route('home') }}">
+                <img class="w-auto h-20 mx-auto" src="{{ asset('img/logo.png') }}"
+                    alt="Your Company">
+            </a>
             <h2 class="mt-10 font-bold tracking-tight text-center text-gray-900 dark:text-gray-100 text-2xl/9">Sign in to your account</h2>
         </div>
 
@@ -10,16 +12,17 @@
             <form data-form class="space-y-6" action="{{ route('login.store') }}" method="POST">
                 @csrf
                 <input type="hidden" data-user-type name="user_type" value="costumer">
-                <div>
+                {{-- <div>
                     <label for="email" class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Email address</label>
                     <div class="mt-2">
-                        <input type="email" name="email" id="email" autocomplete="email" required
+                        <input type="email" name="email" id="email" required
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                     </div>
                     @error('email')
                         <p class="mt-1 text-xs font-semibold text-red-500">{{ $message }}</p>
                     @enderror
-                </div>
+                </div> --}}
+                <x-forms.input name="email" label="Email" inputClasses="w-full"></x-forms.input>
 
                 <div>
                     <div class="flex items-center justify-between">
@@ -33,7 +36,7 @@
                     </div>
                     <div class="mt-2">
                         <input type="password" name="password" id="password" autocomplete="current-password" required
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            class="block w-full min-w-0 grow py-1.5 rounded-md pl-2 pr-3 text-base text-gray-900 placeholder:text-gray-400 dark:bg-neutral-800 dark:text-neutral-200 focus:outline sm:text-sm/6">
                     </div>
                 </div>
 

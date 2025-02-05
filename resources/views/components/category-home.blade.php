@@ -10,7 +10,7 @@
                         @if ($child->children->isNotEmpty())
                             <ul>
                                 @foreach ($child->children as $c)
-                                    <li><a href="{{ route('category.show', $c->slug) }}" class="flex transition-all hover:text-white hover:translate-x-1">
+                                    <li><a href="{{ route('category.show', $c->slug) }}" class="flex transition-all hover:text-black dark:hover:text-white hover:translate-x-1">
                                         <x-icons.dot></x-icons.dot>
                                         <span>{{ $c->name }}</span>
                                     </a></li>

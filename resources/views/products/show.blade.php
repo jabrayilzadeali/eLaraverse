@@ -2,14 +2,30 @@
 <x-layouts.app-layout>
     <div class="grid gap-3 md:grid-cols-2 md:grid-rows-[repeat(3, auto)]">
         <div class="row-start-2 md:row-span-2 md:row-start-auto">
-            <x-img :img_path="$product->img_path" class="w-full"></x-img>
+            <div class="swiper mySwiper2">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <x-img :img_path="$product->img_path" class="w-full"></x-img>
+                    </div>
+                    <div class="swiper-slide">
+                        <x-img :img_path="$product->img_path" class="w-full"></x-img>
+                    </div>
+                    <div class="swiper-slide">
+                        <x-img :img_path="$product->img_path" class="w-full"></x-img>
+                    </div>
+                </div>
+                <!-- Pagination for second Swiper -->
+                <div class="swiper-pagination-2"></div>
+            </div>
+            {{-- <x-img :img_path="$product->img_path" class="w-full"></x-img> --}}
         </div>
         <div
             class="grid md:flex-col justify-between grid-cols-3 grid-rows-[repeat(3, auto)] gap-4 md:flex md:grid-cols-1">
             {{-- {{ $product->user }} --}}
-            <a href="{{ route('sellers.seller_products', $product->seller) }}" class="text-zinc-200 auto-cols-min hover:underline">{{ $product->seller->username }}</a>
+            <a href="{{ route('sellers.seller_products', $product->seller) }}"
+                class="text-zinc-800 dark:text-zinc-200 auto-cols-min hover:underline">{{ $product->seller->username }}</a>
             <h2
-                class="col-span-3 row-start-2 font-semibold text-white md:grid-cols-auto md:grid-rows-auto md:font-bold md:text-xl">
+                class="col-span-3 row-start-2 font-semibold text-black dark:text-white md:grid-cols-auto md:grid-rows-auto md:font-bold md:text-xl">
                 {{ $product->title }}</h2>
             <p class="hidden md:block">{{ $product->description }}</p>
             <x-stars :rating="$product->rating" class="col-start-3 row-start-1 md:grid-cols-auto md:grid-rows-auto"></x-stars>
@@ -18,7 +34,7 @@
                     <p class="p-1 text-sm font-semibold text-black bg-white rounded-md md:text-base w-fit">ELaraverse's
                         <span class="text-orange-800">Choice</span>
                     </p>
-                    <p class="text-sm md:text-base text-zinc-300">Overall Pick</p>
+                    <p class="text-sm md:text-base text-zinc-600 dark:text-zinc-300">Overall Pick</p>
                 </div>
             @endif
         </div>
@@ -36,9 +52,8 @@
                         @endfor
                     </select>
 
-                    <button data-id="{{ $product->id }}" data-img="{{ $product->img_path }}" 
-                        data-title="{{ $product->title }}"
-                        data-price="{{ $product->price }}" 
+                    <button data-id="{{ $product->id }}" data-img="{{ $product->img_path }}"
+                        data-title="{{ $product->title }}" data-price="{{ $product->price }}"
                         data-discount="{{ $product->discount }}"
                         data-discounted-price="{{ $product->price - ($product->price * $product->discount) / 100 }}"
                         data-stock="{{ $product->stock }}"
@@ -65,7 +80,7 @@
                 @if ($product->discount)
                     <p class="text-2xl text-red-500">-{{ $product->discount }}%</p>
                 @endif
-                <p class="text-4xl text-zinc-200">{{ $product->price - ($product->price * $product->discount) / 100 }}
+                <p class="text-4xl text-zinc-800 dark:text-zinc-200">{{ $product->price - ($product->price * $product->discount) / 100 }}
                 </p>
             </div>
             @if ($product->discount)
@@ -123,7 +138,8 @@
                     @error('comment')
                         {{ $message }}
                     @enderror
-                    <input class="block px-2 py-1 mt-5 font-semibold rounded-md bg-fuchsia-600 dark:text-white" type="submit" value="Add Comment">
+                    <input class="block px-2 py-1 mt-5 font-semibold rounded-md bg-fuchsia-600 dark:text-white"
+                        type="submit" value="Add Comment">
                 </form>
             @endif
         @endauth
@@ -147,6 +163,12 @@
             @endforelse
         </div>
     </div>
+
+    <style>
+        .swiper-pagination {
+            display: block !important;
+        }
+    </style>
 
     <script>
         function generateStars(rating) {
@@ -205,5 +227,12 @@
         //         commentBody.value
         //     )
         // })
+        // var swiper = new Swiper(".mySwiper", {
+        //   spaceBetween: 30,
+        //   pagination: {
+        //     el: ".swiper-pagination",
+        //     clickable: true,
+        //   },
+        // });
     </script>
     </x-layout>

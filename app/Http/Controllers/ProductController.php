@@ -20,9 +20,9 @@ class ProductController extends Controller
 {
     public function index()
     {
-        if (Auth::check() && !Auth::user()->email_verified_at) {
-            return redirect()->route('verification.notice');
-        }
+        // if (Auth::check() && !Auth::user()->email_verified_at) {
+        //     return redirect()->route('verification.notice');
+        // }
         // $products = Product::orderBy('price', 'desc')->paginate(2);
         // $sortBy = request()->get('sortBy', ''); // Default to 'created_at'
         // $sortDirection = request()->get('direction', ''); // Default to 'desc'
@@ -76,9 +76,9 @@ class ProductController extends Controller
     }
     public function show(Product $product)
     {
-        if (Auth::check() && !Auth::user()->email_verified_at) {
-            return redirect()->route('verification.notice');
-        }
+        // if (Auth::check() && !Auth::user()->email_verified_at) {
+        //     return redirect()->route('verification.notice');
+        // }
         $hasPurchased = false;
         if (Auth::check()) {
             $hasPurchased = Order::where('user_id', Auth::id())

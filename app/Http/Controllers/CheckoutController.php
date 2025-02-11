@@ -73,6 +73,8 @@ class CheckoutController extends Controller
                     'order_id' => $order->id,
                     'product_id' => $cart->product->id,
                     'quantity' => $cart->quantity,
+                    "price_at_purchase" => $cart->product->price,
+                    "discount_at_purchase" => $cart->product->discount,
                 ]);
                 $cart->product->decrement('stock', $cart->quantity);
                 $cart->delete(); // Remove the cart item after purchase

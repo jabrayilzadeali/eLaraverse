@@ -17,7 +17,7 @@
                 <div class="flex flex-col gap-3 rounded-lg">
                     @foreach ($order->order_items as $item)
                         @php
-                            $discounted_price = $item->product->price - $item->product->price * $item->product->discount / 100
+                            $discounted_price = $item->price_at_purchase - $item->price_at_purchase * $item->discount_at_purchase / 100
                         @endphp
                         <div class="flex justify-between p-5 rounded-lg dark:bg-neutral-700">
                             <div class="flex items-center gap-2 lg:gap-5">

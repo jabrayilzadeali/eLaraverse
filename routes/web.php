@@ -22,16 +22,19 @@ use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\EnsureAdminGuest;
 use App\Http\Middleware\EnsureSeller;
 use App\Http\Middleware\EnsureSellerGuest;
+use App\Http\Middleware\GuestOrVerifiedUser;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('products', [ProductController::class, 'index'])->name('products.index');
-Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
-Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+Route::middleware(GuestOrVerifiedUser::class)->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+});
 
 
 

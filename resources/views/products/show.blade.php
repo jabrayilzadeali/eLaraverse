@@ -147,7 +147,7 @@
             @forelse ($reviews as $review)
                 <div class="max-w-[60rem]">
                     <div class="flex items-center gap-3">
-                        <img class="rounded-full" src="https://placehold.co/50" alt="">
+                        <img class="rounded-full" src="{{ $review->user->img_path }}" alt="">
                         <div class="flex flex-col justify-between">
                             <h2 class="pl-1 text-xl font-semibold">{{ $review->user->username }}</h2>
                             <div class="flex items-end text-orange-500">

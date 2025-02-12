@@ -115,6 +115,8 @@ Route::middleware([EnsureSeller::class])->group(function () {
         ->name('sellers.orders');
     Route::post('sellers/order-status', [SellerController::class, 'orderStatusUpdate'])
         ->name('sellers.orders.status');
+    Route::get('sellers/reviews', [SellerController::class, 'reviews'])
+        ->name('sellers.reviews');
     Route::get('sellers/create', [SellerController::class, 'create'])
         ->name('sellers.create');
     Route::post('sellers/', [SellerController::class, 'store'])

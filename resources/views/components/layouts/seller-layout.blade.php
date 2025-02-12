@@ -28,6 +28,7 @@
                 <ul class="flex flex-col gap-3 mt-5">
                     <li><a href="{{ route('sellers.index') }}" class="block px-3 py-3 rounded-md {{ request()->is('sellers/dashboard') ? 'dark:bg-neutral-500/50 dark:text-white' : 'dark:bg-neutral-800/50' }} dark:hover:bg-neutral-700">Home</a></li>
                     <li><a href="{{ route('sellers.orders') }}" class="block px-3 py-3 rounded-md {{ request()->is('sellers/orders') ? 'dark:bg-neutral-500/50 dark:text-white' : 'dark:bg-neutral-800/50 text-neutral-200' }} dark:hover:bg-neutral-700">Orders</a></li>
+                    <li><a href="{{ route('sellers.reviews') }}" class="block px-3 py-3 rounded-md {{ request()->is('sellers/reviews') ? 'dark:bg-neutral-500/50 dark:text-white' : 'dark:bg-neutral-800/50 text-neutral-200' }} dark:hover:bg-neutral-700">Reviews</a></li>
                 </ul>
                 <form data-logout-user action="{{ route('sellers.logout') }}" method="POST">
                     @csrf

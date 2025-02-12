@@ -33,13 +33,13 @@ class SellerController extends Controller
         // Login failed
         return back()->withErrors(['email' => 'Invalid credentials']);
     }
-    
+
     public function logout()
     {
         Auth::guard('seller')->logout();
         return redirect()->route('seller.login.form');
     }
-    
+
     public function seller_products(Seller $seller)
     {
         $products = $seller->products()->with('category')->paginate(3); // Eager load 'category' if needed
@@ -236,11 +236,12 @@ class SellerController extends Controller
         Storage::disk('public')->deleteDirectory($directory);
         return redirect()->route('sellers.index')->with('success', 'Post Deleted Successfully');
     }
-    
+
     public function orders()
     {
         $columns = [
             ['key' => 'id', 'label' => '#', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'order.user.username', 'label' => 'User', 'sortable' => false, 'type' => 'text'],
             ['key' => 'product.img_path', 'label' => 'Img', 'sortable' => false, 'type' => 'img'],
             ['key' => 'product.title', 'label' => 'title', 'sortable' => true, 'type' => 'text'],
             ['key' => 'quantity', 'label' => 'quantity', 'sortable' => true, 'type' => 'text'],
@@ -254,13 +255,13 @@ class SellerController extends Controller
         // $orderItems = OrderItem::with(['product'])->get();
         $orderItems = OrderItem::whereHas('product', function ($query) {
             $query->where('seller_id', Auth::guard('seller')->id());
-        })->with(['product', 'order'])->get();
-        
+        })->with(['product', 'order.user'])->get();
+
         // dd($orderItems);
         $orders = [];
         return view('sellers.orders', ['orderItems' => $orderItems, 'columns' => $columns, 'sorts' => $sorts]);
     }
-    
+
     public function orderStatusUpdate()
     {
         OrderItem::find(request()->id)->update(['status' => request()->status]);
@@ -271,5 +272,39 @@ class SellerController extends Controller
             'request_all' => request()->all(),
             'xsrf_token' => request()->cookie('XSRF-TOKEN'),
         ]);
+    }
+
+    public function reviews()
+    {
+        $columns = [
+            ['key' => 'id', 'label' => '#', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'user.username', 'label' => 'username', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'title', 'label' => 'title', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'comment', 'label' => 'comment', 'sortable' => false, 'type' => 'text'],
+            ['key' => 'rating', 'label' => 'rating', 'sortable' => true, 'type' => 'rating'],
+        ];
+
+        $sorts = request()->get('sort', []);
+
+        $products = Product::where('seller_id', Auth::guard('seller')->id())
+            ->has('reviews')
+            ->with(['reviews' => function ($query) use ($sorts) {
+                $query->with('user'); // Always load 'user' inside 'reviews'
+
+                // Apply sorting but DO NOT filter out reviews of other products
+                if (!empty($sorts)) {
+                    foreach ($sorts as $key => $direction) {
+                        if (preg_match('/rating(\d+)/', $key, $matches)) {
+                            $productId = $matches[1];
+                            $query->when(is_numeric($productId), function ($q) use ($productId, $direction) {
+                                $q->orderByRaw("CASE WHEN product_id = ? THEN rating END $direction", [$productId]);
+                            });
+                        }
+                    }
+                }
+            }])
+            ->get();
+
+        return view('sellers.reviews', ['products' => $products, 'columns' => $columns, 'sorts' => $sorts]);
     }
 }

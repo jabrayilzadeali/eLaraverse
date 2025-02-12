@@ -1,10 +1,10 @@
-@props(['items', 'columns', 'sorts', 'hasOperations' => false, 'editLink', 'deleteLink', 'status' => false, 'statuses' => []])
+@props(['items', 'columns', 'sorts', 'uniqueSortId' => '', 'hasOperations' => false, 'editLink', 'deleteLink', 'status' => false, 'statuses' => []])
 <table class="w-full overflow-x-scroll table-auto dark:border-neutral-700">
     <thead>
         <tr class="pt-3 text-sm border-b dark:border-neutral-700 text-neutral-300">
             @foreach ($columns as $column)
                 @if ($column['sortable'])
-                    <x-table.th hasSorting="{{ $column['sortable'] }}" :sorts="$sorts" :sortQuery="$column['key']">
+                    <x-table.th hasSorting="{{ $column['sortable'] }}" :sorts="$sorts" :uniqueSortId="$uniqueSortId" :sortQuery="$column['key']">
                         {{ $column['label'] }}
                     </x-table.th>
                 @else
@@ -33,7 +33,7 @@
                     @elseif ($column['type'] === 'date')
                         <x-table.td>{{ $value->format('d.m.Y') }}</x-table.td>
                     @else
-                        <x-table.td>{{ $value }}</x-table.td>
+                        <x-table.td>{{ \Illuminate\Support\Str::limit($value, 35, '...') }} </x-table.td>
                     @endif
                 @endforeach
 

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
+use App\Models\ProductImage;
+use App\Models\ProductImages;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +19,7 @@ class ProductSeeder extends Seeder
         $price = 4000;
         $discount = 10;
         $discounted_price = $price - $price * $discount / 100;
-        Product::create([
+        $product1 = Product::create([
             'seller_id' => 1,
             'sku' => $sku,
             'title' => 'Iphone 16 Pro Max',
@@ -30,6 +32,26 @@ class ProductSeeder extends Seeder
             'discounted_price' => $discounted_price,
             'stock' => 5,
             'category_id' => 3
+        ]);
+        
+        ProductImage::create([
+            'product_id' => $product1->id,
+            'img_path' => "$sku/carousel/iphone_16_pro_max_1.jpg",
+            'alt' => 'iphone img',
+            'order' => 1
+        ]);
+
+        ProductImage::create([
+            'product_id' => $product1->id,
+            'img_path' => "$sku/carousel/iphone_16_pro_max_2.jpg",
+            'alt' => 'iphone img',
+            'order' => 2
+        ]);
+        ProductImage::create([
+            'product_id' => $product1->id,
+            'img_path' => "$sku/carousel/iphone_16_pro_max_3.jpg",
+            'alt' => 'iphone img',
+            'order' => 3
         ]);
 
         $sku = '224460911X';

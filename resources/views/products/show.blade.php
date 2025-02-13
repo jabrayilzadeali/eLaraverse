@@ -7,12 +7,14 @@
                     <div class="swiper-slide">
                         <x-img :img_path="$product->img_path" class="w-full"></x-img>
                     </div>
-                    <div class="swiper-slide">
-                        <x-img :img_path="$product->img_path" class="w-full"></x-img>
-                    </div>
-                    <div class="swiper-slide">
-                        <x-img :img_path="$product->img_path" class="w-full"></x-img>
-                    </div>
+                    @if ($product->images->isNotEmpty())
+                        
+                        @foreach ($product->images as $img)
+                            <div class="swiper-slide">
+                                <x-img :img_path="$img->img_path" class="w-full"></x-img>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
                 <!-- Pagination for second Swiper -->
                 <div class="swiper-pagination-2"></div>

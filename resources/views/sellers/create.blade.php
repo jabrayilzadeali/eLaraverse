@@ -9,6 +9,41 @@
                     <x-forms.textarea name="description" label="Description"></x-forms.textarea>
                     <x-forms.img></x-forms.img>
                 </div>
+
+                <div class="col-span-4">
+                    <label for="cover-photo"
+                        class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Carousel Images</label>
+                    <div data-drop-area
+                        class="relative flex justify-start px-6 py-10 mt-2 border border-dashed rounded-lg border-gray-900/25 dark:border-gray-100/25">
+                        <div class="text-center">
+                            {{-- <button data-delete-img type="button" class="absolute top-5 right-4 dark:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
+                                </svg>
+                            </button> --}}
+                            {{-- <img data-img class="max-w-96" src="{{ $img !== '' ? $img : '' }}" alt=""> --}}
+                            <div data-text class="">
+                                <div class="flex mt-4 text-gray-600 text-sm/6">
+                                    <label for="file_upload"
+                                        class="relative font-semibold text-indigo-600 rounded-md cursor-pointer focus-within:outline-hidden focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                        <input data-file-upload id="file_upload" name="file_upload" type="file"
+                                            class="sr-only">
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <x-icons.add-image :size="50"></x-icons.add-image>
+                            </div>
+                        </div>
+                    </div>
+
+                    @error('file_upload')
+                        <div class="text-sm text-red-500">{{ $message }}</div>
+                    @enderror
+                </div>
+
             </div>
 
             <div class="pb-12 border-b border-gray-900/10">
@@ -16,6 +51,9 @@
                     <x-forms.input class="sm:col-span-1" name="price" label="Price" type="number"></x-forms.input>
                     <x-forms.input class="sm:col-span-1" name="discount" label="Discount" type="number"></x-forms.input>
                     <x-forms.input class="sm:col-span-1" name="stock" label="Stock" type="number"></x-forms.input>
+                    <div>
+                        
+                    </div>
 
                     <div class="col-span-full">
                         <label for="categories"

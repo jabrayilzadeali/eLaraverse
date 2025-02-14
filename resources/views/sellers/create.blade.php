@@ -13,9 +13,9 @@
                 <div class="col-span-4">
                     <label for="cover-photo"
                         class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Carousel Images</label>
-                    <div data-drop-area
-                        class="relative flex justify-start px-6 py-10 mt-2 border border-dashed rounded-lg border-gray-900/25 dark:border-gray-100/25">
-                        <div class="text-center">
+                    <div data-multi-drop-area
+                        class="relative flex flex-wrap items-center justify-start mt-2 border border-dashed rounded-lg border-gray-900/25 dark:border-gray-100/25">
+                        <div data-imgs class="grid grid-cols-3 gap-3 m-3">
                             {{-- <button data-delete-img type="button" class="absolute top-5 right-4 dark:text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24">
@@ -24,18 +24,58 @@
                                 </svg>
                             </button> --}}
                             {{-- <img data-img class="max-w-96" src="{{ $img !== '' ? $img : '' }}" alt=""> --}}
-                            <div data-text class="">
-                                <div class="flex mt-4 text-gray-600 text-sm/6">
+                            <div class="relative group">
+                                <img class="z-0 w-full h-full rounded-lg" src="https://picsum.photos/106/138"
+                                    alt="">
+                                <button data-delete-img type="button"
+                                    class="absolute z-10 transition-opacity duration-300 bg-black rounded-lg opacity-0 group-hover:opacity-100 top-2 right-2 dark:text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            {{-- <div class="relative group">
+                                <img class="z-0 w-full h-full rounded-lg" src="https://picsum.photos/106/138" alt="">
+                                <button data-delete-img type="button" 
+                                    class="absolute z-10 hidden transition-opacity duration-300 bg-black rounded-lg group-hover:block top-2 right-2 dark:text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
+                                    </svg>
+                                </button>
+                            </div> --}}
+
+                            {{-- <div class="relative group">
+                                <img class="w-full h-full rounded-lg" src="https://picsum.photos/106/138" alt="">
+                                <button data-delete-img type="button" class="absolute transition-opacity duration-300 bg-black opacity-0 top-2 right-2 group-hover:opacity-100 dark:text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
+                                    </svg>
+                                </button>
+                            </div> --}}
+                            {{-- <div data-text class="">
+                                <div class="flex text-gray-600 text-sm/6">
                                     <label for="file_upload"
                                         class="relative font-semibold text-indigo-600 rounded-md cursor-pointer focus-within:outline-hidden focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                         <input data-file-upload id="file_upload" name="file_upload" type="file"
                                             class="sr-only">
                                     </label>
                                 </div>
-                            </div>
-                            <div>
-                                <x-icons.add-image :size="50"></x-icons.add-image>
-                            </div>
+                            </div> --}}
+                            <label
+                                class="flex flex-col items-center justify-center gap-3 px-4 py-3 border rounded-lg border-gray-900/25 dark:border-gray-100/25"
+                                for="multi_file_upload">
+                                <input data-multi-file-upload id="multi_file_upload" name="multi_file_upload" type="file"
+                                    class="sr-only" multiple>
+                                <x-icons.add-image :size="60"></x-icons.add-image>
+                                <p class="text-center text-gray-600 dark:text-gray-300 text-xs/5">PNG, JPG, GIF <br> up
+                                    to 10MB</p>
+                            </label>
                         </div>
                     </div>
 
@@ -49,21 +89,22 @@
             <div class="pb-12 border-b border-gray-900/10">
                 <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <x-forms.input class="sm:col-span-1" name="price" label="Price" type="number"></x-forms.input>
-                    <x-forms.input class="sm:col-span-1" name="discount" label="Discount" type="number"></x-forms.input>
+                    <x-forms.input class="sm:col-span-1" name="discount" label="Discount"
+                        type="number"></x-forms.input>
                     <x-forms.input class="sm:col-span-1" name="stock" label="Stock" type="number"></x-forms.input>
                     <div>
-                        
+
                     </div>
 
                     <div class="col-span-full">
                         <label for="categories"
                             class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Select Category</label>
-                            <select id="categories" name="category"
-                                class="max-w-60 col-start-1 row-start-1 w-full appearance-none rounded-md bg-white dark:bg-neutral-800 dark:text-neutral-200 py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
+                        <select id="categories" name="category"
+                            class="max-w-60 col-start-1 row-start-1 w-full appearance-none rounded-md bg-white dark:bg-neutral-800 dark:text-neutral-200 py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
                         @error('category')
                             <div class="text-sm text-red-500">{{ $message }}</div>
                         @enderror
@@ -77,8 +118,12 @@
                         <div data-attributes>
                             <div class="flex gap-5">
                                 <div class="flex justify-between w-full gap-3 my-2">
-                                    <input type="text" name="attributes[key][]" class="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 dark:bg-neutral-800 dark:text-neutral-200" required></input>
-                                    <input type="text" name="attributes[value][]" class="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 dark:bg-neutral-800 dark:text-neutral-200" required></input>
+                                    <input type="text" name="attributes[key][]"
+                                        class="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 dark:bg-neutral-800 dark:text-neutral-200"
+                                        required></input>
+                                    <input type="text" name="attributes[value][]"
+                                        class="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 dark:bg-neutral-800 dark:text-neutral-200"
+                                        required></input>
                                 </div>
                                 <button type="button">Remove</button>
                             </div>
@@ -100,8 +145,53 @@
     </form>
 
     <script>
+        function img(url) {
+            const div = document.createElement('div')
+            div.classList.add('relative', 'group')
+            div.innerHTML = `
+                <img class="z-0 h-full object-fit rounded-lg w-[7rem]" src="${url}"
+                    alt="">
+                <button data-delete-img type="button"
+                    class="absolute z-10 transition-opacity duration-300 bg-black rounded-lg opacity-0 group-hover:opacity-100 top-2 right-2 dark:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
+                    </svg>
+                </button>
+            `
+            return div            
+        }
         const attributes = document.querySelector('[data-attributes]')
         const addAttribute = document.querySelector('[data-add-attribute]')
+
+        const multiDropArea = document.querySelector('[data-multi-drop-area]')
+        const multiFileUpload = document.querySelector('[data-multi-file-upload]')
+        multiDropArea.addEventListener('dragover', (e) => e.preventDefault())
+
+        multiDropArea.addEventListener('drop', (e) => {
+            e.preventDefault()
+            const files = e.dataTransfer.files
+            Array.from(e.dataTransfer.files).forEach((file) => {
+                const imgLink = URL.createObjectURL(file)
+                imgs.insertBefore(img(imgLink), imgs.lastElementChild);
+            })
+            // closeBtn.classList.remove('hidden')
+            // // console.log(fileUpload.files)
+            // const imgLink = URL.createObjectURL(files[0])
+            // texts.classList.add('hidden')
+            // img.src = imgLink
+        })
+
+        const imgs = document.querySelector('[data-imgs]')
+        multiFileUpload.addEventListener("change", () => {
+            Array.from(multiFileUpload.files).forEach((file) => {
+                // imgs.innerHTML += img('https://picsum.photos/106/138')
+                const imgLink = URL.createObjectURL(file)
+                imgs.insertBefore(img(imgLink), imgs.lastElementChild);
+            })
+        })
+        console.log(multiDropArea, multiFileUpload)
 
         attributes.addEventListener('click', (e) => {
             if (e.target.matches('button')) {

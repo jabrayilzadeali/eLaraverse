@@ -59,14 +59,12 @@
             const imgLink = URL.createObjectURL(fileUpload.files[0])
             img.src = imgLink
             texts.classList.add('hidden')
-            console.log(fileUpload.files)
         })
 
         dropArea.addEventListener('dragover', (e) => e.preventDefault())
         dropArea.addEventListener('drop', (e) => {
             e.preventDefault()
             const files = e.dataTransfer.files
-            console.log(files)
             closeBtn.classList.remove('hidden')
             // console.log(fileUpload.files)
             const imgLink = URL.createObjectURL(files[0])

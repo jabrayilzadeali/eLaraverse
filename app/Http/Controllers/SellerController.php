@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Seller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -154,6 +155,7 @@ class SellerController extends Controller
             'title' => 'required',
             'description' => 'required',
             'file_upload' => 'image',
+            'multi_file_upload.*' => 'image',
             'discount' => 'numeric',
             'category' => 'required',
             'attributes.key' => 'required|array',
@@ -181,6 +183,16 @@ class SellerController extends Controller
         }
 
         $product = Product::Create($validated);
+        if (request()->hasFile('multi_file_upload')) {
+            foreach (request()->file('multi_file_upload') as $file) {
+                $file_upload = Storage::disk('public')->put("/$sku/carousel", $file);
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'img_path' => $file_upload
+                ]);
+            }
+            // $validated['img_path'] = $file_upload;
+        }
 
         return redirect()->route('sellers.index')->with('success', 'Post Created Successfully');
     }

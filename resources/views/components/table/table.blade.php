@@ -48,7 +48,7 @@
                             </svg>
                         </a>
                         <dialog data-modal
-                            class="absolute z-50 p-5 rounded-md dark:bg-neutral-800 dark:text-neutral-300">
+                            class="absolute z-50 p-5 -translate-x-1/2 -translate-y-1/2 rounded-md top-1/2 left-1/2 dark:bg-neutral-800 dark:text-neutral-300">
                             <form action="{{ route($deleteLink, $product->slug) }}" method="POST">
                                 @csrf
                                 @method('DELETE')

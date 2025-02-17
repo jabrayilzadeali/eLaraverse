@@ -6,27 +6,32 @@
             <div class="pb-12 border-b border-gray-900/10">
                 <h2 class="font-semibold text-gray-900 dark:text-gray-100 text-base/7">Edit a product</h2>
                 <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    {{-- <div class="col-span-2">
-                        <label for="title" class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Title</label>
-                        <input type="text" name="title" id="title" value="{{ old('title', $product->title) }}"
-                            class="block grow py-1.5 rounded-md pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
-                            placeholder="title">
-                        @error('title')
-                            <div class="text-sm text-red-500">{{ $message }}</div>
-                        @enderror
-                    </div> --}}
                     <x-forms.input name="title" label="title" :item="$product->title"></x-forms.input>
                     <x-forms.textarea name="description" label="Description" :item="$product->description"></x-forms.textarea>
-
-                    {{-- <div class="col-span-full">
-                        <label for="description" class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">description</label>
-                        <textarea class="h-40 p-3 text-sm text-black rounded-md w-96" name="description" id="">{{ old('description', $product->description) }}</textarea>
-                        @error('description')
-                            <div class="text-sm text-red-500">{{ $message }}</div>
-                        @enderror
-                    </div> --}}
-
                     <x-forms.img :img="Storage::url($product->img_path)"></x-forms.img>
+                </div>
+
+                <div class="col-span-4">
+                    <label for="cover-photo"
+                        class="block font-medium text-gray-900 dark:text-gray-300 text-sm/6">Carousel Images</label>
+                    <div data-multi-drop-area
+                        class="relative flex flex-wrap items-center justify-start mt-2 border border-dashed rounded-lg border-gray-900/25 dark:border-gray-100/25">
+                        <div data-imgs class="grid grid-cols-3 gap-3 m-3">
+                            <label
+                                class="flex flex-col items-center justify-center gap-3 px-4 py-3 border rounded-lg border-gray-900/25 dark:border-gray-100/25"
+                                for="multi_file_upload">
+                                <input data-multi-file-upload id="multi_file_upload" name="multi_file_upload[]" type="file"
+                                    class="sr-only" multiple>
+                                <x-icons.add-image :size="60"></x-icons.add-image>
+                                <p class="text-center text-gray-600 dark:text-gray-300 text-xs/5">PNG, JPG, GIF <br> up
+                                    to 10MB</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    @error('file_upload')
+                        <div class="text-sm text-red-500">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
 

@@ -9,7 +9,7 @@
     <title>Laravel</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> --}}
 
 
     <!-- Fonts -->
@@ -41,8 +41,8 @@
         </div>
     </div>
     <script>
-        const isAuthenticated = "{{ Auth::user() }}" ? true : false
-        const authenticatedUsersName = isAuthenticated ? "{{ Auth::user() }}" : null
+        // const isAuthenticated = "{{ Auth::user() }}" ? true : false
+        // const authenticatedUsersName = isAuthenticated ? "{{ Auth::user() }}" : null
     </script>
 
     {{-- @vite('resources/js/app.js') --}}

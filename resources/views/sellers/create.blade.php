@@ -16,61 +16,10 @@
                     <div data-multi-drop-area
                         class="relative flex flex-wrap items-center justify-start mt-2 border border-dashed rounded-lg border-gray-900/25 dark:border-gray-100/25">
                         <div data-imgs class="grid grid-cols-3 gap-3 m-3">
-                            {{-- <button data-delete-img type="button" class="absolute top-5 right-4 dark:text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
-                                </svg>
-                            </button> --}}
-                            {{-- <img data-img class="max-w-96" src="{{ $img !== '' ? $img : '' }}" alt=""> --}}
-                            <div class="relative group">
-                                <img class="z-0 w-full h-full rounded-lg" src="https://picsum.photos/106/138"
-                                    alt="">
-                                <button data-delete-img type="button"
-                                    class="absolute z-10 transition-opacity duration-300 bg-black rounded-lg opacity-0 group-hover:opacity-100 top-2 right-2 dark:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24">
-                                        <path fill="currentColor"
-                                            d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
-                                    </svg>
-                                </button>
-                            </div>
-                            {{-- <div class="relative group">
-                                <img class="z-0 w-full h-full rounded-lg" src="https://picsum.photos/106/138" alt="">
-                                <button data-delete-img type="button" 
-                                    class="absolute z-10 hidden transition-opacity duration-300 bg-black rounded-lg group-hover:block top-2 right-2 dark:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24">
-                                        <path fill="currentColor"
-                                            d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
-                                    </svg>
-                                </button>
-                            </div> --}}
-
-                            {{-- <div class="relative group">
-                                <img class="w-full h-full rounded-lg" src="https://picsum.photos/106/138" alt="">
-                                <button data-delete-img type="button" class="absolute transition-opacity duration-300 bg-black opacity-0 top-2 right-2 group-hover:opacity-100 dark:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24">
-                                        <path fill="currentColor"
-                                            d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
-                                    </svg>
-                                </button>
-                            </div> --}}
-                            {{-- <div data-text class="">
-                                <div class="flex text-gray-600 text-sm/6">
-                                    <label for="file_upload"
-                                        class="relative font-semibold text-indigo-600 rounded-md cursor-pointer focus-within:outline-hidden focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                        <input data-file-upload id="file_upload" name="file_upload" type="file"
-                                            class="sr-only">
-                                    </label>
-                                </div>
-                            </div> --}}
                             <label
                                 class="flex flex-col items-center justify-center gap-3 px-4 py-3 border rounded-lg border-gray-900/25 dark:border-gray-100/25"
                                 for="multi_file_upload">
-                                <input data-multi-file-upload id="multi_file_upload" name="multi_file_upload" type="file"
+                                <input data-multi-file-upload id="multi_file_upload" name="multi_file_upload[]" type="file"
                                     class="sr-only" multiple>
                                 <x-icons.add-image :size="60"></x-icons.add-image>
                                 <p class="text-center text-gray-600 dark:text-gray-300 text-xs/5">PNG, JPG, GIF <br> up
@@ -145,13 +94,13 @@
     </form>
 
     <script>
-        function img(url) {
+        function img(url, id) {
             const div = document.createElement('div')
             div.classList.add('relative', 'group')
             div.innerHTML = `
                 <img class="z-0 h-full object-fit rounded-lg w-[7rem]" src="${url}"
                     alt="">
-                <button data-delete-img type="button"
+                <button data-delete-img="${id}" type="button"
                     class="absolute z-10 transition-opacity duration-300 bg-black rounded-lg opacity-0 group-hover:opacity-100 top-2 right-2 dark:text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24">
@@ -162,33 +111,49 @@
             `
             return div            
         }
+
         const attributes = document.querySelector('[data-attributes]')
         const addAttribute = document.querySelector('[data-add-attribute]')
 
         const multiDropArea = document.querySelector('[data-multi-drop-area]')
         const multiFileUpload = document.querySelector('[data-multi-file-upload]')
+        
+        
+        multiDropArea.addEventListener('click', (e) => {
+            const deleteBtn = e.target.closest('[data-delete-img]')
+            if (deleteBtn) {
+                deleteBtn.parentElement.remove()
+                console.log(multiFileUpload)
+                const fileIndex = deleteBtn.dataset.deleteImg
+                const dt = new DataTransfer();
+                Array.from(multiFileUpload.files).forEach((file, index) => {
+                    console.log(file.name, fileIndex, file.name === fileIndex)
+                    if (file.name !== fileIndex) {
+                        dt.items.add(file)
+                    }
+                })
+                console.log(dt)
+                multiFileUpload.files = dt.files
+                console.log("files: ", multiFileUpload.files)
+            }
+        })
+
         multiDropArea.addEventListener('dragover', (e) => e.preventDefault())
 
         multiDropArea.addEventListener('drop', (e) => {
             e.preventDefault()
             const files = e.dataTransfer.files
-            Array.from(e.dataTransfer.files).forEach((file) => {
+            Array.from(e.dataTransfer.files).forEach((file, index) => {
                 const imgLink = URL.createObjectURL(file)
-                imgs.insertBefore(img(imgLink), imgs.lastElementChild);
+                imgs.insertBefore(img(imgLink, file.name), imgs.lastElementChild);
             })
-            // closeBtn.classList.remove('hidden')
-            // // console.log(fileUpload.files)
-            // const imgLink = URL.createObjectURL(files[0])
-            // texts.classList.add('hidden')
-            // img.src = imgLink
         })
 
         const imgs = document.querySelector('[data-imgs]')
         multiFileUpload.addEventListener("change", () => {
-            Array.from(multiFileUpload.files).forEach((file) => {
-                // imgs.innerHTML += img('https://picsum.photos/106/138')
+            Array.from(multiFileUpload.files).forEach((file, index) => {
                 const imgLink = URL.createObjectURL(file)
-                imgs.insertBefore(img(imgLink), imgs.lastElementChild);
+                imgs.insertBefore(img(imgLink, file.name), imgs.lastElementChild);
             })
         })
         console.log(multiDropArea, multiFileUpload)
@@ -212,6 +177,4 @@
             attributes.appendChild(k)
         })
     </script>
-
-
 </x-layouts.seller-layout>
